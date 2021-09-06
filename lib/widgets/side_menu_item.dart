@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inno_tutor_flutter/helpers/responsiveness.dart';
-import 'package:inno_tutor_flutter/widgets/custom_text.dart';
 import 'package:inno_tutor_flutter/widgets/horizontal_menu_item.dart';
 import 'package:inno_tutor_flutter/widgets/vertical_menu_item.dart';
 

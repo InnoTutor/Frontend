@@ -29,12 +29,14 @@ class MenuController extends GetxController{
         return _customIcon(Icons.calendar_today_outlined, itemName);
       case MyRequestsPageRout:
         return _customIcon(Icons.call_made, itemName);
+      case MyServicesPageRout:
+        return _customIcon(Icons.volunteer_activism_outlined, itemName);
     }
     return _customIcon(Icons.exit_to_app, itemName);
   }
 
   Widget _customIcon(IconData icon, String itemName){
-    if (isActive(itemName)) return Icon(icon, size: 22, color: style.darkGrey);
+    if (isActive(itemName)) return Icon(icon, size: 26, color: style.darkGrey);
 
     return Icon(icon, color: isHovering(itemName) ? style.darkGrey : style.darkGrey.withOpacity(0.6));
   }

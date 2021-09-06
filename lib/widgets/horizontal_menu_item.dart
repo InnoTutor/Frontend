@@ -30,6 +30,7 @@ class HorizontalMenuItem extends StatelessWidget {
         Colors.transparent,
         child: Row(
           children: [
+            
             Visibility(
               visible: menuController.isHovering(itemName) || menuController.isActive(itemName),
               child: Container(width: 6, height: 40, color: style.darkGreen),
@@ -37,8 +38,8 @@ class HorizontalMenuItem extends StatelessWidget {
               maintainState: true,
               maintainAnimation: true
             ),
-            SizedBox(width: _width/88,),
-            Padding(padding: EdgeInsets.all(16),
+            SizedBox(width: _width/100,),
+            Padding(padding: EdgeInsets.only(right: 16, left: 4, bottom: 16, top: 16),
               child: menuController.returnIconFor(itemName)),
             if (!menuController.isActive(itemName))
               Flexible(child: CustomText(
@@ -49,7 +50,7 @@ class HorizontalMenuItem extends StatelessWidget {
               )) else
               Flexible(child: CustomText(
                 text: itemName,
-                size: 18,
+                size: 16,
                 color: style.darkGrey,
                 weight: FontWeight.bold,)
               )
