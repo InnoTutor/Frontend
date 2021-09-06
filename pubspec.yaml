@@ -70,7 +70,7 @@ flutter:
     - family: SourceSans
       fonts:
         - asset: assets/fonts/SourceSansVariable-Roman.ttf
-          weight: 700
+          weight: 200
 
   
   # For details regarding fonts from package dependencies,

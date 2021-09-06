@@ -5,19 +5,21 @@ class CustomText extends StatelessWidget {
   final double size;
   final Color color;
   final FontWeight weight;
+  final String fontFamily;
 
   const CustomText({ Key key,
    this.text, 
    this.size, 
    this.color, 
-   this.weight }) : super(key: key);
+   this.weight,
+   this.fontFamily }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      text , 
+      text, 
       style: TextStyle(
-        fontFamily: 'SourceSans',
+        fontFamily: fontFamily ?? 'SourceSans',
         fontSize: size ?? 16,
         color: color ?? Colors.black,
         fontWeight: weight)

@@ -34,15 +34,6 @@ class SideMenu extends StatelessWidget {
                     ),
                     Padding(padding: EdgeInsets.only(right: 5),
                     ),
-                    Flexible(
-
-                      child: CustomText(
-                        text: "Dash",
-                        size: 20,
-                        weight: FontWeight.bold,
-                        color: style.darkGrey
-                      ),
-                    ),
                   ],
                 )
               ),
@@ -82,7 +73,7 @@ class SideMenu extends StatelessWidget {
                   menuController.changeActiveItemTo(itemName);
                   if (ResponsiveWidget.isSmallScreen(context))
                     Get.back();
-                    // TODO: go it item name
+                    navigationController.navigateTo(itemName);
                 }
               }
             )).toList()

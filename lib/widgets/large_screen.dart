@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:inno_tutor_flutter/constants/style.dart' as style;
+import 'package:inno_tutor_flutter/helpers/local_navigator.dart';
 import 'package:inno_tutor_flutter/helpers/responsiveness.dart';
 import 'package:inno_tutor_flutter/widgets/side_menu.dart';
 
@@ -64,7 +65,8 @@ class LargeScreen extends StatelessWidget {
                       blurRadius: 7,
                     )
                   ]
-                )
+                ),
+                child: localNavigator(),
               )
             )
           )
