@@ -69,15 +69,13 @@ class _SideMenuState extends State<SideMenu> {
               children: sideMenuItems
                   .map((itemName) => SideMenuItem(
                       itemName: itemName,
-                      onTap: () {
-                        setState(() {
+                      onTap: () async {
                           if (!menuController.isActive(itemName)) {
                             menuController.changeActiveItemTo(itemName);
                             if (ResponsiveWidget.isSmallScreen(context))
-                              Get.back();
-                            navigationController.navigateTo(itemName);
+                             await Get.back();
+                            await navigationController.navigateTo(itemName);
                           }
-                        });
                       }))
                   .toList())
         ],
