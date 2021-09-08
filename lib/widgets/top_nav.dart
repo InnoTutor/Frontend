@@ -16,10 +16,12 @@ AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
     backgroundColor: style.darkGreen,
     title: Row(
       children: [
-        !ResponsiveWidget.isSmallScreen(context) ? Logo(
-          height: 30,
-          leftPadding: 20,
-          rightPadding: 0
+        !ResponsiveWidget.isSmallScreen(context) ? Flexible(
+          child: Logo(
+            height: 30,
+            leftPadding: 20,
+            rightPadding: 0
+          ),
         ) : Container(),
         Expanded(
           child: Container()
@@ -47,9 +49,9 @@ AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
           width: 20,
         ),
         ResponsiveWidget.isSmallScreen(context) ? Logo(
-          height: 30,
-          leftPadding: 0,
-          rightPadding: 0
+            height: 30,
+            leftPadding: 0,
+            rightPadding: 0
         ) : Container(),
       ],
     ),

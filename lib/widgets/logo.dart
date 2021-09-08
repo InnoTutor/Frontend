@@ -16,7 +16,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
-      child: Image.asset(path ?? 'icons/logo.png',
+      child: Image.asset(path ?? 'assets/icons/logo.png',
         fit: BoxFit.cover,
         height: height,
       )
