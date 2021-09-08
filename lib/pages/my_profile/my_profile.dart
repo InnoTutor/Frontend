@@ -10,7 +10,7 @@ class MyProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget.isLargeScreen(context) ?
+    return !ResponsiveWidget.isSmallScreen(context) ?
       MyProfileLargePage() : 
       Center(
       child: CustomText(

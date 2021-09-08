@@ -9,7 +9,7 @@ class MyStudentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget.isLargeScreen(context) ?
+    return !ResponsiveWidget.isSmallScreen(context) ?
     PageCap(text: "My Students") :
     Center(
       child: CustomText(

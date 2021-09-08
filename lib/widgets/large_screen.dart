@@ -28,7 +28,7 @@ class LargeScreen extends StatelessWidget {
               child: Container(
                 width: 230,
                 height: ResponsiveWidget.isCustomSize(context) ? 520 : 300,
-                margin: const EdgeInsets.only(right:5, left:5, top: 10),
+                margin: const EdgeInsets.only(right:5, left:10, top: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:  BorderRadius.all(Radius.circular(10)),

@@ -9,7 +9,7 @@ class MySchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget.isLargeScreen(context) ?
+    return !ResponsiveWidget.isSmallScreen(context) ?
     PageCap(text: "My Schedule") :
     Center(
       child: CustomText(
