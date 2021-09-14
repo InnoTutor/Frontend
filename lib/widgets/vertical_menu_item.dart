@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inno_tutor_flutter/constants/style.dart' as style;
 import 'package:inno_tutor_flutter/constants/controllers.dart';
+import 'package:inno_tutor_flutter/constants/style.dart' as style;
 
 import 'custom_text.dart';
 
