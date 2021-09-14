@@ -4,15 +4,19 @@ import 'package:inno_tutor_flutter/helpers/responsiveness.dart';
 import 'package:inno_tutor_flutter/widgets/custom_text.dart';
 import 'package:inno_tutor_flutter/widgets/page_cap.dart';
 
-class MyRequestsPage extends StatelessWidget {
-  const MyRequestsPage({ Key key }) : super(key: key);
+class MyRequests extends StatefulWidget {
+  @override
+  _MyRequestsState createState() => _MyRequestsState();
+}
 
+class _MyRequestsState extends State<MyRequests> {
   @override
   Widget build(BuildContext context) {
     return !ResponsiveWidget.isSmallScreen(context) ?
     PageCap(text: "My Requests") :
     Center(
       child: CustomText(
+        selectable: true,
         text: "My Requests",
         size: 20,
         weight: FontWeight.bold,

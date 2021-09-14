@@ -15,6 +15,7 @@ class PageCap extends StatelessWidget {
           alignment: Alignment.topLeft,
           padding: EdgeInsets.only(left: 20, top:20, bottom: 10),
           child: CustomText(
+            selectable: true,
             fontFamily: 'roboto',
             text : text,
             size: 22,
