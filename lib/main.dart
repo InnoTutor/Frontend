@@ -20,21 +20,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: {'My Services': (BuildContext context) => MyServices(),
-        'My Profile': (BuildContext context) => MyProfile(),
-        'My Students': (BuildContext context)=> MyStudents(),
-        'My Schedule': (BuildContext context)=> MySchedules(),
-        'My Requests': (BuildContext context)=> MyRequests(),
+      routes: {
+        '/': (BuildContext context) => MyHomePage(),
+        '/services': (BuildContext context) => MyServices(),
+        '/profile': (BuildContext context) => MyProfile(),
+        '/students': (BuildContext context)=> MyStudents(),
+        '/schedule': (BuildContext context)=> MySchedules(),
+        '/requests': (BuildContext context)=> MyRequests(),
       },
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
 
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -46,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
      return Scaffold(
        drawer: AppDrawer(),
        body: MyProfile(),
+
     );
   }
 }

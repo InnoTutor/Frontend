@@ -9,10 +9,13 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
 
-  List<String> names = ['My Profile','My Services','My Students','My Schedule', 'My Requests'];
+  List<String> title = ['My Profile','My Services','My Students','My Schedule', 'My Requests'];
+  List<String> names = ['/profile','/services','/students','/schedule', '/requests'];
+  String route='';
   @override
   Widget build(BuildContext context) {
     return Drawer(
+
       child: Stack(
         children:[
           ListView(
@@ -20,6 +23,7 @@ class _AppDrawerState extends State<AppDrawer> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+
               decoration: BoxDecoration(
                 color: Color.fromRGBO(33, 97, 110, 1),
               ),
@@ -36,9 +40,23 @@ class _AppDrawerState extends State<AppDrawer> {
                   return Card(
                     child: ListTile(
                       leading: Icon(Icons.list),
-                      title: Text(names[index]),
+                      title: Text(title[index]),
                       onTap: () {
-                        Navigator.pushNamed(context, names[index]);
+                        print((ModalRoute.of(context)!.settings.name as String) + ' drawerrr');
+                        var arguments = ModalRoute.of(context)!.settings.arguments;
+                        String route = ModalRoute.of(context)!.settings.name as String;
+                        if (arguments != null) {
+                          arguments = arguments as Map;
+                          route = route + arguments['route'];
+                          print(arguments['route'] + '   drawerrr');
+                        }
+                        Navigator.pushNamed(context, names[index],arguments: {'route':route});
+                        // .then((value) =>
+                            // Scaffold.of(context).openEndDrawer()
+                          // Navigator.pop(context)
+
+                        // );
+
                       },
                     ),
                   );

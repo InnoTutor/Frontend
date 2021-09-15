@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_tutor/database/global_funtions.dart';
 import 'package:inno_tutor/elements/drawer.dart';
 
 class MyProfile extends StatefulWidget {
@@ -7,14 +8,25 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Inno Tutor'),
-        ),
-      drawer: AppDrawer(),
+    return  WillPopScope(
+      onWillPop: () async{
+        final arguments = ModalRoute.of(context)!.settings.arguments;
+        List<String>list = handle_arguments(arguments);
+        Navigator.pushReplacementNamed(context,'/'+list[0] , arguments: {'route':list[1]} );
 
-      body: Text('My Profile'),);
+        return true;
+      },
+      child: Scaffold(
+            appBar: AppBar(
+              title: Text('Inno Tutor'),
+            ),
+          drawer: AppDrawer(),
+
+          body: Text('My Profile'),
+      ),
+    );
   }
 }
