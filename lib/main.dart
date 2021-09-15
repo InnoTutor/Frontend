@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_tutor/layout.dart';
 
 import 'elements/drawer.dart';
 import 'pages/profile/my_profile.dart';
@@ -18,15 +19,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.black,
       ),
       routes: {
-        '/': (BuildContext context) => MyHomePage(),
-        '/services': (BuildContext context) => MyServices(),
-        '/profile': (BuildContext context) => MyProfile(),
-        '/students': (BuildContext context)=> MyStudents(),
-        '/schedule': (BuildContext context)=> MySchedules(),
-        '/requests': (BuildContext context)=> MyRequests(),
+        '/': (BuildContext context) => SiteLayout(page: MyHomePage()),
+        '/services': (BuildContext context) => SiteLayout(page: MyServices()),
+        '/profile': (BuildContext context) => SiteLayout(page: MyProfile()),
+        '/students': (BuildContext context)=> SiteLayout(page: MyStudents()),
+        '/schedule': (BuildContext context)=> SiteLayout(page: MySchedules()),
+        '/requests': (BuildContext context)=> SiteLayout(page: MyRequests()),
       },
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
