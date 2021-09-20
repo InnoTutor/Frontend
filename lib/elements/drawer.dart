@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatefulWidget {
-  @override
+  final VoidCallback onPageSelected;
+  final Function(int) onPageChanged;
+  AppDrawer({this.onPageSelected, this.onPageChanged});
 
+  @override
   _AppDrawerState createState() => _AppDrawerState();
 }
 
@@ -22,16 +25,6 @@ class _AppDrawerState extends State<AppDrawer> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            // DrawerHeader(
-
-            //   decoration: BoxDecoration(
-            //     color: Color.fromRGBO(33, 97, 110, 1),
-            //   ),
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Text('Name Surname'),
-            //   ),
-            // ),
             ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -51,12 +44,6 @@ class _AppDrawerState extends State<AppDrawer> {
                           print((arguments as Map)["route"].toString() + '   drawerrr');
                         }
                         Navigator.pushNamed(context, names[index],arguments: {'route':route});
-                        // .then((value) =>
-                            // Scaffold.of(context).openEndDrawer()
-                          // Navigator.pop(context)
-
-                        // );
-
                       },
                     ),
                   );

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       routes: {
-        '/': (BuildContext context) => SiteLayout(page: MyProfile()),
+        // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
         '/services': (BuildContext context) => SiteLayout(page: MyServices()),
         '/profile': (BuildContext context) => SiteLayout(page: MyProfile()),
         '/students': (BuildContext context)=> SiteLayout(page: MyStudents()),
@@ -31,26 +31,8 @@ class MyApp extends StatelessWidget {
         '/requests': (BuildContext context)=> SiteLayout(page: MyRequests()),
       },
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-
+      // initialRoute: '/',
+      home: SiteLayout(page: MyProfile(),),
     );
   }
 }
-
-// class MyHomePage extends StatefulWidget {
-//   MyHomePage({Key key}) : super(key: key);
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//      return Scaffold(
-//        drawer: AppDrawer(),
-//        body: MyProfile(),
-
-//     );
-//   }
-// }
