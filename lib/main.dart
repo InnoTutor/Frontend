@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inno_tutor/layout.dart';
+import 'package:inno_tutor/pages/login_page.dart';
 
 import 'elements/drawer.dart';
 import 'pages/profile/my_profile.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
-      home: SiteLayout(page: MyProfile(),),
+      home: SiteLayout(page: Login(), login: true),
     );
   }
 }

@@ -9,11 +9,13 @@ import 'package:inno_tutor/pages/requests/my_requests.dart';
 import 'package:inno_tutor/pages/schedules/my_schedules.dart';
 import 'package:inno_tutor/pages/services/my_serviecs.dart';
 import 'package:inno_tutor/pages/students/my_students.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 //import 'package:inno_tutor_flutter/widgets/side_menu.dart';
 class LargeScreen extends StatefulWidget {
   Widget page;
+  bool login = false;
    void Function() onTap;
-   LargeScreen({ Key key , this.onTap, this.page}) : super(key: key);
+   LargeScreen({ Key key , this.onTap, this.page, this.login}) : super(key: key);
 
   @override
   _LargeScreenState createState() => _LargeScreenState();
@@ -37,7 +39,7 @@ class _LargeScreenState extends State<LargeScreen> {
     return Scaffold(
       body: Row(
         children: [
-          Expanded(
+           !widget.login ? Expanded(
             child: Container(
               color: style.lightGrey,
               child: Container(
@@ -103,15 +105,15 @@ class _LargeScreenState extends State<LargeScreen> {
               )
             )
             )
-          ),
+          ) : Expanded(child: Container(color: style.lightGrey)),
           SizedBox(
             child: Container(
-              width: 700,
+              width:  !widget.login ? 700 : 300,
               color: style.lightGrey,
-              alignment: Alignment.topCenter,
+              alignment: !widget.login ? Alignment.topCenter : Alignment.center,
               child: SizedBox(
                 child: Container(
-                  height: 600,
+                  height: !widget.login ? 600 : 70,
                   margin: const EdgeInsets.only(right:5, left:5, top: 10),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -124,7 +126,15 @@ class _LargeScreenState extends State<LargeScreen> {
                       )
                     ]
                   ),
-                  child: widget.page,
+                  child: !widget.login ? widget.page :
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      child: SignInButton(
+                        Buttons.Google,
+                        text: "Sign up with Google",
+                        onPressed: () {},
+                    )
+                  ),
                 )
               )
             )

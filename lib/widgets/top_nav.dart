@@ -6,9 +6,9 @@ import 'package:inno_tutor/helpers/responsiveness.dart';
 import 'custom_text.dart';
 import 'logo.dart';
 
-AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
+AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key, bool login) =>
   AppBar(
-    leading: ResponsiveWidget.isSmallScreen(context) ?
+    leading: ResponsiveWidget.isSmallScreen(context) ? 
     IconButton(icon: Icon(Icons.menu), onPressed: (){
       key.currentState?.openDrawer();
     },) : null,

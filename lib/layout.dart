@@ -11,7 +11,8 @@ import 'package:inno_tutor/widgets/small_screen.dart';
 import 'package:inno_tutor/widgets/top_nav.dart';
 class SiteLayout extends StatefulWidget {
    Widget page;
-   SiteLayout({Key key, this.page}) : super(key: key);
+   bool login = false;
+   SiteLayout({Key key, this.page, this.login}) : super(key: key);
 
   @override
   _SiteLayoutState createState() => _SiteLayoutState();
@@ -39,13 +40,13 @@ class _SiteLayoutState extends State<SiteLayout> {
     print(ModalRoute.of(context).settings.name);
     return Scaffold(
         key: scaffoldKey,
-        appBar: TopNavigationBar(context, scaffoldKey),
+        appBar: TopNavigationBar(context, scaffoldKey, true),
         body: ResponsiveWidget(
-          largeScreen: LargeScreen(page: widget.page),
-          mediumScreen: LargeScreen(page: widget.page),
-          smallScreen: SmallScreen(page: widget.page),
+          largeScreen: LargeScreen(page: widget.page, login: widget.login),
+          mediumScreen: LargeScreen(page: widget.page, login: widget.login),
+          smallScreen: SmallScreen(page: widget.page, login: widget.login),
         ),
-        drawer: ResponsiveWidget.isSmallScreen(context)
+        drawer: ResponsiveWidget.isSmallScreen(context) && !widget.login
             ?
             // Drawer(child: SideMenu())
             Drawer(
