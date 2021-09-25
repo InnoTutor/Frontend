@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
-import 'package:inno_tutor/widgets/custom_text.dart';
-import 'package:inno_tutor/widgets/page_cap.dart';
+import '../../constants/style.dart' as style;
+import '../../widgets/custom_text.dart';
+import '../../widgets/page_cap.dart';
 
 class MyProfileLargePage extends StatelessWidget {
   const MyProfileLargePage({ Key key }) : super(key: key);

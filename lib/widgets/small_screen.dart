@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/widgets/top_nav.dart';
+import '../constants/style.dart' as style;
 
 class SmallScreen extends StatelessWidget {
   final Widget page;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
+import '../constants/style.dart' as style;
 
 import 'custom_text.dart';
 

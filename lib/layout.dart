@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/elements/drawer.dart';
-import 'package:inno_tutor/helpers/responsiveness.dart';
-import 'package:inno_tutor/pages/profile/my_profile.dart';
-import 'package:inno_tutor/pages/requests/my_requests.dart';
-import 'package:inno_tutor/pages/schedules/my_schedules.dart';
-import 'package:inno_tutor/pages/services/my_serviecs.dart';
-import 'package:inno_tutor/pages/students/my_students.dart';
-import 'package:inno_tutor/widgets/large_screen.dart';
-import 'package:inno_tutor/widgets/small_screen.dart';
-import 'package:inno_tutor/widgets/top_nav.dart';
+import './elements/drawer.dart';
+import './helpers/responsiveness.dart';
+import './pages/profile/my_profile.dart';
+import './pages/requests/my_requests.dart';
+import './pages/schedules/my_schedules.dart';
+import './pages/services/my_serviecs.dart';
+import './pages/students/my_students.dart';
+import './widgets/large_screen.dart';
+import './widgets/small_screen.dart';
+import './widgets/top_nav.dart';
 class SiteLayout extends StatefulWidget {
    Widget page;
    bool login = false;
