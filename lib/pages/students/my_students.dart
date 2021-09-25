@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/database/global_funtions.dart';
-import 'package:inno_tutor/elements/drawer.dart';
-import 'package:inno_tutor/helpers/responsiveness.dart';
-import 'package:inno_tutor/widgets/custom_text.dart';
-import 'package:inno_tutor/widgets/page_cap.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
+import '../../database/global_funtions.dart';
+import '../../elements/drawer.dart';
+import '../../helpers/responsiveness.dart';
+import '../../widgets/custom_text.dart';
+import '../../widgets/page_cap.dart';
+import '../../constants/style.dart' as style;
 class MyStudents extends StatefulWidget {
   @override
   _MyStudentsState createState() => _MyStudentsState();

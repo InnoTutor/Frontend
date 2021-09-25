@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
-import 'package:inno_tutor/helpers/responsiveness.dart';
+import '../constants/style.dart' as style;
+import '../helpers/responsiveness.dart';
 
 import 'custom_text.dart';
 import 'logo.dart';

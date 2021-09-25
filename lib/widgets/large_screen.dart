@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
-import 'package:inno_tutor/elements/drawer.dart';
-import 'package:inno_tutor/helpers/responsiveness.dart';
-import 'package:inno_tutor/pages/profile/my_profile.dart';
-import 'package:inno_tutor/pages/requests/my_requests.dart';
-import 'package:inno_tutor/pages/schedules/my_schedules.dart';
-import 'package:inno_tutor/pages/services/my_serviecs.dart';
-import 'package:inno_tutor/pages/students/my_students.dart';
-//import 'package:inno_tutor_flutter/widgets/side_menu.dart';
+import '../constants/style.dart' as style;
+import '../elements/drawer.dart';
+import '../helpers/responsiveness.dart';
+import '../pages/profile/my_profile.dart';
+import '../pages/requests/my_requests.dart';
+import '../pages/schedules/my_schedules.dart';
+import '../pages/services/my_serviecs.dart';
+import '../pages/students/my_students.dart';
+//import '.._flutter/widgets/side_menu.dart';
 class LargeScreen extends StatefulWidget {
   Widget page;
    void Function() onTap;

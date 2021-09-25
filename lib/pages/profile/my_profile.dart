@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/database/global_funtions.dart';
-import 'package:inno_tutor/elements/drawer.dart';
-import 'package:inno_tutor/helpers/responsiveness.dart';
-import 'package:inno_tutor/helpers/responsiveness.dart';
-import 'package:inno_tutor/pages/profile/my_profile_large.dart';
-import 'package:inno_tutor/widgets/custom_text.dart';
-import 'package:inno_tutor/constants/style.dart' as style;
+import '../../database/global_funtions.dart';
+import '../../elements/drawer.dart';
+import '../../helpers/responsiveness.dart';
+import '../../helpers/responsiveness.dart';
+import '../../pages/profile/my_profile_large.dart';
+import '../../widgets/custom_text.dart';
+import '../../constants/style.dart' as style;
 
 class MyProfile extends StatefulWidget {
   @override
