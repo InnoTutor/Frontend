@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import './layout.dart';
 
-import './elements/drawer.dart';
-import './pages/profile/my_profile.dart';
-import './pages/requests/my_requests.dart';
-import './pages/schedules/my_schedules.dart';
-import './pages/services/my_serviecs.dart';
-import './pages/students/my_students.dart';
+import './pages/login_page.dart';
+import './layout.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,7 +27,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
-      home: SiteLayout(page: MyProfile(),),
+      home: SiteLayout(page: Login(), login: true),
     );
   }
 }
