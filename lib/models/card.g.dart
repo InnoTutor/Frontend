@@ -1,29 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'session.dart';
+part of 'card.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Session _$SessionFromJson(Map<String, dynamic> json) {
-  return Session(
-    json['tutor'] == null
+Card _$CardFromJson(Map<String, dynamic> json) {
+  return Card(
+    json['creator'] == null
         ? null
-        : User.fromJson(json['tutor'] as Map<String, dynamic>),
-    (json['studentsList'] as List)
-        ?.map(
-            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+        : User.fromJson(json['creator'] as Map<String, dynamic>),
+    json['subject'] as String,
     json['formatSession'] as String,
     json['formatType'] as String,
     json['description'] as String,
   );
 }
 
-Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
-      'tutor': instance.tutor,
-      'studentsList': instance.studentsList,
+Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
+      'creator': instance.creator,
+      'subject': instance.subject,
       'formatSession': instance.formatSession,
       'formatType': instance.formatType,
       'description': instance.description,

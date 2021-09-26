@@ -3,15 +3,14 @@ import "package:json_annotation/json_annotation.dart";
 
 part 'user.g.dart';
 
-
 @JsonSerializable()
 class User {
-  User(this.id, this.name, this.email );
+  User(this.id, this.name, this.email);
 
-  String name;
-  String email;
   String id;
+  String name;
   String surname;
+  String email;
   String password;
   SessionsList sessions;
   // RequestsList requests;

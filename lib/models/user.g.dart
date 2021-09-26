@@ -10,9 +10,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
   return User(
     json['id'] as String,
     json['name'] as String,
-    json['surname'] as String,
     json['email'] as String,
   )
+    ..surname = json['surname'] as String
     ..password = json['password'] as String
     ..sessions = json['sessions'] == null
         ? null
@@ -20,10 +20,10 @@ User _$UserFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'name': instance.name,
-      'email': instance.email,
       'id': instance.id,
+      'name': instance.name,
       'surname': instance.surname,
+      'email': instance.email,
       'password': instance.password,
       'sessions': instance.sessions,
     };

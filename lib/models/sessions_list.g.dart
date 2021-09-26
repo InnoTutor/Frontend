@@ -8,11 +8,11 @@ part of 'sessions_list.dart';
 
 SessionsList _$SessionsListFromJson(Map<String, dynamic> json) {
   return SessionsList(
-    (json['studySesssions'] as List)
+    (json['studySessions'] as List)
         ?.map((e) =>
             e == null ? null : Session.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    (json['teachingSesssions'] as List)
+    (json['teachingSessions'] as List)
         ?.map((e) =>
             e == null ? null : Session.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -21,6 +21,6 @@ SessionsList _$SessionsListFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SessionsListToJson(SessionsList instance) =>
     <String, dynamic>{
-      'studySesssions': instance.studySesssions,
-      'teachingSesssions': instance.teachingSesssions,
+      'studySessions': instance.studySessions,
+      'teachingSessions': instance.teachingSessions,
     };
