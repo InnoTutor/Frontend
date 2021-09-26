@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:inno_tutor/elements/menu_controller.dart';
+import 'package:inno_tutor/services/database.dart';
 
 import './pages/login_page.dart';
 import './layout.dart';
@@ -9,6 +12,7 @@ import 'pages/services/my_serviecs.dart';
 import 'pages/students/my_students.dart';
 
 void main() {
+  Get.put(MenuController());
   runApp(MyApp());
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../database/global_funtions.dart';
+import '../../services/global_funtions.dart';
 import '../../elements/drawer.dart';
 import '../../helpers/responsiveness.dart';
 import '../../widgets/custom_text.dart';

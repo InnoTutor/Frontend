@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inno_tutor/models/user.dart';
 import '../constants/style.dart' as style;
 import '../helpers/responsiveness.dart';
 
 import 'custom_text.dart';
 import 'logo.dart';
 
-AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key, bool login) =>
+AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key, bool login, User user) =>
   AppBar(
     leading: ResponsiveWidget.isSmallScreen(context) ? 
     IconButton(icon: Icon(Icons.menu), onPressed: (){
@@ -26,7 +27,7 @@ AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key, bool
           child: Container()
         ),
         !ResponsiveWidget.isSmallScreen(context) ? CustomText(
-          text: "Name Surname",
+          text: user == null ? "" : user.name,
           size: 18,
           color: style.lightGrey,
           weight: FontWeight.w600,
@@ -37,7 +38,7 @@ AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key, bool
         Container(
           child: ResponsiveWidget.isSmallScreen(context) ? null : Container(
                 padding: EdgeInsets.all(2),
-                child: CircleAvatar(
+                child: user == null ? Wrap() : CircleAvatar(
                   radius: 18,
                   backgroundColor: style.lightGreen,
                   child: Icon(Icons.person_outline, 
