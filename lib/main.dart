@@ -1,9 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import './pages/login_page.dart';
 import './layout.dart';
+import 'pages/profile/my_profile.dart';
+import 'pages/requests/my_requests.dart';
+import 'pages/schedules/my_schedules.dart';
+import 'pages/services/my_serviecs.dart';
+import 'pages/students/my_students.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

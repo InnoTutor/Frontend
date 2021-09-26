@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import './elements/drawer.dart';
 import './helpers/responsiveness.dart';
@@ -19,6 +20,17 @@ class SiteLayout extends StatefulWidget {
 }
 
 class _SiteLayoutState extends State<SiteLayout> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Firebase.initializeApp();
+    super.initState();
+  }
+  Future<void> start()async{
+
+    await Firebase.initializeApp();
+    await Future.delayed(const Duration(milliseconds: 500), () {});
+  }
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   List<String> title = [
     'My Profile',
