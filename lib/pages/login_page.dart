@@ -1,4 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import 'package:inno_tutor/services/global_funtions.dart';
 import 'package:inno_tutor/elements/drawer.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
 import 'package:inno_tutor/pages/profile/my_profile.dart';
@@ -14,7 +17,12 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    Firebase.initializeApp();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

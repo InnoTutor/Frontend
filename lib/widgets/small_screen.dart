@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:inno_tutor/models/user.dart';
+
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/widgets/top_nav.dart';

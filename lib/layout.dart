@@ -29,6 +29,7 @@ class _SiteLayoutState extends State<SiteLayout> {
     // TODO: implement initState
     Firebase.initializeApp();
     start();
+
     super.initState();
   }
   Future<void> start()async{
