@@ -127,6 +127,7 @@ class AuthService {
       assert(!currentUser.isAnonymous);
       assert(await currentUser.getIdToken() != null);
       return user2.User(uid, name, userEmail, imageUrl);
+
     }
 
 

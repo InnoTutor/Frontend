@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:inno_tutor/elements/side_menu.dart';
+
 import 'package:inno_tutor/services/auth.dart';
 import '../constants/style.dart' as style;
 import '../elements/drawer.dart';

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
@@ -13,6 +14,9 @@ import 'pages/students/my_students.dart';
 
 void main() {
   Get.put(MenuController());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
