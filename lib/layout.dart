@@ -71,9 +71,10 @@ class _SiteLayoutState extends State<SiteLayout> {
           mediumScreen: LargeScreen(page: widget.page, login: widget.login, user: widget.user),
           smallScreen: SmallScreen(page: widget.page, login: widget.login, user: widget.user),
         ),
-        drawer: ResponsiveWidget.isSmallScreen(context) && !widget.login
+        drawer: ResponsiveWidget.isSmallScreen(context) 
+        // && !widget.login
             ?
-            Drawer(child: SideMenu())
+            Drawer(child:SideMenu())
             : null);
   }
 }

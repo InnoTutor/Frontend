@@ -17,7 +17,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    print(AuthService().getUserData());
     return WillPopScope(
       onWillPop: () async{
         final arguments = ModalRoute.of(context).settings.arguments;

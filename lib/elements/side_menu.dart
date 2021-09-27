@@ -5,11 +5,13 @@ import 'package:inno_tutor/elements/routes.dart';
 import 'package:inno_tutor/elements/side_menu_item.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
 import 'package:inno_tutor/layout.dart';
+import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/pages/requests/my_requests.dart';
 import 'package:inno_tutor/pages/schedules/my_schedules.dart';
 import 'package:inno_tutor/pages/services/my_serviecs.dart';
 import 'package:inno_tutor/pages/students/my_students.dart';
+import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/large_screen.dart';
 import 'package:inno_tutor/widgets/logo.dart';
@@ -36,9 +38,23 @@ class _SideMenuState extends State<SideMenu> {
       MyRequests()
     ];    String route='';
 
+  User user;
+  bool data_fetched=false;
+  @override
+  void initState() {
+    fetch();
+    super.initState();
+  }
+  Future<void> fetch()async{
+    user = await AuthService().getUserData();
+    setState(() {
+      data_fetched=true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
+    return data_fetched ? ClipRRect(
       child: ListView(
         children: [
           if (ResponsiveWidget.isSmallScreen(context))
@@ -72,12 +88,11 @@ class _SideMenuState extends State<SideMenu> {
                         padding: EdgeInsets.all(15),
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.person_outline, 
-                          color: style.almostDarkGrey))
+                          backgroundImage:NetworkImage(user.imageUrl)
+                  )
                       ),
                       CustomText(
-                        text: "Name\nSurname",
+                        text: user.name,
                         color: style.almostDarkGrey,
                         size: 18,
                         weight: FontWeight.w800 
@@ -104,6 +119,6 @@ class _SideMenuState extends State<SideMenu> {
           )
         ],
       ),
-    );
+    ) : Wrap();
   }
 }

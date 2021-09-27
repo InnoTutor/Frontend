@@ -28,6 +28,7 @@ class LargeScreen extends StatefulWidget {
 }
 
 class _LargeScreenState extends State<LargeScreen> {
+
   get lightGrey => null;
   LargeScreen largeScreen;
 
@@ -39,6 +40,7 @@ class _LargeScreenState extends State<LargeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    for (int i = 0; i < 50; i++) print(widget.login);
     double _width = MediaQuery.of(context).size.width;
 
     List<String> title = ['My Profile','My Services','My Students','My Schedule', 'My Requests'];
@@ -50,10 +52,11 @@ class _LargeScreenState extends State<LargeScreen> {
       MySchedules(),
       MyRequests()
     ];    String route='';
+    print(AuthService().getUserData());
     return Scaffold(
       body: Row(
         children: [
-           AuthService().getUserData() != null ? Expanded(
+           widget.login ? Expanded(
             child: Container(
               color: style.lightGrey,
               child: Container(
@@ -83,15 +86,16 @@ class _LargeScreenState extends State<LargeScreen> {
             )
           ) : Expanded(child: Container(color: style.lightGrey)),
           Container(
+            alignment: widget.login ? Alignment.center : Alignment.topCenter,
             child: Column(
               children: [
                 Container(
-                  width: AuthService().getUserData() != null ? 700 : 300,
+                  width: widget.login  ? 700 : 300,
                   color: style.lightGrey,
-                  alignment: AuthService().getUserData() != null ? Alignment.topCenter : Alignment.center,
+                  alignment: widget.login ? Alignment.center : Alignment.topCenter,
                   child: SizedBox(
                     child: Container(
-                      //height: AuthService().getUserData() != null ? 600 : 70,
+                      //height: widget.login ? 70 : 500,
                       margin: const EdgeInsets.only(right:5, left:5, top: 10),
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -104,7 +108,7 @@ class _LargeScreenState extends State<LargeScreen> {
                           )
                         ]
                       ),
-                      child: AuthService().getUserData() != null ? widget.page :
+                      child: widget.login ? widget.page :
                         Container(
                           padding: EdgeInsets.all(15),
                           child: SignInButton(
@@ -112,7 +116,7 @@ class _LargeScreenState extends State<LargeScreen> {
                             text: "Sign up with Google",
                             onPressed: () async {
                               setState(() {
-                                widget.login = true;
+                                widget.login = false;
                               });
                               AuthService auth_service = new AuthService();
                               await auth_service.signInWithGoogle().then((result) {
@@ -121,7 +125,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                 print('Registration Error: $error');
                               });
                               setState(() {
-                                widget.login = false;
+                                widget.login = true;
                               });
                             },
                         )
@@ -129,17 +133,22 @@ class _LargeScreenState extends State<LargeScreen> {
                     )
                   )
                 ),
-                AuthService().getUserData() != null ? Expanded(
+                widget.login ? 
+                Expanded(
                   child: Container(
                     width: 700,
                     color: style.lightGrey
                   )
-                ) : null,
+                ) 
+                : Wrap()
               ],
             )
           ),
           Expanded(
             child: Container(
+
+              height: 2000,
+              width: 150,
               color: style.lightGrey
             )
           ),
