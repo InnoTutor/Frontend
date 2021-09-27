@@ -30,6 +30,7 @@ class _LoginState extends State<Login> {
         final arguments = ModalRoute.of(context).settings.arguments;
         List<String>list = handle_arguments(arguments);
         Navigator.pushReplacementNamed(context,'/'+list[0] , arguments: {'route':list[1]} );
+        AuthService().getUserData();
 
         return true;
       },

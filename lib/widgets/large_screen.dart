@@ -30,10 +30,6 @@ class LargeScreen extends StatefulWidget {
 }
 
 class _LargeScreenState extends State<LargeScreen> {
-
-  get lightGrey => null;
-  LargeScreen largeScreen;
-
   void updatePage(Widget nextPage) {
       setState(() {
         widget.page = nextPage;
@@ -42,22 +38,134 @@ class _LargeScreenState extends State<LargeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < 50; i++) print(widget.login);
-    double _width = MediaQuery.of(context).size.width;
+    String route='';
+    if (AuthService().getUserData() != null){
+      return Scaffold(
+        body: Row(
+          children: [
+            Expanded(
+              child: Container(
+                color: style.lightGrey,
+                child: Container(
+                  width: 700,
+                  color: style.lightGrey,
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    child: Container(
+                      width: 230,
+                      height: ResponsiveWidget.isCustomSize(context) ? 520 : 300,
+                      margin: const EdgeInsets.only(right:5, left:10, top: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:  BorderRadius.all(Radius.circular(10)),
+                        boxShadow:[
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.03),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                          )
+                        ]
+                      ),
+                      child: SideMenu(updPage: updatePage,)
+                    )
+                  )
+                )
+              )
+            ),
+            Container(
+              alignment: Alignment.topCenter,
+              child: Column(
+                children: [
+                  Container(
+                    width: 700,
+                    color: style.lightGrey,
+                    alignment: Alignment.center,
+                  child: SizedBox(
+                    child: Container(
+                      margin: const EdgeInsets.only(right:5, left:5, top: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:  BorderRadius.all(Radius.circular(10)),
+                        boxShadow:[
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.03),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                          )
+                        ]
+                      ),
+                      child: widget.page
+                    )
+                  )
+                ),
+                Expanded(
+                  child: Container(
+                    width: 700,
+                    color: style.lightGrey
+                  )
+                ) 
+              ],
+            )
+          ),
+          Expanded(
+            child: Container(
 
-    List<String> title = ['My Profile','My Services','My Students','My Schedule', 'My Requests'];
-    List<String> routNames = ['/profile','/services','/students','/schedule', '/requests'];
-    List<Widget> names = [
-      MyProfile(),
-      MyServices(),
-      MyStudents(),
-      MySchedules(),
-      MyRequests()
-    ];    String route='';
+              height: 2000,
+              width: 150,
+              color: style.lightGrey
+            )
+          ),
+          ]
+        )
+      );
+    } else {
+      return Scaffold(
+        body: Container(
+          color: style.lightGrey,
+          child: SizedBox(
+            child: Container(
+              height: 70,
+              width: 300,
+              margin: const EdgeInsets.only(right:5, left:5, top: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:  BorderRadius.all(Radius.circular(10)),
+                boxShadow:[
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.03),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                  )
+                ]
+              ),
+              child: 
+                Container(
+                  padding: EdgeInsets.all(15),
+                  child: SignInButton(
+                    Buttons.Google,
+                    text: "Sign up with Google",
+                    onPressed: () async {
+                      AuthService auth_service = new AuthService();
+                      await auth_service.signInWithGoogle().then((result) {
+                        print(result);
+                      }).catchError((error) {
+                        print('Registration Error: $error');
+                      });
+                    },
+                )
+              ),
+            )
+          )
+        )
+      );
+    }
+
+
+
     return Scaffold(
       body: Row(
         children: [
-           widget.login ? Expanded(
+           AuthService().getUserData() != null ? Expanded(
             child: Container(
               color: style.lightGrey,
               child: Container(
@@ -87,13 +195,13 @@ class _LargeScreenState extends State<LargeScreen> {
             )
           ) : Expanded(child: Container(color: style.lightGrey)),
           Container(
-            alignment: widget.login ? Alignment.center : Alignment.topCenter,
+            alignment: AuthService().getUserData() != null ? Alignment.center : Alignment.topCenter,
             child: Column(
               children: [
                 Container(
-                  width: widget.login  ? 700 : 300,
+                  width: AuthService().getUserData() != null  ? 700 : 300,
                   color: style.lightGrey,
-                  alignment: widget.login ? Alignment.center : Alignment.topCenter,
+                  alignment: AuthService().getUserData() != null ? Alignment.center : Alignment.topCenter,
                   child: SizedBox(
                     child: Container(
                       //height: widget.login ? 70 : 500,
@@ -109,7 +217,7 @@ class _LargeScreenState extends State<LargeScreen> {
                           )
                         ]
                       ),
-                      child: widget.login ? widget.page :
+                      child: AuthService().getUserData() != null ? widget.page :
                         Container(
                           padding: EdgeInsets.all(15),
                           child: SignInButton(
@@ -134,7 +242,7 @@ class _LargeScreenState extends State<LargeScreen> {
                     )
                   )
                 ),
-                widget.login ? 
+                AuthService().getUserData() != null ? 
                 Expanded(
                   child: Container(
                     width: 700,
