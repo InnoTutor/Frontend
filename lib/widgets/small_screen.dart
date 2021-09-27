@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:inno_tutor/models/user.dart';
+
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/widgets/top_nav.dart';
@@ -11,7 +13,8 @@ import '../layout.dart';
 class SmallScreen extends StatefulWidget {
   final Widget page;
   bool login;
-  SmallScreen({ Key key, this.page, this.login}) : super(key: key);
+  User user;
+  SmallScreen({ Key key, this.page, this.login, this.user}) : super(key: key);
 
   @override
   _SmallScreenState createState() => _SmallScreenState();
@@ -20,11 +23,11 @@ class SmallScreen extends StatefulWidget {
 class _SmallScreenState extends State<SmallScreen> {
   @override
   Widget build(BuildContext context) {
-    return !widget.login ? Container(
+    return AuthService().getUserData() != null ? Container(
         constraints: BoxConstraints.expand(),
         color: style.lightGrey,
         child: widget.page
-    ) :
+     ) :
     Container(
       color: style.lightGrey,
       alignment: Alignment.center,

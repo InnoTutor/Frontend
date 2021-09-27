@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:inno_tutor/services/global_funtions.dart';
 import 'package:inno_tutor/elements/drawer.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
+import 'package:inno_tutor/pages/profile/my_profile.dart';
+import 'package:inno_tutor/services/auth.dart';
+import 'package:inno_tutor/services/global_funtions.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/page_cap.dart';
 import 'package:inno_tutor/constants/style.dart' as style;
@@ -29,17 +33,7 @@ class _LoginState extends State<Login> {
 
         return true;
       },
-      child: !ResponsiveWidget.isSmallScreen(context) ?
-        PageCap(text: "Log in") :
-        Center(
-          child: CustomText(
-            selectable: true,
-            text: "Log in",
-            size: 20,
-            weight: FontWeight.bold,
-            color: style.darkGrey
-          )
-        ),
+      child: MyProfile(),
     );
   }
 }

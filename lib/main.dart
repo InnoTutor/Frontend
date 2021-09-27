@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:inno_tutor/elements/menu_controller.dart';
+import 'package:inno_tutor/services/database.dart';
 
 import './pages/login_page.dart';
 import './layout.dart';
@@ -9,7 +12,9 @@ import 'pages/schedules/my_schedules.dart';
 import 'pages/services/my_serviecs.dart';
 import 'pages/students/my_students.dart';
 
-void main() async{
+void main() {
+  Get.put(MenuController());
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
-      home: SiteLayout(page: Login(), login: true),
+      home: SiteLayout(page: Login(), login: false),
     );
   }
 }
