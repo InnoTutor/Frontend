@@ -54,7 +54,6 @@ class _LargeScreenState extends State<LargeScreen> {
       MySchedules(),
       MyRequests()
     ];    String route='';
-    print(AuthService().getUserData());
     return Scaffold(
       body: Row(
         children: [
