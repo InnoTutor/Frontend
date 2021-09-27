@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -54,7 +54,6 @@ class _LargeScreenState extends State<LargeScreen> {
       MySchedules(),
       MyRequests()
     ];    String route='';
-    print(AuthService().getUserData());
     return Scaffold(
       body: Row(
         children: [

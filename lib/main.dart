@@ -12,7 +12,7 @@ import 'pages/schedules/my_schedules.dart';
 import 'pages/services/my_serviecs.dart';
 import 'pages/students/my_students.dart';
 
-void main() {
+void main() async{
   Get.put(MenuController());
 
   WidgetsFlutterBinding.ensureInitialized();
