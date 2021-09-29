@@ -18,12 +18,16 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
   bool data_fetched=false;
   @override
   void initState() {
+    print("doing init state");
     fetch();
     super.initState();
   }
   Future<void> fetch()async{
     user = await AuthService().getUserData();
+    print (user.name);
+    print (user.imageUrl);
     setState(() {
+      print("data fetched");
       data_fetched=true;
     });
   }
