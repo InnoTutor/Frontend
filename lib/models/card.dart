@@ -5,13 +5,13 @@ import "package:json_annotation/json_annotation.dart";
 part 'card.g.dart';
 
 @JsonSerializable()
-class Card {
-  Card(this.creator, this.subject, this.formatSession,this.formatType,this.description);
-
-  User creator;
+class Card{
+  Card(this.cardId, this.subject, this.rating, this.description , this.sessionFormat,this.sessionType);
+  int cardId;
   String subject;
-  String formatSession;
-  String formatType;
+  double rating;
+  List<String> sessionFormat;
+  List<String> sessionType;
   String description;
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);

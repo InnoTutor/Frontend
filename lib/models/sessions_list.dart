@@ -7,10 +7,10 @@ part 'sessions_list.g.dart';
 
 @JsonSerializable()
 class SessionsList {
-  SessionsList(this.studySessions, this.teachingSessions);
+  SessionsList(this.studyingSessionsList, this.teachingSessionsList);
 
-  List<Session>studySessions;
-  List<Session>teachingSessions;
+  List<Session>studyingSessionsList;
+  List<Session>teachingSessionsList;
 
 
   factory SessionsList.fromJson(Map<String, dynamic> json) => _$SessionsListFromJson(json);

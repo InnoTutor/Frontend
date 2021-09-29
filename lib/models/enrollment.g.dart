@@ -1,27 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card.dart';
+part of 'enrollment.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Card _$CardFromJson(Map<String, dynamic> json) {
-  return Card(
+Enrollment _$EnrollmentFromJson(Map<String, dynamic> json) {
+  return Enrollment(
+    json['enrollmentId'] as int,
     json['cardId'] as int,
-    json['subject'] as String,
-    (json['rating'] as num)?.toDouble(),
-    json['description'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
-Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
+Map<String, dynamic> _$EnrollmentToJson(Enrollment instance) =>
+    <String, dynamic>{
+      'enrollmentId': instance.enrollmentId,
       'cardId': instance.cardId,
-      'subject': instance.subject,
-      'rating': instance.rating,
       'sessionFormat': instance.sessionFormat,
       'sessionType': instance.sessionType,
-      'description': instance.description,
     };

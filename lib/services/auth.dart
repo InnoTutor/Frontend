@@ -116,14 +116,21 @@ class AuthService {
   }
   Future<user2.User> getUserData() async {
 
-    final User currentUser = _auth.currentUser;
+    final User currentUser = await _auth.currentUser;
     if(currentUser == null)
       return null;
+    print(currentUser.toString());
 
-    uid = currentUser.uid;
-    name = currentUser.displayName;
-    userEmail = currentUser.email;
-    imageUrl = currentUser.photoURL;
+    uid =  currentUser.uid;
+    print(uid);
+    name =  currentUser.displayName;
+    print(name);
+
+    userEmail =  currentUser.email;
+    print(userEmail);
+
+    imageUrl =  currentUser.photoURL;
+    print(imageUrl);
 
     assert(!currentUser.isAnonymous);
     assert(await currentUser.getIdToken() != null);
