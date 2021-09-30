@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
-        '/services': (BuildContext context) => SingleChildScrollView(child: SiteLayout(page: MyServices())),
-        '/profile': (BuildContext context) => SingleChildScrollView(child: SiteLayout(page: MyProfile())),
+        '/services': (BuildContext context) => SiteLayout(page: MyServices()),
+        '/profile': (BuildContext context) => SiteLayout(page: MyProfile()),
         '/students': (BuildContext context)=> SiteLayout(page: MyStudents()),
         '/schedule': (BuildContext context)=> SiteLayout(page: MySchedules()),
         '/requests': (BuildContext context)=> SiteLayout(page: MyRequests()),
