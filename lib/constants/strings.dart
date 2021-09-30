@@ -4,4 +4,10 @@ class Urls {
   String get_sessions = 'http://localhost:8080/session/subjects';
   String get_tutors = 'http://localhost:8080/tutors-list?subject=&format=&type=';
 
+
+
+  String delete_tutors = 'http://localhost:8080/tutors-list?subject=&format=&type=';
+  String request_card = 'http://localhost:8080/card/request-card';
+  String cv_card = 'http://localhost:8080/card/cv-card';
+
 }

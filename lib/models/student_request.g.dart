@@ -11,7 +11,7 @@ StudentRequest _$StudentRequestFromJson(Map<String, dynamic> json) {
     json['studentId'] as String,
     json['cardId'] as String,
     json['description'] as String,
-    json['subjectId'] as String,
+    json['subject'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
   );
@@ -22,7 +22,7 @@ Map<String, dynamic> _$StudentRequestToJson(StudentRequest instance) =>
       'studentId': instance.studentId,
       'cardId': instance.cardId,
       'description': instance.description,
-      'subjectId': instance.subjectId,
+      'subject': instance.subject,
       'sessionFormat': instance.sessionFormat,
       'sessionType': instance.sessionType,
     };

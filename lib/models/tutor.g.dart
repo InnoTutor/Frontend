@@ -12,7 +12,7 @@ Tutor _$TutorFromJson(Map<String, dynamic> json) {
     json['cardId'] as String,
     (json['rating'] as num)?.toDouble(),
     json['description'] as String,
-    json['subjectId'] as String,
+    json['subject'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
   );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$TutorToJson(Tutor instance) => <String, dynamic>{
       'cardId': instance.cardId,
       'rating': instance.rating,
       'description': instance.description,
-      'subjectId': instance.subjectId,
+      'subject': instance.subject,
       'sessionFormat': instance.sessionFormat,
       'sessionType': instance.sessionType,
     };
