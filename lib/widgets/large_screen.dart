@@ -49,10 +49,11 @@ class _LargeScreenState extends State<LargeScreen> {
       });
   }
 
+
   @override
   Widget build(BuildContext context) {
     String route='';
-      return AuthService().getUserData() != null? Scaffold(
+      return user_is_null?Scaffold(
         body: Row(
           children: [
             Expanded(
