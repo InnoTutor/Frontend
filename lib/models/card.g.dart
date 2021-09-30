@@ -15,6 +15,8 @@ Card _$CardFromJson(Map<String, dynamic> json) {
     json['description'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
+    (json['isReserved'] as bool),
+    (json['peopleVoted'] as int)
   );
 }
 
@@ -26,4 +28,6 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'sessionFormat': instance.sessionFormat,
       'sessionType': instance.sessionType,
       'description': instance.description,
+      'isReserved': instance.isReserved,
+      'peopleVoted': instance.peopleVoted,
     };

@@ -6,7 +6,7 @@ part 'card.g.dart';
 
 @JsonSerializable()
 class Card{
-  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat,this.sessionType);
+  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.peopleVoted);
   int cardId;
   int creatorId;
   String subject;
@@ -14,6 +14,8 @@ class Card{
   List<String> sessionFormat;
   List<String> sessionType;
   String description;
+  bool isReserved = false;
+  int peopleVoted = 0;
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
