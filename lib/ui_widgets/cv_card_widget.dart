@@ -102,18 +102,18 @@ class _CvCardWidgetState extends State<CvCardWidget>{
               ),
               )
             ),
-            onTap: () {
+            // onTap: () {
             
-            },
-            onHover: (isHovering){
-              setState(() {
-                if (isHovering){
-                  color = style.grey;
-                } else{
-                  color = style.darkGreen;
-                }
-              });
-            }
+            // },
+            // onHover: (isHovering){
+            //   setState(() {
+            //     if (isHovering){
+            //       color = style.grey;
+            //     } else{
+            //       color = style.darkGreen;
+            //     }
+            //   });
+            // }
           )
       );
     }

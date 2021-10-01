@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
 import 'package:inno_tutor/services/database.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: Colors.black,
+        unselectedWidgetColor: Colors.white
       ),
       routes: {
         // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
