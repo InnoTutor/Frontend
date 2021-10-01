@@ -16,13 +16,10 @@ class EditableCvCardWidget extends StatefulWidget{
 }
 
 class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
-  Color color = style.darkGreen;
   bool initFrame = true;
-  bool editable = false;
-  Icon currentIcon = Icon(Icons.create_rounded, color: Colors.white);
   String newDescription = "";
+  String reserveButtonText = "";
   final GlobalKey textKey = GlobalKey();
-  int height = 100;
 
   void initState() {
     super.initState();
@@ -34,7 +31,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   void updateHeight(){
     RenderBox params = textKey.currentContext.findRenderObject();
     setState(() {
-      height = params.size.height.toInt();
+      widget.card.height = params.size.height.toInt();
       initFrame = false;
     });
   }
@@ -50,6 +47,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   @override
   Widget build(BuildContext context) {
     CustomText descriptionText = CustomText(text : newDescription, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
+    reserveButtonText = widget.card.isReserved ? "Unreserve" : "Reserve";
     if (initFrame){
       return Wrap(children: [descriptionText]);
     }
@@ -57,10 +55,10 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
       return Container( 
           child: InkWell(
             child: Container(
-              height: 68+height.toDouble(),
+              height: 68+widget.card.height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
               decoration: BoxDecoration(
-                color : color,
+                color : widget.card.isReserved ? style.darkGrey : style.darkGreen,
                 borderRadius:  BorderRadius.all(Radius.circular(10)),
               ),
               child: Container(
@@ -77,20 +75,20 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             CustomText(text : widget.card.subject, weight: FontWeight.bold, color: Colors.white),
                             IconButton(
                               padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
-                              icon: currentIcon,
+                              icon: widget.card.currentIcon,
                               constraints: BoxConstraints(),
                               onPressed: (){
                                 setState(() {
-                                  if (!editable){
-                                    editable = true;
-                                    height = height + 120;
-                                    currentIcon = Icon(Icons.done, color: Colors.white);
+                                  if (!widget.card.editable){
+                                    widget.card.editable = true;
+                                    widget.card.height = widget.card.height + 150;
+                                    widget.card.currentIcon = Icon(Icons.done, color: Colors.white);
                                   } else {
-                                    editable = false;
+                                    widget.card.editable = false;
                                     descriptionText.text= newDescription; 
                                     WidgetsBinding.instance
                                       .addPostFrameCallback((_) => updateHeight());
-                                    currentIcon = Icon(Icons.create_rounded, color: Colors.white);
+                                    widget.card.currentIcon = Icon(Icons.create_rounded, color: Colors.white);
                                   }
                                 });
                               },
@@ -102,20 +100,23 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                     Column(children: [
                       Container(
                         padding: EdgeInsets.only(right:10, top:10),
-                        child: RatingBar(
-                          itemSize: 18,
-                          initialRating: widget.card.rating,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          ratingWidget: RatingWidget(
-                            full: Icon(Icons.star, color: Colors.white),
-                            half: Icon(Icons.star_half, color: Colors.white),
-                            empty: Icon(Icons.star_border, color: Colors.white),
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
+                        child:AbsorbPointer(
+                          child: RatingBar(
+                            itemSize: 18,
+                            initialRating: widget.card.rating,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            ratingWidget: RatingWidget(
+                              full: Icon(Icons.star, color: Colors.white),
+                              half: Icon(Icons.star_half, color: Colors.white),
+                              empty: Icon(Icons.star_border, color: Colors.white),
+                            ),
+                            ignoreGestures: true,
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
+                          )
                         )
                       ),
                       Container(
@@ -132,7 +133,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                     child: Container(
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.bottomLeft,
-                    child: !editable ? 
+                    child: !widget.card.editable ? 
                       descriptionText :
                       TextFormField (
                         initialValue: descriptionText.text,
@@ -154,7 +155,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                       )
                     )
                   ),
-                  editable ? 
+                  widget.card.editable ? 
                   Row(
                     children: [
                       Flexible(
@@ -254,6 +255,45 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                         )
                       )
                     ]
+                  ) : Wrap(),
+                  widget.card.editable ?
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: style.pink
+                          ),
+                          onPressed: () {
+                            myCards.remove(widget.card);
+                          },
+                          child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.white
+                          ),
+                          onPressed: () {
+                            if (!widget.card.isReserved){
+                              widget.card.isReserved = true;
+                              setState(() {
+                                reserveButtonText = "Unreserve";
+                              });
+                            } else {
+                              widget.card.isReserved = false;
+                              setState(() {
+                                reserveButtonText = "Reserve";
+                              });
+                            }
+                          },
+                          child: CustomText(text: reserveButtonText, color: style.darkGrey, weight: FontWeight.bold,),
+                        ),
+                      ),
+                    ],
                   ) : Wrap()
                 ],
               ),

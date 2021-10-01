@@ -76,6 +76,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                             half: Icon(Icons.star_half, color: Colors.white),
                             empty: Icon(Icons.star_border, color: Colors.white),
                           ),
+                          ignoreGestures: true,
                           onRatingUpdate: (rating) {
                             print(rating);
                           },

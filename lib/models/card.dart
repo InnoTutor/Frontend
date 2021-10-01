@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:inno_tutor/models/sessions_list.dart';
 import 'package:inno_tutor/models/user.dart';
 import "package:json_annotation/json_annotation.dart";
@@ -16,6 +17,10 @@ class Card{
   String description;
   bool isReserved = false;
   int peopleVoted = 0;
+
+  bool editable = false;
+  int height = 100;
+  Icon currentIcon = Icon(Icons.create_rounded, color: Colors.white);
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
