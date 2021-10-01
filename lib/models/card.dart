@@ -24,5 +24,15 @@ class Card{
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
+  void setEditable(bool edit){
+    if (edit){
+      this.editable = true;
+      this.currentIcon = Icon(Icons.done, color: Colors.white);
+    } else {
+      this.editable = false;
+      this.currentIcon = Icon(Icons.create_rounded, color: Colors.white);
+    }
+  }
+
   Map<String, dynamic> toJson() => _$CardToJson(this);
 }

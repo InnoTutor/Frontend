@@ -41,7 +41,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
       return Wrap(children: [descriptionText]);
     }
     else{
-      return Container( 
+      return !widget.card.isReserved ? Container( 
           child: InkWell(
             child: Container(
               height: 68+height.toDouble(),
@@ -116,7 +116,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
             //   });
             // }
           )
-      );
+      ) : Wrap();
     }
   }
 }
