@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
 import 'package:inno_tutor/services/database.dart';
 
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: Colors.black,
+        unselectedWidgetColor: Colors.white
       ),
       routes: {
         // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
-        '/services': (BuildContext context) => SingleChildScrollView(child: SiteLayout(page: MyServices())),
-        '/profile': (BuildContext context) => SingleChildScrollView(child: SiteLayout(page: MyProfile())),
+        '/services': (BuildContext context) => SiteLayout(page: MyServices()),
+        '/profile': (BuildContext context) => SiteLayout(page: MyProfile()),
         '/students': (BuildContext context)=> SiteLayout(page: MyStudents()),
         '/schedule': (BuildContext context)=> SiteLayout(page: MySchedules()),
         '/requests': (BuildContext context)=> SiteLayout(page: MyRequests()),

@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:get/get.dart';
 import 'package:inno_tutor/constants/controllers.dart';
 import 'package:inno_tutor/elements/routes.dart';
 import 'package:inno_tutor/elements/side_menu_item.dart';
+import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
 import 'package:inno_tutor/layout.dart';
+import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/pages/requests/my_requests.dart';
@@ -113,7 +115,10 @@ class _SideMenuState extends State<SideMenu> {
                   widget.updPage(names[title.indexOf(itemName)]);
                   if (ResponsiveWidget.isSmallScreen(context))
                     Get.back();                 
-                  }
+                }
+                for(Card card in myCards){
+                  card.setEditable(false);
+                }
               }
             )).toList()
           )

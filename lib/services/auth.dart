@@ -119,18 +119,18 @@ class AuthService {
     final User currentUser = await _auth.currentUser;
     if(currentUser == null)
       return null;
-    print(currentUser.toString());
+    //print(currentUser.toString());
 
     uid =  currentUser.uid;
-    print(uid);
+    //print(uid);
     name =  currentUser.displayName;
-    print(name);
+    //print(name);
 
     userEmail =  currentUser.email;
-    print(userEmail);
+    //print(userEmail);
 
     imageUrl =  currentUser.photoURL;
-    print(imageUrl);
+    //print(imageUrl);
 
     assert(!currentUser.isAnonymous);
     assert(await currentUser.getIdToken() != null);

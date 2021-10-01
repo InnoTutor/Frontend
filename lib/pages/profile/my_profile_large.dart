@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inno_tutor/fake_data.dart';
+import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
-import 'package:inno_tutor/widgets/cv_card.dart';
+import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 // import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
@@ -27,7 +29,6 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
    });
    return user;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +90,8 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                       Container(
                           padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
                           child: Column(
-                              children: [
-                                CVCard(subject: "Meth Analysis I", description: "Love this subject and love helping people. Got an A.",),
-                                CVCard(subject: "Meth Analysis II", description: "Love this subject and love helping people. Got an A.",),
-                                CVCard(subject: "Meth Analysis III", description: "Love this subject and love helping people. Got an A.",)
-                              ]
+                            mainAxisSize: MainAxisSize.min,
+                            children: myCards.map((item) => CvCardWidget(card: item)).toList()
                           )
                       )
                     ]
@@ -103,19 +101,20 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
 
           }
           else {
-            return Column(
-                children:[
-              SizedBox(
-                child: CircularProgressIndicator(),
-                width: 60,
-                height: 60,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              )
-            ]
-            );
+            return Wrap();
+            // Column(
+            //     children:[
+            //   SizedBox(
+            //     child: CircularProgressIndicator(),
+            //     width: 60,
+            //     height: 60,
+            //   ),
+            //   Padding(
+            //     padding: EdgeInsets.only(top: 16),
+            //     child: Text('Awaiting result...'),
+            //   )
+            // ]
+            // );
           }
 
         });
