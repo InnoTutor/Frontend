@@ -85,7 +85,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                       Container(
                         //padding: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
-                        child: CustomText(text: "                 " + widget.card.peopleVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+                        child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
                       )
                     ],)
                   ],),

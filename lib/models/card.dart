@@ -7,30 +7,32 @@ part 'card.g.dart';
 
 @JsonSerializable()
 class Card{
-  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.peopleVoted);
+  Card(this.cardId, this.tutorId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.countVoted);
   int cardId;
+  int tutorId;
   int creatorId;
   String subject;
   double rating;
   List<String> sessionFormat;
   List<String> sessionType;
   String description;
+  int countVoted = 0;
   bool isReserved = false;
-  int peopleVoted = 0;
-
   bool editable = false;
   int height = 100;
-  Icon currentIcon = Icon(Icons.create_rounded, color: Colors.white);
+  int currentIcon = 0;
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
   void setEditable(bool edit){
     if (edit){
       this.editable = true;
-      this.currentIcon = Icon(Icons.done, color: Colors.white);
+      this.isReserved = false;
+      this.currentIcon = 0;
     } else {
+      this.isReserved = false;
       this.editable = false;
-      this.currentIcon = Icon(Icons.create_rounded, color: Colors.white);
+      this.currentIcon = 1;
     }
   }
 

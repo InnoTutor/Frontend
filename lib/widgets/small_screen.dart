@@ -9,12 +9,11 @@ import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/widgets/top_nav.dart';
 import '../constants/style.dart' as style;
 import '../layout.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 
 class SmallScreen extends StatefulWidget {
   final Widget page;
-  bool login;
-  User user;
-  SmallScreen({ Key key, this.page, this.login, this.user}) : super(key: key);
+  SmallScreen({ Key key, this.page}) : super(key: key);
 
   @override
   _SmallScreenState createState() => _SmallScreenState();
@@ -22,8 +21,13 @@ class SmallScreen extends StatefulWidget {
 
 class _SmallScreenState extends State<SmallScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return AuthService().getUserData() != null ? Container(
+    return globals.user!=null? Container(
         constraints: BoxConstraints.expand(),
         color: style.lightGrey,
         child: widget.page
@@ -38,17 +42,14 @@ class _SmallScreenState extends State<SmallScreen> {
           Buttons.Google,
           text: "Sign up with Google",
           onPressed: () async {
-      setState(() {
-        widget.login = true;
-      });
       AuthService auth_service = new AuthService();
       await auth_service.signInWithGoogle().then((result) {
+
         print(result);
       }).catchError((error) {
         print('Registration Error: $error');
       });
       setState(() {
-        widget.login = false;
       });
 
           },

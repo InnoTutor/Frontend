@@ -23,17 +23,19 @@ class _MyStudentsState extends State<MyStudents> {
 
         return true;
       },
-      child: !ResponsiveWidget.isSmallScreen(context) ?
-        PageCap(text: "My Students") :
-        Center(
-          child: CustomText(
-            selectable: true,
-            text: "My Students",
-            size: 20,
-            weight: FontWeight.bold,
-            color: style.darkGrey
-          )
-        ),
+      child:
+      // !ResponsiveWidget.isSmallScreen(context) ?
+        PageCap(text: "My Students")
+        //     :
+        // Center(
+        //   child: CustomText(
+        //     selectable: true,
+        //     text: "My Students",
+        //     size: 20,
+        //     weight: FontWeight.bold,
+        //     color: style.darkGrey
+        //   )
+        // ),
     );
   }
 }

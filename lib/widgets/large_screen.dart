@@ -16,274 +16,168 @@ import '../pages/schedules/my_schedules.dart';
 import '../pages/services/my_serviecs.dart';
 import '../pages/students/my_students.dart';
 import 'package:inno_tutor/models/user.dart';
+import 'package:inno_tutor/globals.dart' as globals;
+
 class LargeScreen extends StatefulWidget {
   Widget page;
   bool login = false;
   SiteLayout layout;
   Function updPage;
-  User user;
-   void Function() onTap;
-   LargeScreen({ Key key , this.onTap, this.page, this.login, this.layout, this.updPage, this.user}) : super(key: key);
+  void Function() onTap;
+  LargeScreen({ Key key , this.onTap, this.page, this.login, this.layout, this.updPage}) : super(key: key);
 
   @override
   _LargeScreenState createState() => _LargeScreenState();
 }
 
 class _LargeScreenState extends State<LargeScreen> {
-  bool user_is_null = true;
-  User user = null;
   void updatePage(Widget nextPage) {
-      setState(() {
-        widget.page = nextPage;
-      });
+    setState(() {
+      widget.page = nextPage;
+    });
   }
   @override
   void initState() {
-    fetch();
     super.initState();
+    fetch();
   }
   fetch()async{
-    user = await AuthService().getUserData();
-      setState(() {
-        user_is_null=false;
-      });
-  }
+    if(globals.user == null)
+      globals.user = await AuthService().getUserData();
+    setState(() {
 
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    String route='';
-    //   return user_is_null?Scaffold(
-    //     body: Row(
-    //       children: [
-    //         Expanded(
-    //           child: Container(
-    //             color: style.lightGrey,
-    //             child: Container(
-    //               width: 700,
-    //               color: style.lightGrey,
-    //               alignment: Alignment.topRight,
-    //               child: Container(
-    //                 child: Container(
-    //                   width: 230,
-    //                   height: ResponsiveWidget.isCustomSize(context) ? 520 : 300,
-    //                   margin: const EdgeInsets.only(right:5, left:10, top: 10),
-    //                   decoration: BoxDecoration(
-    //                     color: Colors.white,
-    //                     borderRadius:  BorderRadius.all(Radius.circular(10)),
-    //                     boxShadow:[
-    //                       BoxShadow(
-    //                         color: Colors.black.withOpacity(0.03),
-    //                         spreadRadius: 5,
-    //                         blurRadius: 7,
-    //                       )
-    //                     ]
-    //                   ),
-    //                   child: SideMenu(updPage: updatePage,)
-    //                 )
-    //               )
-    //             )
-    //           )
-    //         ),
-    //         Container(
-    //           alignment: Alignment.topCenter,
-    //           child: Column(
-    //             children: [
-    //               Container(
-    //                 width: 700,
-    //                 color: style.lightGrey,
-    //                 alignment: Alignment.center,
-    //               child: SizedBox(
-    //                 child: Container(
-    //                   margin: const EdgeInsets.only(right:5, left:5, top: 10),
-    //                   decoration: BoxDecoration(
-    //                     color: Colors.white,
-    //                     borderRadius:  BorderRadius.all(Radius.circular(10)),
-    //                     boxShadow:[
-    //                       BoxShadow(
-    //                         color: Colors.black.withOpacity(0.03),
-    //                         spreadRadius: 5,
-    //                         blurRadius: 7,
-    //                       )
-    //                     ]
-    //                   ),
-    //                   child: widget.page
-    //                 )
-    //               )
-    //             ),
-    //             Expanded(
-    //               child: Container(
-    //                 width: 700,
-    //                 color: style.lightGrey
-    //               )
-    //             ) 
-    //           ],
-    //         )
-    //       ),
-    //       Expanded(
-    //         child: Container(
-
-    //           height: 2000,
-    //           width: 150,
-    //           color: style.lightGrey
-    //         )
-    //       ),
-    //       ]
-    //     )
-    //   ): Scaffold(
-    //     body: Container(
-    //       color: style.lightGrey,
-    //       child: SizedBox(
-    //         child: Container(
-    //           height: 70,
-    //           width: 300,
-    //           margin: const EdgeInsets.only(right:5, left:5, top: 10),
-    //           decoration: BoxDecoration(
-    //             color: Colors.white,
-    //             borderRadius:  BorderRadius.all(Radius.circular(10)),
-    //             boxShadow:[
-    //               BoxShadow(
-    //                 color: Colors.black.withOpacity(0.03),
-    //                 spreadRadius: 5,
-    //                 blurRadius: 7,
-    //               )
-    //             ]
-    //           ),
-    //           child: 
-    //             Container(
-    //               padding: EdgeInsets.all(15),
-    //               child: SignInButton(
-    //                 Buttons.Google,
-    //                 text: "Sign up with Google",
-    //                 onPressed: () async {
-    //                   AuthService auth_service = new AuthService();
-    //                   await auth_service.signInWithGoogle().then((result) {
-    //                     print(result);
-    //                   }).catchError((error) {
-    //                     print('Registration Error: $error');
-    //                   });
-    //                 },
-    //             )
-    //           ),
-    //         )
-    //       )
-    //     )
-    //   );
-    // }
-
-
-
+    String route = '';
     return Scaffold(
       body: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Row(
-                  children: [
-                      AuthService().getUserData() != null ? Expanded(
-                      child: Container(
-                        color: style.lightGrey,
-                        child: Container(
-                        width: 700,
-                        color: style.lightGrey,
-                        alignment: Alignment.topRight,
-                        child: Container(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: constraints.maxWidth,
+                    minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      globals.user != null ? Expanded(
                           child: Container(
-                            width: 230,
-                            height: ResponsiveWidget.isCustomSize(context) ? 520 : 300,
-                            margin: const EdgeInsets.only(right:5, left:10, top: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:  BorderRadius.all(Radius.circular(10)),
-                              boxShadow:[
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.03),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                )
-                              ]
-                            ),
-                            child: SideMenu(updPage: updatePage,)
-                          )
-                        )
-                      )
-                      )
-                    ) : Expanded(child: Container(color: style.lightGrey)),
-                    Container(
-                      alignment: AuthService().getUserData() != null ? Alignment.center : Alignment.topCenter,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: AuthService().getUserData() != null  ? 700 : 300,
-                            color: style.lightGrey,
-                            alignment: AuthService().getUserData() != null ? Alignment.center : Alignment.topCenter,
-                            child: SizedBox(
+                              color: style.lightGrey,
                               child: Container(
-                                //height: widget.login ? 70 : 500,
-                                margin: const EdgeInsets.only(right:5, left:5, top: 10),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:  BorderRadius.all(Radius.circular(10)),
-                                  boxShadow:[
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.03),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                    )
-                                  ]
-                                ),
-                                child: AuthService().getUserData() != null ? widget.page :
-                                  Container(
-                                    padding: EdgeInsets.all(15),
-                                    child: SignInButton(
-                                      Buttons.Google,
-                                      text: "Sign up with Google",
-                                      onPressed: () async {
-                                        setState(() {
-                                          widget.login = false;
-                                        });
-                                        AuthService auth_service = new AuthService();
-                                        await auth_service.signInWithGoogle().then((result) {
-                                          print(result);
-                                        }).catchError((error) {
-                                          print('Registration Error: $error');
-                                        });
-                                        setState(() {
-                                          widget.login = true;
-                                        });
-                                      },
+                                  width: 700,
+                                  color: style.lightGrey,
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                      child: Container(
+                                          width: 230,
+                                          height: ResponsiveWidget.isCustomSize(
+                                              context) ? 520 : 300,
+                                          margin: const EdgeInsets.only(
+                                              right: 5, left: 10, top: 10),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.03),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                )
+                                              ]
+                                          ),
+                                          child: SideMenu(updPage: updatePage,)
+                                      )
                                   )
-                                ),
                               )
-                            )
-                          ),
-                          AuthService().getUserData() != null ?
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              width: 700,
-                              color: style.lightGrey
-                            )
                           )
-                          : Wrap()
-                        ],
-                      )
-                    ),
-                    Expanded(
-                      child: Container(
-              
-                        width: 150,
-                        color: style.lightGrey
-                      )
-                    ),
-                  ],
+                      ) : Expanded(child: Container(color: style.lightGrey)),
+                      Container(
+                          alignment: globals.user != null
+                              ? Alignment.center
+                              : Alignment.topCenter,
+                          child: Column(
+                            children: [
+                              Container(
+                                  width: globals.user != null
+                                      ? 700
+                                      : 300,
+                                  color: style.lightGrey,
+                                  alignment: globals.user != null
+                                      ? Alignment.center
+                                      : Alignment.topCenter,
+                                  child: SizedBox(
+                                      child: Container(
+                                        //height: widget.login ? 70 : 500,
+                                        margin: const EdgeInsets.only(
+                                            right: 5, left: 5, top: 10),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(
+                                                    0.03),
+                                                spreadRadius: 5,
+                                                blurRadius: 7,
+                                              )
+                                            ]
+                                        ),
+                                        child: globals.user != null ? widget.page :
+                                        Container(
+                                            padding: EdgeInsets.all(15),
+                                            child: SignInButton(
+                                              Buttons.Google,
+                                              text: "Sign up with Google",
+                                              onPressed: () async {
+                                                setState(() {
+                                                  widget.login = false;
+                                                });
+                                                AuthService auth_service = new AuthService();
+                                                await auth_service
+                                                    .signInWithGoogle().then((result) {
+                                                  print(result);
+                                                }).catchError((error) {
+                                                  print(
+                                                      'Registration Error: $error');
+                                                });
+                                                setState(() {
+                                                  widget.login = true;
+                                                });
+                                              },
+                                            )
+                                        ),
+                                      )
+                                  )
+                              ),
+                              globals.user != null?
+                              Expanded(
+                                  child: Container(
+                                      height: 50,
+                                      width: 700,
+                                      color: style.lightGrey
+                                  )
+                              )
+                                  : Wrap()
+                            ],
+                          )
+                      ),
+                      Expanded(
+                          child: Container(
+                              width: 150,
+                              color: style.lightGrey
+                          )
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        }
+            );
+          }
       ),
     );
   }
