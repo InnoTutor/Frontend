@@ -37,12 +37,11 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
     }
   }
   Future<List<Card>> fetch_cards(String search) async {
-    List<Card> list = [];
     Services services = new Services();
-    list = await services.getTutors();
-    print(list[0]);
+    myCards = await services.getTutors();
+    print(myCards[0]);
     print('ana fe fetch cards');
-    return list;
+    return myCards;
   }
 
   @override
