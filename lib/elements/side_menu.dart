@@ -18,7 +18,7 @@ import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/large_screen.dart';
 import 'package:inno_tutor/widgets/logo.dart';
 import '../../constants/style.dart' as style;
-
+import 'package:inno_tutor/globals.dart' as globals;
 
 class SideMenu extends StatefulWidget {
   final VoidCallback onPageSelected;
@@ -40,23 +40,13 @@ class _SideMenuState extends State<SideMenu> {
       MyRequests()
     ];    String route='';
 
-  User user;
-  bool data_fetched=false;
   @override
   void initState() {
-    fetch();
     super.initState();
   }
-  Future<void> fetch()async{
-    user = await AuthService().getUserData();
-    setState(() {
-      data_fetched=true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return data_fetched ? ClipRRect(
+    return globals.user != null ? ClipRRect(
       child: ListView(
         children: [
           if (ResponsiveWidget.isSmallScreen(context))
@@ -68,12 +58,12 @@ class _SideMenuState extends State<SideMenu> {
                 backgroundColor: style.lightGreen,
                 title: Row(
                   children: [
-                    Logo(
-                      path: 'icons/dark_logo.png',
-                      height: 30,
-                      leftPadding: 0,
-                      rightPadding: 0
-                    ),
+                    // Logo(
+                    //   path: 'assets/icons/logo.png',
+                    //   height: 30,
+                    //   leftPadding: 0,
+                    //   rightPadding: 0
+                    // ),
                     Padding(padding: EdgeInsets.only(right: 5),
                     ),
                   ],
@@ -90,11 +80,11 @@ class _SideMenuState extends State<SideMenu> {
                         padding: EdgeInsets.all(15),
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundImage:NetworkImage(user.imageUrl)
+                          backgroundImage:NetworkImage(globals.user.imageUrl)
                   )
                       ),
                       CustomText(
-                        text: user.name,
+                        text: globals.user.name,
                         color: style.almostDarkGrey,
                         size: 18,
                         weight: FontWeight.w800 
@@ -114,11 +104,9 @@ class _SideMenuState extends State<SideMenu> {
                   menuController.changeActiveItemTo(itemName);
                   widget.updPage(names[title.indexOf(itemName)]);
                   if (ResponsiveWidget.isSmallScreen(context))
-                    Get.back();                 
+                    Get.back();
                 }
-                for(Card card in myCards){
-                  card.setEditable(false);
-                }
+
               }
             )).toList()
           )

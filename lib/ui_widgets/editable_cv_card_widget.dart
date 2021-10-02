@@ -36,13 +36,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
     });
   }
 
-  void updateData(){
-    for(Card card in myCards){
-      if (card.cardId == widget.card.cardId){
-        card = widget.card;
-      }
-    }
-  }
+  // void updateData(){
+  //   for(Card card in myCards){
+  //     if (card.cardId == widget.card.cardId){
+  //       card = widget.card;
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,20 +75,20 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             CustomText(text : widget.card.subject, weight: FontWeight.bold, color: Colors.white),
                             IconButton(
                               padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
-                              icon: widget.card.currentIcon,
+                              icon: icons[widget.card.currentIcon],
                               constraints: BoxConstraints(),
                               onPressed: (){
                                 setState(() {
                                   if (!widget.card.editable){
                                     widget.card.editable = true;
                                     widget.card.height = widget.card.height + 150;
-                                    widget.card.currentIcon = Icon(Icons.done, color: Colors.white);
+                                    widget.card.currentIcon = 0;
                                   } else {
                                     widget.card.editable = false;
                                     descriptionText.text= newDescription; 
                                     WidgetsBinding.instance
                                       .addPostFrameCallback((_) => updateHeight());
-                                    widget.card.currentIcon = Icon(Icons.create_rounded, color: Colors.white);
+                                    widget.card.currentIcon = 1;
                                   }
                                 });
                               },
@@ -122,7 +122,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                       Container(
                         //padding: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
-                        child: CustomText(text: "                 " + widget.card.peopleVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+                        child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
                       )
                     ],)
                   ],),
@@ -266,7 +266,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             primary: style.pink
                           ),
                           onPressed: () {
-                            myCards.remove(widget.card);
+                            // myCards.remove(widget.card);
                           },
                           child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),
                         ),

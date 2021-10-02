@@ -7,21 +7,26 @@ import 'package:inno_tutor/models/tutor.dart';
 
 class Services{
   Urls urls = Urls();
-
-  Future<List<Tutor>> getTutors() async {
-    Response res = await get(Uri.parse(urls.get_tutors));
+  Map<String, String> headers ={
+  "Accept": "application/json",
+  "Access-Control_Allow_Origin": "*"
+  };
+  Future<List<Card>> getTutors() async {
+    Response res = await get(Uri.parse(Urls.get_tutors), headers: headers);
 
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
       print(obj);
-      List<Tutor> tutors =  new List<Tutor>();
+      List<Card> cards =  [];
 
       for (int i = 0; i < obj.length; i++) {
-        Tutor tutor = Tutor.fromJson(obj[i]);
-        tutors.add(tutor);
+        Card card = Card.fromJson(obj[i]);
+        cards.add(card);
       }
-
-      return tutors;
+      for(Card card in cards){
+        card.setEditable(false);
+      }
+      return cards;
     } else {
       throw "Unable to retrieve stock data.";
     }
@@ -30,8 +35,11 @@ class Services{
   Future<void> createRequestCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
-    var response = await post(Uri.parse(urls.request_card),
-        headers: <String, String>{"Content-Type": "application/json"},
+    var response = await post(Uri.parse(Urls.request_card),
+        headers: <String, String>{
+          "Accept": "application/json",
+          "Access-Control_Allow_Origin": "*"
+        },
         body: json.encode(data)
     );
 
@@ -45,7 +53,7 @@ class Services{
   Future<void> createCvCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
-    var response = await post(Uri.parse(urls.cv_card),
+    var response = await post(Uri.parse(Urls.cv_card),
         headers: <String, String>{"Content-Type": "application/json"},
         body: json.encode(data)
     );

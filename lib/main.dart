@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
-      home: SiteLayout(page: Login(), login: false),
+      home: SiteLayout(page: Login()),
     );
   }
 }

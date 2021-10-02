@@ -7,11 +7,13 @@ import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
+import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 // import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 
 class MyProfileLargePage extends StatefulWidget {
   @override
@@ -19,104 +21,104 @@ class MyProfileLargePage extends StatefulWidget {
 }
 
 class _MyProfileLargeState extends State<MyProfileLargePage> {
-  User user;
-  bool data_fetched=false;
+  bool data_fetched = false;
+  @override
+  initState() {
+    super.initState();
+    fetch_cards('');
+  }
 
-  Future <User> fetch() async {
-   user=  await AuthService().getUserData();
-   setState(() {
+  Future<List<Card>> fetch_cards(String search) async {
+    List<Card> list = [];
+    Services services = new Services();
+    list = await services.getTutors();
+    // _streamController.sink.add(list);
+    print(list[0]);
+    setState(() {
 
-   });
-   return user;
+    });
+    return list;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<User>(
-        future: fetch(), // stream data to listen for change
-        builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-          if (snapshot.hasData){
-            return Column(
+    return Column(
               children: [
                 PageCap(text: "My Profile"),
-                Column(
+                Column(children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                              padding: EdgeInsets.all(15),
-                              child: Image.network(user.imageUrl,
-                                fit: BoxFit.cover,
-                                height: 230,
-                              )
-                          ),
-                          Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: EdgeInsets.only(left: 10, top:10),
-                                  child: CustomText(
-                                    text: user.name,
-                                    color: style.darkGrey,
-                                    size: 20,
-                                    weight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: EdgeInsets.only(left: 0, top:10),
-                                  child: CustomText(
-                                    text: user.name,
-                                    color: style.darkGrey,
-                                    size: 16,
-                                    weight: FontWeight.normal,
-                                  ),
-                                )
-                              ]
-                          )
-                        ],
-                      ),
                       Container(
+                          padding: EdgeInsets.all(15),
+                          child: Image.network(
+                            globals.user.imageUrl,
+                            fit: BoxFit.cover,
+                            height: 230,
+                          )),
+                      Column(children: [
+                        Container(
                           alignment: Alignment.topLeft,
-                          padding: EdgeInsets.only(left: 15, top: 10),
+                          padding: EdgeInsets.only(left: 10, top: 10),
                           child: CustomText(
-                            text: "My Services:",
+                            text: globals.user.name,
                             color: style.darkGrey,
-                            size: 18,
+                            size: 20,
                             weight: FontWeight.bold,
-                          )
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: myCards.map((item) => CvCardWidget(card: item)).toList()
-                          )
-                      )
-                    ]
-                )
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.only(left: 0, top: 10),
+                          child: CustomText(
+                            text: globals.user.name,
+                            color: style.darkGrey,
+                            size: 16,
+                            weight: FontWeight.normal,
+                          ),
+                        )
+                      ])
+                    ],
+                  ),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      child: CustomText(
+                        text: "My Services:",
+                        color: style.darkGrey,
+                        size: 18,
+                        weight: FontWeight.bold,
+                      )),
+                  FutureBuilder<List<Card>>(
+                      future:
+                          fetch_cards(''), // stream data to listen for change
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Card>> snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data == null) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.red,
+                                valueColor: new AlwaysStoppedAnimation<Color>(
+                                    Colors.teal),
+                              ),
+                            );
+                          }
+                          return ListView.builder(
+                              padding: const EdgeInsets.all(8),
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                Card card = snapshot.data[index];
+                                return CvCardWidget(card: card);
+                              });
+                        }
+                        return Wrap();
+                      }),
+                ])
               ],
             );
 
-          }
-          else {
-            return Wrap();
-            // Column(
-            //     children:[
-            //   SizedBox(
-            //     child: CircularProgressIndicator(),
-            //     width: 60,
-            //     height: 60,
-            //   ),
-            //   Padding(
-            //     padding: EdgeInsets.only(top: 16),
-            //     child: Text('Awaiting result...'),
-            //   )
-            // ]
-            // );
-          }
 
-        });
   }
 }

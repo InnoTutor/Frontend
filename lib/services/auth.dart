@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
+import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/user.dart' as user2;
+import 'package:inno_tutor/globals.dart' as globals;
 
 class AuthService {
 
@@ -17,7 +19,6 @@ class AuthService {
 
   // todo
   // change it with the meant uri
-  String url = 'http://192.168.120.129:8080/api/employees';
   // //Handles Auth
   // handleAuth() {
   //   return StreamBuilder(
@@ -53,7 +54,7 @@ class AuthService {
       "Authorization" :"Bearer " + token
     };
     print("Token "+ token);
-    Response response = await get(Uri.parse(url), headers: headers);
+    Response response = await get(Uri.parse(Urls.url), headers: headers);
     int statusCode = response.statusCode;
     if(statusCode != 200){
       return "Could not get input from server";
@@ -64,9 +65,6 @@ class AuthService {
     await googleSignIn.signOut();
     await _auth.signOut();
 
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // prefs.setBool('auth', false);
-
     uid = null;
     name = null;
     userEmail = null;
@@ -75,7 +73,7 @@ class AuthService {
     print("User signed out of Google account");
   }
   //SignIn
-  signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
 
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount
@@ -90,26 +88,15 @@ class AuthService {
     final User user = userCredential.user;
 
     if (user != null) {
-      // Checking if email and name is null
-      assert(user.uid != null);
-      assert(user.email != null);
-      assert(user.displayName != null);
-      assert(user.photoURL != null);
-
       uid = user.uid;
       name = user.displayName;
       userEmail = user.email;
       imageUrl = user.photoURL;
-
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
-
       final User currentUser = _auth.currentUser;
-      assert(user.uid == currentUser.uid);
-
+      globals.user = user2.User(uid , name, userEmail,imageUrl);
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // prefs.setBool('auth', true);
-      return 'Google sign in successful, User UID: ${user.uid}';
+      return user;
     }
     return null;
 
@@ -119,21 +106,12 @@ class AuthService {
     final User currentUser = await _auth.currentUser;
     if(currentUser == null)
       return null;
-    //print(currentUser.toString());
 
     uid =  currentUser.uid;
-    //print(uid);
     name =  currentUser.displayName;
-    //print(name);
-
     userEmail =  currentUser.email;
-    //print(userEmail);
-
     imageUrl =  currentUser.photoURL;
-    //print(imageUrl);
 
-    assert(!currentUser.isAnonymous);
-    assert(await currentUser.getIdToken() != null);
     return user2.User(uid, name, userEmail, imageUrl);
 
     }

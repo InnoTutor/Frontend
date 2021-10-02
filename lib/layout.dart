@@ -13,11 +13,11 @@ import './pages/students/my_students.dart';
 import './widgets/large_screen.dart';
 import './widgets/small_screen.dart';
 import './widgets/top_nav.dart';
+import 'globals.dart' as globals;
 class SiteLayout extends StatefulWidget {
-   Widget page;
-   bool login = false;
-   User user;
-   SiteLayout({Key key, this.page, this.login}) : super(key: key);
+  Widget page;
+
+  SiteLayout({Key key, this.page}) : super(key: key);
 
   @override
   _SiteLayoutState createState() => _SiteLayoutState();
@@ -32,15 +32,10 @@ class _SiteLayoutState extends State<SiteLayout> {
 
     super.initState();
   }
-  Future<void> start()async{
 
+  Future<void> start() async {
     await Firebase.initializeApp();
     await Future.delayed(const Duration(milliseconds: 500), () {});
-    widget.user = await auth.AuthService().getUserData();
-    if(widget.user!=null)
-    setState((){
-      widget.login = true;
-    });
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
@@ -56,26 +51,28 @@ class _SiteLayoutState extends State<SiteLayout> {
     MyServices(),
     MyStudents(),
     MySchedules(),
-   MyRequests()
+    MyRequests()
   ];
   String route = '';
   @override
   Widget build(BuildContext context) {
-
     print(ModalRoute.of(context).settings.name);
     return Scaffold(
         key: scaffoldKey,
-        appBar: widget.login ? TopNavigationBar(context, scaffoldKey, true, null) :
-                               TopNavigationBar(context, scaffoldKey, true, widget.user),
+        appBar: globals.user == null
+            ? TopNavigationBar(context, scaffoldKey)
+            : TopNavigationBar(context, scaffoldKey),
         body: ResponsiveWidget(
-          largeScreen: LargeScreen(page: widget.page, login: widget.login, user: widget.user),
-          mediumScreen: LargeScreen(page: widget.page, login: widget.login, user: widget.user),
-          smallScreen: SmallScreen(page: widget.page, login: widget.login, user: widget.user),
+          largeScreen: LargeScreen(
+              page: widget.page),
+          mediumScreen: LargeScreen(
+              page: widget.page),
+          smallScreen: SmallScreen(
+              page: widget.page),
         ),
-        drawer: ResponsiveWidget.isSmallScreen(context) 
-        // && !widget.login
-            ?
-            Drawer(child:SideMenu())
+        drawer: ResponsiveWidget.isSmallScreen(context)
+            // && !widget.login
+            ? Drawer(child: SideMenu())
             : null);
   }
 }
