@@ -39,6 +39,14 @@ class _LargeScreenState extends State<LargeScreen> {
   @override
   void initState() {
     super.initState();
+    fetch();
+  }
+  fetch()async{
+    if(globals.user == null)
+      globals.user = await AuthService().getUserData();
+    setState(() {
+
+    });
   }
 
   @override

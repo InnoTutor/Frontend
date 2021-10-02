@@ -7,12 +7,12 @@ import 'package:inno_tutor/models/tutor.dart';
 
 class Services{
   Urls urls = Urls();
-  Map<String, String> headers ={
-  "Accept": "application/json",
-  "Access-Control_Allow_Origin": "*"
+  Map<String, String> headers = {
+    // "Accept": "application/json",
+    "Access-Control-Allow-Origin": "*"
   };
   Future<List<Card>> getTutors() async {
-    Response res = await get(Uri.parse(Urls.get_tutors), headers: headers);
+    Response res = await get(Uri.parse(Urls.get_tutors));
 
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
@@ -28,7 +28,7 @@ class Services{
       }
       return cards;
     } else {
-      throw "Unable to retrieve stock data.";
+      throw "Unable to cards data.";
     }
   }
   // create request card

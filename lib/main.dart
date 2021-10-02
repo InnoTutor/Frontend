@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
+import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/database.dart';
 
 import './pages/login_page.dart';
@@ -12,12 +13,15 @@ import 'pages/requests/my_requests.dart';
 import 'pages/schedules/my_schedules.dart';
 import 'pages/services/my_serviecs.dart';
 import 'pages/students/my_students.dart';
-
+import 'globals.dart'as globals;
 void main() async{
   Get.put(MenuController());
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  if(globals.user == null) {
+    globals.user = await AuthService().getUserData();
+  }
   runApp(MyApp());
 }
 

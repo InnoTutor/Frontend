@@ -25,8 +25,7 @@ class _MyProfileState extends State<MyProfile> {
         return true;
       },
       child: !ResponsiveWidget.isSmallScreen(context) ?
-        MyProfileLargePage()
-          :
+        MyProfileLargePage() :
         Center(
         child: CustomText(
           selectable: true,

@@ -36,6 +36,11 @@ class _SiteLayoutState extends State<SiteLayout> {
   Future<void> start() async {
     await Firebase.initializeApp();
     await Future.delayed(const Duration(milliseconds: 500), () {});
+    if(globals.user == null)
+      globals.user = await auth.AuthService().getUserData();
+    setState(() {
+
+    });
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();

@@ -1,4 +1,5 @@
 class Urls {
+  static const String cors = "https://cors-anywhere.herokuapp.com/";
   static const String url = 'https://innotutor.herokuapp.com/';
   static String get_tutors = url +'tutors-list' ;
   static String get_students = url + 'students-list';
