@@ -21,22 +21,28 @@ class MyProfileLargePage extends StatefulWidget {
 }
 
 class _MyProfileLargeState extends State<MyProfileLargePage> {
+  var cards = List<Card>.generate(200, (index) => null);
+
   bool data_fetched = false;
   @override
   initState() {
     super.initState();
+    fetch();
     fetch_cards('');
   }
+  fetch()async{
+    if(globals.user == null){
+     globals.user= await AuthService().getUserData();
 
+    }
+  }
   Future<List<Card>> fetch_cards(String search) async {
     List<Card> list = [];
     Services services = new Services();
     list = await services.getTutors();
     // _streamController.sink.add(list);
     print(list[0]);
-    setState(() {
-
-    });
+    print('ana fe fetch cards');
     return list;
   }
 
@@ -89,32 +95,46 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                         size: 18,
                         weight: FontWeight.bold,
                       )),
-                  FutureBuilder<List<Card>>(
-                      future:
-                          fetch_cards(''), // stream data to listen for change
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<Card>> snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data == null) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.red,
-                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                    Colors.teal),
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                              padding: const EdgeInsets.all(8),
-                              shrinkWrap: true,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                Card card = snapshot.data[index];
-                                return CvCardWidget(card: card);
-                              });
-                        }
-                        return Wrap();
-                      }),
+                  Expanded(
+                    child: SizedBox(
+                      height: 200.0,
+
+                      child: FutureBuilder<List<Card>>(
+                          future:
+                              fetch_cards(''), // stream data to listen for change
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Card>> snapshot) {
+                            if (snapshot.hasData) {
+                              if (snapshot.data == null) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.red,
+                                    valueColor: new AlwaysStoppedAnimation<Color>(
+                                        Colors.teal),
+                                  ),
+                                );
+                              }
+                              return ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data.length,
+                                  itemBuilder: (context, index) {
+                                    Card card = snapshot.data[index];
+                                    print('instead the listview');
+                                    print(card.toJson());
+                                   // return ListTile(
+                                   //      title: Text('ID' + ' ' + 'First Name' + ' ' + 'Last Name'),
+                                   //  subtitle: Text('${snapshot.data[index].subject}' +
+                                   //  '${snapshot.data[index].description}' +
+                                   //  '${snapshot.data[index].currentIcon}'),
+                                   //  );
+                                    return CvCardWidget(card: card);
+                                  });
+                            }
+                            return Wrap();
+                          }),
+                    ),
+                  ),
                 ])
               ],
             );

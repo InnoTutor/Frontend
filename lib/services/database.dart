@@ -8,10 +8,11 @@ import 'package:inno_tutor/models/tutor.dart';
 class Services{
   Urls urls = Urls();
   Map<String, String> headers = {
-    // "Accept": "application/json",
+    "Accept": "application/json",
     "Access-Control-Allow-Origin": "*"
   };
   Future<List<Card>> getTutors() async {
+
     Response res = await get(Uri.parse(Urls.get_tutors));
 
     if (res.statusCode == 200) {
@@ -22,10 +23,16 @@ class Services{
       for (int i = 0; i < obj.length; i++) {
         Card card = Card.fromJson(obj[i]);
         cards.add(card);
+        // print('\n\n\n');
+        // print(card.toJson());
       }
       for(Card card in cards){
         card.setEditable(false);
       }
+      print('\n\n\n');
+
+      print('end of the file');
+
       return cards;
     } else {
       throw "Unable to cards data.";
