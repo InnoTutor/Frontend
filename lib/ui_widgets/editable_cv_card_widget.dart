@@ -17,13 +17,11 @@ class EditableCvCardWidget extends StatefulWidget{
 
 class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   bool initFrame = true;
-  String newDescription = "";
   String reserveButtonText = "";
   final GlobalKey textKey = GlobalKey();
 
   void initState() {
     super.initState();
-    newDescription = widget.card.description;
     WidgetsBinding.instance
         .addPostFrameCallback((_) => updateHeight());
   }
@@ -44,9 +42,10 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   //   }
   // }
 
+
   @override
   Widget build(BuildContext context) {
-    CustomText descriptionText = CustomText(text : newDescription, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
+    CustomText descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
     reserveButtonText = widget.card.isReserved ? "Unreserve" : "Reserve";
     if (initFrame){
       return Wrap(children: [descriptionText]);
@@ -85,7 +84,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                     widget.card.currentIcon = 0;
                                   } else {
                                     widget.card.editable = false;
-                                    descriptionText.text= newDescription; 
                                     WidgetsBinding.instance
                                       .addPostFrameCallback((_) => updateHeight());
                                     widget.card.currentIcon = 1;
@@ -149,7 +147,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                         ),
                         onChanged: (text) {
                           widget.card.description = text;
-                          newDescription = text;
                         },
                         
                       )
