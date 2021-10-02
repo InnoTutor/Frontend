@@ -19,9 +19,9 @@ class MyServicesLargePage extends StatefulWidget {
 }
 
 class _MyServicesLargeState extends State<MyServicesLargePage> {
-  bool data_fetched=false;
+  bool data_fetched = false;
   @override
-  initState(){
+  initState() {
     super.initState();
     fetch_cards('');
   }
@@ -30,64 +30,34 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     Services services = new Services();
     myCards = await services.getTutors();
     print(myCards[0]);
-    print('ana fe fetch cards');
+    print('ana fe fetch cards fe services');
+    setState(() {});
     return myCards;
   }
 
   @override
   Widget build(BuildContext context) {
-            return Column(
-              children: [
-                PageCap(text: "My Services"),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                  child:  FutureBuilder<List<Card>>(
-                      future:
-                      fetch_cards(''), // stream data to listen for change
-                      builder: (BuildContext context,
-                          AsyncSnapshot<List<Card>> snapshot) {
-                        if (snapshot.hasData) {
-                          if (snapshot.data == null) {
-                            return Center(
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.red,
-                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                    Colors.teal),
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                              padding: const EdgeInsets.all(8),
-                              shrinkWrap: true,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                Card card = snapshot.data[index];
-                                print('instead the listview');
-                                print(card.toJson());
-                                // return ListTile(
-                                //      title: Text('ID' + ' ' + 'First Name' + ' ' + 'Last Name'),
-                                //  subtitle: Text('${snapshot.data[index].subject}' +
-                                //  '${snapshot.data[index].description}' +
-                                //  '${snapshot.data[index].currentIcon}'),
-                                //  );
-                                return CvCardWidget(card: card);
-                              });
-                        }
-                        return Wrap();
-                      }),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: style.darkGreen
-                    ),
-                    onPressed: () {},
-                    child: CustomText(text: "Add new Service Card", color: Colors.white,),
-                  ),
-                ),
-              ]
-            );
-
+    return Column(children: [
+      PageCap(text: "My Services"),
+      Container(
+        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: myCards
+                .map((item) => EditableCvCardWidget(card: item))
+                .toList()),
+      ),
+      Container(
+        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: style.darkGreen),
+          onPressed: () {},
+          child: CustomText(
+            text: "Add new Service Card",
+            color: Colors.white,
+          ),
+        ),
+      ),
+    ]);
   }
 }
