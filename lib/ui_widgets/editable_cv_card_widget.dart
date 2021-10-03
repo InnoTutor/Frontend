@@ -17,6 +17,7 @@ class EditableCvCardWidget extends StatefulWidget{
 
 class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   bool initFrame = true;
+  bool heightUpdateNeeded = true;
   String reserveButtonText = "";
   final GlobalKey textKey = GlobalKey();
 
@@ -30,27 +31,32 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
     RenderBox params = textKey.currentContext.findRenderObject();
     setState(() {
       widget.card.height = params.size.height.toInt();
+      print("Editable set state " + widget.card.height.toString());
       initFrame = false;
     });
   }
 
-  // void updateData(){
-  //   for(Card card in myCards){
-  //     if (card.cardId == widget.card.cardId){
-  //       card = widget.card;
-  //     }
-  //   }
-  // }
+  void updateData(){
+    for(Card card in myCards){
+      if (card.cardId == widget.card.cardId){
+        card = widget.card;
+      }
+    }
+  }
 
 
   @override
   Widget build(BuildContext context) {
+    print("Editable build" + widget.card.height.toString());
     CustomText descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
     reserveButtonText = widget.card.isReserved ? "Unreserve" : "Reserve";
     if (initFrame){
       return Wrap(children: [descriptionText]);
     }
     else{
+      if (heightUpdateNeeded){
+        updateHeight();
+      } 
       return Container( 
           child: InkWell(
             child: Container(
@@ -79,10 +85,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                               onPressed: (){
                                 setState(() {
                                   if (!widget.card.editable){
+                                    print("here1");
                                     widget.card.editable = true;
                                     widget.card.height = widget.card.height + 150;
+                                    heightUpdateNeeded = false;
                                     widget.card.currentIcon = 0;
                                   } else {
+                                    print("here2");
                                     widget.card.editable = false;
                                     WidgetsBinding.instance
                                       .addPostFrameCallback((_) => updateHeight());
@@ -99,22 +108,23 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                       Container(
                         padding: EdgeInsets.only(right:10, top:10),
                         child:AbsorbPointer(
-                          child: RatingBar(
-                            itemSize: 18,
-                            initialRating: widget.card.rating,
-                            direction: Axis.horizontal,
-                            allowHalfRating: true,
-                            itemCount: 5,
-                            ratingWidget: RatingWidget(
-                              full: Icon(Icons.star, color: Colors.white),
-                              half: Icon(Icons.star_half, color: Colors.white),
-                              empty: Icon(Icons.star_border, color: Colors.white),
-                            ),
-                            ignoreGestures: true,
-                            onRatingUpdate: (rating) {
-                              print(rating);
-                            },
-                          )
+                          // child: RatingBar(
+                          //   itemSize: 18,
+                          //   initialRating: widget.card.rating,
+                          //   direction: Axis.horizontal,
+                          //   allowHalfRating: true,
+                          //   itemCount: 5,
+                          //   ratingWidget: RatingWidget(
+                          //     full: Icon(Icons.star, color: Colors.white),
+                          //     half: Icon(Icons.star_half, color: Colors.white),
+                          //     empty: Icon(Icons.star_border, color: Colors.white),
+                          //   ),
+                          //   ignoreGestures: true,
+                          //   onRatingUpdate: (rating) {
+                          //     print(rating);
+                          //   },
+                          // )
+                          child: Wrap(),
                         )
                       ),
                       Container(

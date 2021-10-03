@@ -21,6 +21,7 @@ class Card{
   bool editable = false;
   int height = 100;
   int currentIcon = 0;
+  
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
 
@@ -34,6 +35,10 @@ class Card{
       this.editable = false;
       this.currentIcon = 1;
     }
+  }
+
+  void setHeight(int height){
+    this.height = height;
   }
 
   Map<String, dynamic> toJson() => _$CardToJson(this);
