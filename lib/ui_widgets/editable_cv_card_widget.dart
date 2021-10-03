@@ -181,11 +181,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                         activeColor: style.darkGreen,
                                         value: widget.card.sessionFormat.contains("online"), 
                                         onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionFormat.remove("online");
-                                          } else {
-                                            widget.card.sessionFormat.add("online");
-                                          }
+                                          setState(() {
+                                            if (newValue == false){
+                                              widget.card.sessionFormat.remove("online");
+                                            } else {
+                                              widget.card.sessionFormat.add("online");
+                                            }
+                                          });
                                         }
                                       ),
                                       CustomText(text: " online", color: Colors.white),
@@ -197,11 +199,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                         activeColor: style.darkGreen,
                                         value: widget.card.sessionFormat.contains("offline"), 
                                         onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionFormat.remove("offline");
-                                          } else {
-                                            widget.card.sessionFormat.add("offline");
-                                          }
+                                          setState(() {
+                                            if (newValue == false){
+                                              widget.card.sessionFormat.remove("offline");
+                                            } else {
+                                              widget.card.sessionFormat.add("offline");
+                                            }
+                                          });
                                         }
                                       ),
                                       CustomText(text: " offline", color: Colors.white),
@@ -229,11 +233,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                         activeColor: style.darkGreen,
                                         value: widget.card.sessionType.contains("public"), 
                                         onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionType.remove("public");
-                                          } else {
-                                            widget.card.sessionType.add("public");
-                                          }
+                                          setState(() {
+                                            if (newValue == false){
+                                              widget.card.sessionType.remove("public");
+                                            } else {
+                                              widget.card.sessionType.add("public");
+                                            }
+                                          });
                                         }
                                       ),
                                       CustomText(text: " public", color: Colors.white),
@@ -245,11 +251,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                         activeColor: style.darkGreen,
                                         value: widget.card.sessionType.contains("private"), 
                                         onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionType.remove("private");
-                                          } else {
-                                            widget.card.sessionType.add("private");
-                                          }
+                                          setState(() {
+                                            if (newValue == false){
+                                              widget.card.sessionType.remove("private");
+                                            } else {
+                                              widget.card.sessionType.add("private");
+                                            }
+                                          });
                                         }
                                       ),
                                       CustomText(text: " private", color: Colors.white),
