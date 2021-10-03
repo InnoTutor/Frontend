@@ -29,6 +29,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
   void updateHeight(){
     RenderBox params = textKey.currentContext.findRenderObject();
     setState(() {
+      print("Not editable update" + widget.card.height.toString());
       height = params.size.height.toInt();
       initFrame = false;
     });
@@ -65,22 +66,23 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                     Column(children: [
                       Container(
                         padding: EdgeInsets.only(right:10, top:10),
-                        child: RatingBar(
-                          itemSize: 18,
-                          initialRating: widget.card.rating,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          ratingWidget: RatingWidget(
-                            full: Icon(Icons.star, color: Colors.white),
-                            half: Icon(Icons.star_half, color: Colors.white),
-                            empty: Icon(Icons.star_border, color: Colors.white),
-                          ),
-                          ignoreGestures: true,
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        )
+                        // child: RatingBar(
+                        //   itemSize: 18,
+                        //   initialRating: widget.card.rating,
+                        //   direction: Axis.horizontal,
+                        //   allowHalfRating: true,
+                        //   itemCount: 5,
+                        //   ratingWidget: RatingWidget(
+                        //     full: Icon(Icons.star, color: Colors.white),
+                        //     half: Icon(Icons.star_half, color: Colors.white),
+                        //     empty: Icon(Icons.star_border, color: Colors.white),
+                        //   ),
+                        //   ignoreGestures: true,
+                        //   onRatingUpdate: (rating) {
+                        //     print(rating);
+                        //   },
+                        // )
+                        child: Wrap(),
                       ),
                       Container(
                         //padding: EdgeInsets.only(left: 10),

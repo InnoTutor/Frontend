@@ -28,6 +28,7 @@ class Services{
       }
       for(Card card in cards){
         card.setEditable(false);
+        card.setHeight(100);
       }
       print('\n\n\n');
 

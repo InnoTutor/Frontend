@@ -28,9 +28,8 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
 
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
+    await services.getTutors();
     myCards = await services.getTutors();
-    print(myCards[0]);
-    print('ana fe fetch cards fe services');
     setState(() {});
     return myCards;
   }
