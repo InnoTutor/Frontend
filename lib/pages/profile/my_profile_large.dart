@@ -103,7 +103,5 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                 ])
               ],
             );
-
-
   }
 }
