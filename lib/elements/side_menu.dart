@@ -14,6 +14,7 @@ import 'package:inno_tutor/pages/schedules/my_schedules.dart';
 import 'package:inno_tutor/pages/services/my_serviecs.dart';
 import 'package:inno_tutor/pages/students/my_students.dart';
 import 'package:inno_tutor/services/auth.dart';
+import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/large_screen.dart';
 import 'package:inno_tutor/widgets/logo.dart';

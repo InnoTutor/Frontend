@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart' hide Card;
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/style.dart' as style;
@@ -16,6 +18,7 @@ class EditableCvCardWidget extends StatefulWidget{
 }
 
 class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
+  CustomText descriptionText;
   bool initFrame = true;
   bool heightUpdateNeeded = true;
   String reserveButtonText = "";
@@ -31,7 +34,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
     RenderBox params = textKey.currentContext.findRenderObject();
     setState(() {
       widget.card.height = params.size.height.toInt();
-      print("Editable set state " + widget.card.height.toString());
       initFrame = false;
     });
   }
@@ -44,13 +46,28 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
     }
   }
 
+  void manageEditButton(){
+    setState(() {
+      if (!widget.card.editable){
+        widget.card.editable = true;
+        widget.card.height = widget.card.height + 150;
+        heightUpdateNeeded = false;
+        widget.card.currentIcon = 0;
+      } else {
+        widget.card.editable = false;
+        WidgetsBinding.instance
+          .addPostFrameCallback((_) => updateHeight());
+        widget.card.currentIcon = 1;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    print("Editable build" + widget.card.height.toString());
-    CustomText descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
+    descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
     reserveButtonText = widget.card.isReserved ? "Unreserve" : "Reserve";
     if (initFrame){
+      print("rendering");
       return Wrap(children: [descriptionText]);
     }
     else{
@@ -68,201 +85,16 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
               ),
               child: Container(
                 child: 
-                Column(children: [
-                  
-                  Row(children: [
-                    Flexible(
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        alignment: Alignment.topLeft,
-                        child: Row(
-                          children : [
-                            CustomText(text : widget.card.subject, weight: FontWeight.bold, color: Colors.white),
-                            IconButton(
-                              padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
-                              icon: icons[widget.card.currentIcon],
-                              constraints: BoxConstraints(),
-                              onPressed: (){
-                                setState(() {
-                                  if (!widget.card.editable){
-                                    print("here1");
-                                    widget.card.editable = true;
-                                    widget.card.height = widget.card.height + 150;
-                                    heightUpdateNeeded = false;
-                                    widget.card.currentIcon = 0;
-                                  } else {
-                                    print("here2");
-                                    widget.card.editable = false;
-                                    WidgetsBinding.instance
-                                      .addPostFrameCallback((_) => updateHeight());
-                                    widget.card.currentIcon = 1;
-                                  }
-                                });
-                              },
-                            ),
-                          ]
-                        )
-                      )
-                    ),
-                    Column(children: [
-                      Container(
-                        padding: EdgeInsets.only(right:10, top:10),
-                        child:AbsorbPointer(
-                          // child: RatingBar(
-                          //   itemSize: 18,
-                          //   initialRating: widget.card.rating,
-                          //   direction: Axis.horizontal,
-                          //   allowHalfRating: true,
-                          //   itemCount: 5,
-                          //   ratingWidget: RatingWidget(
-                          //     full: Icon(Icons.star, color: Colors.white),
-                          //     half: Icon(Icons.star_half, color: Colors.white),
-                          //     empty: Icon(Icons.star_border, color: Colors.white),
-                          //   ),
-                          //   ignoreGestures: true,
-                          //   onRatingUpdate: (rating) {
-                          //     print(rating);
-                          //   },
-                          // )
-                          child: Wrap(),
-                        )
-                      ),
-                      Container(
-                        //padding: EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
-                      )
-                    ],)
-                  ],),
-                  // Expanded(
-                  //   child: Container(height: 0,),
-                  // ),
-                  Flexible(
-                    child: Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.bottomLeft,
-                    child: !widget.card.editable ? 
-                      descriptionText :
-                      TextFormField (
-                        initialValue: descriptionText.text,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 10,
-                        style: TextStyle(fontFamily: 'SourceSans', color: Colors.white),
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)
-                          ),
-                          border: const OutlineInputBorder(),
-                          fillColor: Colors.grey
-                        ),
-                        onChanged: (text) {
-                          widget.card.description = text;
-                        },
-                        
-                      )
-                    )
-                  ),
-                  widget.card.editable ? 
+                Column(children: [       
                   Row(
                     children: [
-                      Flexible(
-                        child: Container(
-                          child: Row(
-                            children : [
-                              Container(
-                                padding: EdgeInsets.only(left: 10),
-                                child: CustomText(text: "Format:", weight: FontWeight.bold, color: Colors.white),
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        activeColor: style.darkGreen,
-                                        value: widget.card.sessionFormat.contains("online"), 
-                                        onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionFormat.remove("online");
-                                          } else {
-                                            widget.card.sessionFormat.add("online");
-                                          }
-                                        }
-                                      ),
-                                      CustomText(text: " online", color: Colors.white),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        activeColor: style.darkGreen,
-                                        value: widget.card.sessionFormat.contains("offline"), 
-                                        onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionFormat.remove("offline");
-                                          } else {
-                                            widget.card.sessionFormat.add("offline");
-                                          }
-                                        }
-                                      ),
-                                      CustomText(text: " offline", color: Colors.white),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ]
-                          )
-                        )
-                      ),
-                      Flexible(
-                        child: Container(
-                          child: Row(
-                            children : [
-                              Container(
-                                padding: EdgeInsets.only(left: 10),
-                                child: CustomText(text: "Type:", weight: FontWeight.bold, color: Colors.white),
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        activeColor: style.darkGreen,
-                                        value: widget.card.sessionType.contains("public"), 
-                                        onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionType.remove("public");
-                                          } else {
-                                            widget.card.sessionType.add("public");
-                                          }
-                                        }
-                                      ),
-                                      CustomText(text: " public", color: Colors.white),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Checkbox(
-                                        activeColor: style.darkGreen,
-                                        value: widget.card.sessionType.contains("private"), 
-                                        onChanged: (bool newValue){
-                                          if (newValue == false){
-                                            widget.card.sessionType.remove("private");
-                                          } else {
-                                            widget.card.sessionType.add("private");
-                                          }
-                                        }
-                                      ),
-                                      CustomText(text: " private", color: Colors.white),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ]
-                          )
-                        )
-                      )
-                    ]
-                  ) : Wrap(),
+                      CardHeading(card: widget.card, manageEditButton: manageEditButton),
+                      VoteInformation(card: widget.card)
+                    ],
+                  ),
+                  CardDescription(card: widget.card, descriptionText: descriptionText,),
+                  widget.card.editable ? 
+                    CheckBoxRow(card: widget.card, themeColor: Colors.white,) : Wrap(),
                   widget.card.editable ?
                   Row(
                     children: [
@@ -273,7 +105,9 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             primary: style.pink
                           ),
                           onPressed: () {
-                            // myCards.remove(widget.card);
+                            setState(() {
+                              myCards.remove(widget.card);
+                            });
                           },
                           child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),
                         ),
@@ -306,20 +140,114 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
               ),
               )
             ),
-            // onTap: () {
-            
-            // },
-            // onHover: (isHovering){
-            //   setState(() {
-            //     if (isHovering){
-            //       color = style.grey;
-            //     } else{
-            //       color = style.darkGreen;
-            //     }
-            //   });
-            // }
           )
       );
     }
+  }
+}
+
+class CardHeading extends StatelessWidget {
+  Card card;
+  Function manageEditButton;
+  CardHeading({ Key key, this.card, this.manageEditButton}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        alignment: Alignment.topLeft,
+        child: Row(
+          children : [
+            CustomText(text : card.subject, weight: FontWeight.bold, color: Colors.white),
+            IconButton(
+              padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
+              icon: icons[card.currentIcon],
+              constraints: BoxConstraints(),
+              onPressed: (){
+                manageEditButton();
+              },
+            ),
+          ]
+        )
+      )
+    );
+  }
+}
+
+class CardDescription extends StatelessWidget {
+  CustomText descriptionText;
+  Card card;
+  CardDescription({ Key key, this.card, this.descriptionText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible( 
+      child: Container(
+      padding: EdgeInsets.all(10),
+      alignment: Alignment.bottomLeft,
+      child: !card.editable ? 
+        descriptionText :
+        TextFormField (
+          initialValue: descriptionText == null ? "" : descriptionText.text,
+          keyboardType: TextInputType.multiline,
+          maxLines: 10,
+          style: TextStyle(fontFamily: 'SourceSans', color: Colors.white),
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white)
+            ),
+            border: const OutlineInputBorder(),
+            fillColor: Colors.grey
+          ),
+          onChanged: (text) {
+            card.description = text;
+          },
+        )
+      )
+    );
+  }
+}
+
+class VoteInformation extends StatefulWidget {
+  Card card;
+  VoteInformation({ Key key, this.card}) : super(key: key);
+
+  @override
+  _VoteInformationState createState() => _VoteInformationState();
+}
+
+class _VoteInformationState extends State<VoteInformation> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(right:10, top:10),
+          child:AbsorbPointer(
+            child: RatingBar(
+              itemSize: 18,
+              initialRating: widget.card.rating ?? 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              ratingWidget: RatingWidget(
+                full: Icon(Icons.star, color: Colors.white),
+                half: Icon(Icons.star_half, color: Colors.white),
+                empty: Icon(Icons.star_border, color: Colors.white),
+              ),
+              ignoreGestures: true,
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            )
+          )
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+        )
+      ],
+    );
   }
 }
