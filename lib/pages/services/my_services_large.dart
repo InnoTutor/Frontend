@@ -33,7 +33,9 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     Services services = new Services();
     await services.getTutors();
     myCards = await services.getTutors();
-    setState(() {});
+    setState(() {
+      data_fetched = true;
+    });
     return myCards;
   }
 
@@ -48,11 +50,18 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
       PageCap(text: "My Services"),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: Column(
+        child: data_fetched ? Column(
             mainAxisSize: MainAxisSize.min,
             children: myCards
                 .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
-                .toList()),
+                .toList()) :
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                      backgroundColor: style.grey,
+                      valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+                    ),
+                ),
       ),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),

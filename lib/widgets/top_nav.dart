@@ -41,8 +41,10 @@ AppBar TopNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                 child: globals.user == null ? Wrap() : CircleAvatar(
                   radius: 18,
                   backgroundColor: style.lightGreen,
-                  child: Icon(Icons.person_outline, 
-                  color: style.darkGreen))
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundImage:NetworkImage(globals.user.imageUrl)
+                  ))
               )
           ),
         Container(
