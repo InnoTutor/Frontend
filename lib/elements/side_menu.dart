@@ -10,6 +10,7 @@ import 'package:inno_tutor/pages/schedules/my_schedules.dart';
 import 'package:inno_tutor/pages/services/my_serviecs.dart';
 import 'package:inno_tutor/pages/students/my_students.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
+import 'package:inno_tutor/widgets/logo.dart';
 import '../../constants/style.dart' as style;
 import 'package:inno_tutor/globals.dart' as globals;
 
