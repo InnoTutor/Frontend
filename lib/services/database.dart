@@ -75,20 +75,25 @@ class Services{
       return card;
     }
   }
-  Future<List<Subject>> getSubjects() async{
+  Future<List<String>> getSubjects() async{
+    List<String>subject_names;
     if(globals.user.token == null){
       globals.user.token = await AuthService().extractToken();
     }
+    print("I'm in subject names helloooozz ");
+
     Response res = await get(Uri.parse(Urls.subjects),headers: headers);
     print('getting subjects');
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
+      print(obj);
       List<Subject> subjects =  [];
       for (int i = 0; i < obj.length; i++) {
         Subject subject = Subject.fromJson(obj[i]);
         subjects.add(subject);
+        subject_names.add(subject.name);
       }
-      return subjects;
+      return subject_names;
 
     } else {
       throw "Unable to get subjects.";
