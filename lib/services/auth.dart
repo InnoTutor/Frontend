@@ -16,24 +16,6 @@ class AuthService {
   bool authSignedIn;
   String uid;
   String userEmail;
-
-  // todo
-  // change it with the meant uri
-  // //Handles Auth
-  // handleAuth() {
-  //   return StreamBuilder(
-  //       stream: FirebaseAuth.instance.authStateChanges(),
-  //       builder: (BuildContext context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           // todo
-  //           // return Home();
-  //         } else {
-  //           //todo
-  //           // return Login();
-  //         }
-  //       });
-  // }
-
   Future<String> extractTokenAndAccessSecureResource() async {
     var token = await extractToken();
     return await accessSecureResource(token);

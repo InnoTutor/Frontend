@@ -7,15 +7,8 @@ import 'package:inno_tutor/elements/side_menu.dart';
 
 import 'package:inno_tutor/services/auth.dart';
 import '../constants/style.dart' as style;
-import '../elements/drawer.dart';
 import '../helpers/responsiveness.dart';
 import '../layout.dart';
-import '../pages/profile/my_profile.dart';
-import '../pages/requests/my_requests.dart';
-import '../pages/schedules/my_schedules.dart';
-import '../pages/services/my_serviecs.dart';
-import '../pages/students/my_students.dart';
-import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 
 class LargeScreen extends StatefulWidget {
@@ -44,9 +37,9 @@ class _LargeScreenState extends State<LargeScreen> {
   fetch()async{
     if(globals.user == null)
       globals.user = await AuthService().getUserData();
-    setState(() {
-
-    });
+    if(mounted){
+      setState(() {});
+    }
   }
 
   @override
@@ -134,20 +127,25 @@ class _LargeScreenState extends State<LargeScreen> {
                                               Buttons.Google,
                                               text: "Sign up with Google",
                                               onPressed: () async {
-                                                setState(() {
-                                                  widget.login = false;
-                                                });
+                                                if(mounted){
+                                                  setState(() {
+                                                    widget.login = false;
+                                                  });
+                                                }
                                                 AuthService auth_service = new AuthService();
                                                 await auth_service
                                                     .signInWithGoogle().then((result) {
+
                                                   print(result);
                                                 }).catchError((error) {
                                                   print(
                                                       'Registration Error: $error');
                                                 });
-                                                setState(() {
-                                                  widget.login = true;
-                                                });
+                                                if(mounted){
+                                                  setState(() {
+                                                    widget.login = true;
+                                                  });
+                                                }
                                               },
                                             )
                                         ),

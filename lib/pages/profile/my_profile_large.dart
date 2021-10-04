@@ -36,11 +36,18 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
      globals.user= await AuthService().getUserData();
 
     }
+    if(mounted){
+      setState(() {
+
+      });
+    }
   }
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
     myCards = await services.getTutors();
-    setState(() {});
+    if(mounted){
+      setState(() {});
+    }
     return myCards;
   }
 
@@ -103,7 +110,5 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                 ])
               ],
             );
-
-
   }
 }

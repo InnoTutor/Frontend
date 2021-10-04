@@ -30,7 +30,9 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     Services services = new Services();
     await services.getTutors();
     myCards = await services.getTutors();
-    setState(() {});
+    if(mounted){
+      setState(() {});
+    }
     return myCards;
   }
 
