@@ -36,6 +36,11 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     return myCards;
   }
 
+  void update(){
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -53,7 +58,7 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(primary: style.darkGreen),
           onPressed: () {
-            _showDialog(context);
+            _showDialog(context, update);
           },
           child: CustomText(
             text: "Add new Service Card",
@@ -65,9 +70,10 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
   }
 }
 
-void _showDialog(BuildContext context) {
+void _showDialog(BuildContext context, Function update) {
 
   Card newCard = Card(0, 0, 0, "", 0, "", [], [], false, 0);
+  newCard.setEditable(false);
   List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
   String _selectedLocation; // Option 2
   showDialog(
@@ -86,16 +92,19 @@ void _showDialog(BuildContext context) {
                 child: PageCap(text: "Add new CV Card", padding: 0, color: style.grey)
               ),
               Container(
+                width: 610,
                 padding: EdgeInsets.only(top: 10),
                 alignment: Alignment.topLeft,
                 child: CustomDropDownButton(locations: _locations, card: newCard)
               ),
               Container(
+                width: 610,
                 padding: EdgeInsets.only(top: 10),
                 child: CheckBoxRow(card: newCard, color: style.darkGrey, themeColor: style.darkGrey,)
               ),
               Container(height: 10, child: Wrap()),
               Container(
+                width: 600,
                 height: 150,
                 decoration: BoxDecoration(
                   color: style.grey,
@@ -130,6 +139,8 @@ void _showDialog(BuildContext context) {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () {
+                    myCards.add(newCard);
+                    update();
                     Navigator.of(context).pop();
                   },
                   child: CustomText(
