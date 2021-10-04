@@ -9,7 +9,6 @@ part of 'card.dart';
 Card _$CardFromJson(Map<String, dynamic> json) {
   return Card(
     json['cardId'] as int,
-    json['tutorId'] as int,
     json['creatorId'] as int,
     json['subject'] as String,
     (json['rating'] as num)?.toDouble(),
@@ -26,7 +25,6 @@ Card _$CardFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'cardId': instance.cardId,
-      'tutorId': instance.tutorId,
       'creatorId': instance.creatorId,
       'subject': instance.subject,
       'rating': instance.rating,

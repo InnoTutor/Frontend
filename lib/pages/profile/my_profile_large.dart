@@ -2,15 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:inno_tutor/fake_data.dart';
-import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
-// import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
@@ -44,11 +39,11 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
   }
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
-    myCards = await services.getTutors();
+    globals.myCards = await services.getCvCards();
     if(mounted){
       setState(() {});
     }
-    return myCards;
+    return globals.myCards;
   }
 
   @override
@@ -104,7 +99,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                           padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
-                            children: myCards.map((item) => CvCardWidget(card: item)).toList()
+                            children: globals.myCards.map((item) => CvCardWidget(card: item)).toList()
                           )
                       )
                 ])
