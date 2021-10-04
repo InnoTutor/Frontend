@@ -51,12 +51,12 @@ class _SideMenuState extends State<SideMenu> {
                 backgroundColor: style.lightGreen,
                 title: Row(
                   children: [
-                    // Logo(
-                    //   path: 'assets/icons/logo.png',
-                    //   height: 30,
-                    //   leftPadding: 0,
-                    //   rightPadding: 0
-                    // ),
+                    Logo(
+                      path: 'assets/icons/dark_logo.png',
+                      height: 30,
+                      leftPadding: 0,
+                      rightPadding: 0
+                    ),
                     Padding(padding: EdgeInsets.only(right: 5),
                     ),
                   ],

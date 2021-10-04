@@ -26,10 +26,10 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
     fetch();
     fetch_cards('');
   }
+
   fetch()async{
     if(globals.user == null){
      globals.user= await AuthService().getUserData();
-
     }
     if(mounted){
       setState(() {
@@ -37,11 +37,14 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
       });
     }
   }
+
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
     globals.myCards = await services.getCvCards();
     if(mounted){
-      setState(() {});
+      setState(() {
+            data_fetched = true;
+      });
     }
     return globals.myCards;
   }
@@ -49,61 +52,69 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-              children: [
-                PageCap(text: "My Profile"),
-                Column(children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(15),
-                          child: Image.network(
-                            globals.user.imageUrl,
-                            fit: BoxFit.cover,
-                            height: 230,
-                          )),
-                      Column(children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          padding: EdgeInsets.only(left: 10, top: 10),
-                          child: CustomText(
-                            text: globals.user.name,
-                            color: style.darkGrey,
-                            size: 20,
-                            weight: FontWeight.bold,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          padding: EdgeInsets.only(left: 0, top: 10),
-                          child: CustomText(
-                            text: globals.user.name,
-                            color: style.darkGrey,
-                            size: 16,
-                            weight: FontWeight.normal,
-                          ),
-                        )
-                      ])
-                    ],
+      children: [
+        PageCap(text: "My Profile"),
+        Column(children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  padding: EdgeInsets.all(15),
+                  child: Image.network(
+                    globals.user.imageUrl,
+                    fit: BoxFit.cover,
+                    height: 230,
+                  )),
+              Column(children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 10, top: 10),
+                  child: CustomText(
+                    text: globals.user.name,
+                    color: style.darkGrey,
+                    size: 20,
+                    weight: FontWeight.bold,
                   ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.only(left: 0, top: 10),
+                  child: CustomText(
+                    text: globals.user.name,
+                    color: style.darkGrey,
+                    size: 16,
+                    weight: FontWeight.normal,
+                  ),
+                )
+              ])
+            ],
+          ),
+          Container(
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.only(left: 15, top: 10),
+              child: CustomText(
+                text: "My Services:",
+                color: style.darkGrey,
+                size: 18,
+                weight: FontWeight.bold,
+              )),
+          Container(
+                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                  child: data_fetched ? Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: 
+                    myCards.map((item) => CvCardWidget(card: item)).toList() 
+                  ) : 
                   Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.only(left: 15, top: 10),
-                      child: CustomText(
-                        text: "My Services:",
-                        color: style.darkGrey,
-                        size: 18,
-                        weight: FontWeight.bold,
-                      )),
-                  Container(
-                          padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: globals.myCards.map((item) => CvCardWidget(card: item)).toList()
-                          )
-                      )
-                ])
-              ],
-            );
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                      backgroundColor: style.grey,
+                      valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+                    ),
+                ),
+              )
+        ])
+      ],
+    );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inno_tutor/models/card.dart';
@@ -32,7 +33,9 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     Services services = new Services();
     myCards = await services.getCvCards();
     if(mounted){
-      setState(() {});
+      setState(() {     
+        data_fetched = true;
+    });
     }
     return myCards;
   }
@@ -48,11 +51,18 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
       PageCap(text: "My Services"),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: Column(
+        child: data_fetched ? Column(
             mainAxisSize: MainAxisSize.min,
             children: myCards
-                .map((item) => EditableCvCardWidget(card: item))
-                .toList()),
+                .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
+                .toList()) :
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: CircularProgressIndicator(
+                      backgroundColor: style.grey,
+                      valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+                    ),
+                ),
       ),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -118,11 +128,11 @@ void _showDialog(BuildContext context, Function update) {
                     TextFormField (
                       keyboardType: TextInputType.multiline,
                       maxLines: 10,
-                      style: TextStyle(fontFamily: 'SourceSans', color: Colors.white),
+                      style: TextStyle(fontFamily: 'SourceSans', color: style.darkGrey, fontWeight: FontWeight.bold),
                       decoration: InputDecoration(
                         hintText: "Your description...",
                         hoverColor: Colors.white,
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: style.darkGrey, fontWeight: FontWeight.bold),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white),
                         ),
@@ -184,7 +194,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         dropdownColor: style.grey,
         focusColor: style.darkGrey,
         borderRadius: BorderRadius.circular(10),
-        hint: CustomText(text: "Choose subject", color: Colors.white, weight: FontWeight.bold,),
+        hint: CustomText(text: "Choose subject", color: style.darkGrey, weight: FontWeight.bold,),
         value: widget.selectedLocation,
         onChanged: (newValue) {
           setState(() {
@@ -194,7 +204,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         },
         items: widget.locations.map((location) {
           return DropdownMenuItem(
-            child: new CustomText(text: location, color: Colors.white, weight: FontWeight.bold,),
+            child: new CustomText(text: location, color: style.darkGrey, weight: FontWeight.bold,),
             value: location,
           );
         }).toList(),
