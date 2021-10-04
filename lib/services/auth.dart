@@ -78,7 +78,7 @@ class AuthService {
       globals.user = user2.User(uid , name, userEmail,imageUrl);
       globals.user.token = await user.getIdToken();
       accessSecureResource(globals.user.token);
-
+      print('user data has been posted to the server successfully');
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // prefs.setBool('auth', true);
       return user;

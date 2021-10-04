@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 import 'package:inno_tutor/services/auth.dart';
@@ -15,10 +16,11 @@ class Services{
     "Authorization" :"Bearer " + globals.user.token
   };
   Future<List<Card>> getCvCards() async{
-    Response res = await get(Uri.parse(Urls.cv_card),headers: headers);
     if(globals.user.token == null){
       globals.user.token = await AuthService().extractToken();
     }
+    Response res = await get(Uri.parse(Urls.cv_card),headers: headers);
+
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
       List<Card> cards =  [];
@@ -71,6 +73,25 @@ class Services{
     if (response.statusCode == 200) {
       Card card = Card.fromJson(jsonDecode(response.body));
       return card;
+    }
+  }
+  Future<List<Subject>> getSubjects() async{
+    if(globals.user.token == null){
+      globals.user.token = await AuthService().extractToken();
+    }
+    Response res = await get(Uri.parse(Urls.subjects),headers: headers);
+    print('getting subjects');
+    if (res.statusCode == 200) {
+      final obj = jsonDecode(res.body);
+      List<Subject> subjects =  [];
+      for (int i = 0; i < obj.length; i++) {
+        Subject subject = Subject.fromJson(obj[i]);
+        subjects.add(subject);
+      }
+      return subjects;
+
+    } else {
+      throw "Unable to get subjects.";
     }
   }
 

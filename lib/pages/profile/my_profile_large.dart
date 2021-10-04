@@ -42,6 +42,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
     globals.myCards = await services.getCvCards();
+    print(globals.myCards);
     if(mounted){
       setState(() {
             data_fetched = true;
@@ -104,7 +105,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
                   child: data_fetched ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: 
-                    myCards.map((item) => CvCardWidget(card: item)).toList() 
+                    globals.myCards.map((item) => CvCardWidget(card: item)).toList()
                   ) : 
                   Container(
                   padding: EdgeInsets.all(10),

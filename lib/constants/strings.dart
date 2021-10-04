@@ -8,4 +8,5 @@ class Urls {
   static String request_card = url+'request-card';
   static String cv_card = url+'services';
   static String profile = url+'profile';
+  static String subjects = url+'session/subject';
 }
