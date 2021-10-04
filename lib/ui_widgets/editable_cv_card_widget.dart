@@ -209,10 +209,15 @@ class CardDescription extends StatelessWidget {
   }
 }
 
-class VoteInformation extends StatelessWidget {
+class VoteInformation extends StatefulWidget {
   Card card;
   VoteInformation({ Key key, this.card}) : super(key: key);
 
+  @override
+  _VoteInformationState createState() => _VoteInformationState();
+}
+
+class _VoteInformationState extends State<VoteInformation> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -220,28 +225,27 @@ class VoteInformation extends StatelessWidget {
         Container(
           padding: EdgeInsets.only(right:10, top:10),
           child:AbsorbPointer(
-            // child: RatingBar(
-            //   itemSize: 18,
-            //   initialRating: widget.card.rating,
-            //   direction: Axis.horizontal,
-            //   allowHalfRating: true,
-            //   itemCount: 5,
-            //   ratingWidget: RatingWidget(
-            //     full: Icon(Icons.star, color: Colors.white),
-            //     half: Icon(Icons.star_half, color: Colors.white),
-            //     empty: Icon(Icons.star_border, color: Colors.white),
-            //   ),
-            //   ignoreGestures: true,
-            //   onRatingUpdate: (rating) {
-            //     print(rating);
-            //   },
-            // )
-            child: Wrap(),
+            child: RatingBar(
+              itemSize: 18,
+              initialRating: widget.card.rating ?? 0,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              ratingWidget: RatingWidget(
+                full: Icon(Icons.star, color: Colors.white),
+                half: Icon(Icons.star_half, color: Colors.white),
+                empty: Icon(Icons.star_border, color: Colors.white),
+              ),
+              ignoreGestures: true,
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            )
           )
         ),
         Container(
           alignment: Alignment.centerLeft,
-          child: CustomText(text: "                 " + card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+          child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
         )
       ],
     );

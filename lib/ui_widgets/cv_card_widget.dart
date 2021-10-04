@@ -66,23 +66,22 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                     Column(children: [
                       Container(
                         padding: EdgeInsets.only(right:10, top:10),
-                        // child: RatingBar(
-                        //   itemSize: 18,
-                        //   initialRating: widget.card.rating,
-                        //   direction: Axis.horizontal,
-                        //   allowHalfRating: true,
-                        //   itemCount: 5,
-                        //   ratingWidget: RatingWidget(
-                        //     full: Icon(Icons.star, color: Colors.white),
-                        //     half: Icon(Icons.star_half, color: Colors.white),
-                        //     empty: Icon(Icons.star_border, color: Colors.white),
-                        //   ),
-                        //   ignoreGestures: true,
-                        //   onRatingUpdate: (rating) {
-                        //     print(rating);
-                        //   },
-                        // )
-                        child: Wrap(),
+                        child: RatingBar(
+                          itemSize: 18,
+                          initialRating: widget.card.rating ?? 0,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          ratingWidget: RatingWidget(
+                            full: Icon(Icons.star, color: Colors.white),
+                            half: Icon(Icons.star_half, color: Colors.white),
+                            empty: Icon(Icons.star_border, color: Colors.white),
+                          ),
+                          ignoreGestures: true,
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        )
                       ),
                       Container(
                         //padding: EdgeInsets.only(left: 10),
