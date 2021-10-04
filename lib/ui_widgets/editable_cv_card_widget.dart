@@ -11,7 +11,8 @@ import '../constants/style.dart' as style;
 
 class EditableCvCardWidget extends StatefulWidget{
   Card card;
-  EditableCvCardWidget({ Key key, this.card}) : super(key: key);
+  Function updateMyServices;
+  EditableCvCardWidget({ Key key, this.card, this.updateMyServices}) : super(key: key);
 
   @override
   _EditableCvCardWidgetState createState() => _EditableCvCardWidgetState();
@@ -107,6 +108,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                           onPressed: () {
                             setState(() {
                               myCards.remove(widget.card);
+                              widget.updateMyServices();
                             });
                           },
                           child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),
