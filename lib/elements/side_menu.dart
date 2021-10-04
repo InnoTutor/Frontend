@@ -60,7 +60,7 @@ class _SideMenuState extends State<SideMenu> {
                 title: Row(
                   children: [
                     Logo(
-                      path: 'assets/icons/logo.png',
+                      path: 'assets/icons/dark_logo.png',
                       height: 30,
                       leftPadding: 0,
                       rightPadding: 0
