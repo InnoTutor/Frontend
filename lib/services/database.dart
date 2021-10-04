@@ -4,50 +4,48 @@ import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/tutor.dart';
+import 'package:inno_tutor/globals.dart' as globals;
+import 'package:inno_tutor/services/auth.dart';
 
 class Services{
   Urls urls = Urls();
   Map<String, String> headers = {
-    "Accept": "application/json",
-    "Access-Control-Allow-Origin": "*"
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Authorization" :"Bearer " + globals.user.token
   };
-  Future<List<Card>> getTutors() async {
-
-    Response res = await get(Uri.parse(Urls.get_tutors));
-
+  Future<List<Card>> getCvCards() async{
+    Response res = await get(Uri.parse(Urls.cv_card),headers: headers);
+    if(globals.user.token == null){
+      globals.user.token = await AuthService().extractToken();
+    }
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
-      print(obj);
       List<Card> cards =  [];
-
       for (int i = 0; i < obj.length; i++) {
         Card card = Card.fromJson(obj[i]);
         cards.add(card);
-        // print('\n\n\n');
-        // print(card.toJson());
+
       }
       for(Card card in cards){
         card.setEditable(false);
         card.setHeight(100);
       }
-      print('\n\n\n');
-
-      print('end of the file');
 
       return cards;
     } else {
       throw "Unable to cards data.";
     }
   }
+  Future<List<Card>> getTutors() async {
+
+  }
   // create request card
   Future<void> createRequestCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
     var response = await post(Uri.parse(Urls.request_card),
-        headers: <String, String>{
-          "Accept": "application/json",
-          "Access-Control_Allow_Origin": "*"
-        },
+        headers: headers,
         body: json.encode(data)
     );
 
@@ -61,16 +59,18 @@ class Services{
   Future<void> createCvCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
+    if(globals.user.token == null){
+      globals.user.token = await AuthService().extractToken();
+    }
     var response = await post(Uri.parse(Urls.cv_card),
-        headers: <String, String>{"Content-Type": "application/json"},
+        headers: headers,
         body: json.encode(data)
     );
-
+    print("I'm in create CV card");
     print(response.body);
     if (response.statusCode == 200) {
-
-      // Card card = Card.fromJson(response.body);
-      // return card;
+      Card card = Card.fromJson(jsonDecode(response.body));
+      return card;
     }
   }
 

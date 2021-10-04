@@ -16,24 +16,6 @@ class AuthService {
   bool authSignedIn;
   String uid;
   String userEmail;
-
-  // todo
-  // change it with the meant uri
-  // //Handles Auth
-  // handleAuth() {
-  //   return StreamBuilder(
-  //       stream: FirebaseAuth.instance.authStateChanges(),
-  //       builder: (BuildContext context, snapshot) {
-  //         if (snapshot.hasData) {
-  //           // todo
-  //           // return Home();
-  //         } else {
-  //           //todo
-  //           // return Login();
-  //         }
-  //       });
-  // }
-
   Future<String> extractTokenAndAccessSecureResource() async {
     var token = await extractToken();
     return await accessSecureResource(token);
@@ -47,17 +29,18 @@ class AuthService {
   }
 
   Future<String> accessSecureResource(token) async {
-    //todo
-    // is it needed to get changed?
-    Map<String, String> headers = {
-      "Content-type": "application/json",
-      "Authorization" :"Bearer " + token
-    };
     print("Token "+ token);
-    Response response = await get(Uri.parse(Urls.url), headers: headers);
+    var response = await post(Uri.parse(Urls.profile),
+        headers: <String, String> {
+        "Content-type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization" :"Bearer " + globals.user.token
+      },
+
+    );
     int statusCode = response.statusCode;
     if(statusCode != 200){
-      return "Could not get input from server";
+      return "Could not post input to server";
     }
     return response.body.toString();
   }
@@ -92,8 +75,10 @@ class AuthService {
       name = user.displayName;
       userEmail = user.email;
       imageUrl = user.photoURL;
-      final User currentUser = _auth.currentUser;
       globals.user = user2.User(uid , name, userEmail,imageUrl);
+      globals.user.token = await user.getIdToken();
+      accessSecureResource(globals.user.token);
+
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // prefs.setBool('auth', true);
       return user;

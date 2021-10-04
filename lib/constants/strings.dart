@@ -5,7 +5,7 @@ class Urls {
   static String get_students = url + 'students-list';
 
   static String delete_tutors =  get_tutors+'delete';
-  static String request_card = 'http://localhost:8080/card/request-card';
-  static String cv_card = 'http://localhost:8080/card/cv-card';
-
+  static String request_card = url+'request-card';
+  static String cv_card = url+'services';
+  static String profile = url+'profile';
 }

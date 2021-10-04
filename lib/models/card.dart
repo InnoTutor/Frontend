@@ -7,9 +7,8 @@ part 'card.g.dart';
 
 @JsonSerializable()
 class Card{
-  Card(this.cardId, this.tutorId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.countVoted);
+  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.countVoted);
   int cardId;
-  int tutorId;
   int creatorId;
   String subject;
   double rating;

@@ -2,13 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart' hide Card;
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
-import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/style.dart' as style;
-
+import 'package:inno_tutor/globals.dart';
 class EditableCvCardWidget extends StatefulWidget{
   Card card;
   Function updateMyServices;

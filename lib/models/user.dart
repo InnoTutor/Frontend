@@ -20,7 +20,7 @@ class User {
   List<Card> servicesList;
   RequestedStudents myStudentsList;
   List<Card> requestsList;
-
+  String token;
   String imageUrl;
 
   /// A necessary factory constructor for creating a new User instance

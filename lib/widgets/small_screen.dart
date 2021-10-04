@@ -1,14 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:inno_tutor/models/user.dart';
-
-import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/services/auth.dart';
-import 'package:inno_tutor/widgets/top_nav.dart';
 import '../constants/style.dart' as style;
-import '../layout.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 
 class SmallScreen extends StatefulWidget {
@@ -24,6 +18,14 @@ class _SmallScreenState extends State<SmallScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    fetch();
+  }
+  fetch()async{
+    if(globals.user == null)
+      globals.user = await AuthService().getUserData();
+    if(mounted){
+      setState(() {});
+    }
   }
   @override
   Widget build(BuildContext context) {

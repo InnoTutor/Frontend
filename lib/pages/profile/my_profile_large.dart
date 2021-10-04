@@ -2,15 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:inno_tutor/fake_data.dart';
-import 'package:inno_tutor/fake_data.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
-// import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
@@ -36,15 +31,22 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
     if(globals.user == null){
      globals.user= await AuthService().getUserData();
     }
+    if(mounted){
+      setState(() {
+
+      });
+    }
   }
 
   Future<List<Card>> fetch_cards(String search) async {
     Services services = new Services();
-    myCards = await services.getTutors();
-    setState(() {
-      data_fetched = true;
-    });
-    return myCards;
+    globals.myCards = await services.getCvCards();
+    if(mounted){
+      setState(() {
+            data_fetched = true;
+      });
+    }
+    return globals.myCards;
   }
 
   @override
