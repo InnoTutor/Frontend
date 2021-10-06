@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart' hide Card;
@@ -6,6 +7,7 @@ import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/style.dart' as style;
 import 'package:inno_tutor/globals.dart' as globals;
 class EditableCvCardWidget extends StatefulWidget{
@@ -106,10 +108,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                           style: ElevatedButton.styleFrom(
                             primary: style.pink
                           ),
-                          onPressed: () {
+                          onPressed: ()async {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+
                             if(mounted)
                               setState(() {
                               globals.myCards.remove(widget.card);
+                              prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
                               widget.updateMyServices();
                             });
                           },

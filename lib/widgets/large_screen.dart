@@ -47,16 +47,12 @@ class _LargeScreenState extends State<LargeScreen> {
       List<String> cards = prefs.getStringList('my_cards');
       if(user!=null) {
         globals.user = User.fromJson(json.decode(user));
-        print("I'm in large screen in fetch function user value ");
-        print(globals.user.toJson());
         if(mounted){
           setState(() {
           });
         }
       }
       if(cards!=null){
-        print("I'm in large screen in fetch function cards values ");
-
         globals.myCards = cards.map((e) => Card.fromJson(json.decode(e))).toList();
         print(globals.myCards.map((e) => e.toJson()));
         if(mounted){

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
@@ -11,6 +12,7 @@ import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 import 'package:inno_tutor/ui_widgets/editable_cv_card_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
@@ -154,6 +156,8 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
                   onPressed: () async{
                     newCard = await Services().createCvCard(newCard);
                     globals.myCards.add(newCard);
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
                     update();
                     Navigator.of(context).pop();
                   },
