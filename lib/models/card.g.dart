@@ -15,7 +15,7 @@ Card _$CardFromJson(Map<String, dynamic> json) {
     json['description'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
-    json['isReserved'] as bool,
+    json['hidden'] as bool,
     json['countVoted'] as int,
   )
     ..editable = json['editable'] as bool
@@ -32,7 +32,7 @@ Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
       'sessionType': instance.sessionType,
       'description': instance.description,
       'countVoted': instance.countVoted,
-      'isReserved': instance.isReserved,
+      'hidden': instance.hidden,
       'editable': instance.editable,
       'height': instance.height,
       'currentIcon': instance.currentIcon,

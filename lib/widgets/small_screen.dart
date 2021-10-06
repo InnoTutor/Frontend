@@ -21,8 +21,7 @@ class _SmallScreenState extends State<SmallScreen> {
     fetch();
   }
   fetch()async{
-    if(globals.user == null)
-      globals.user = await AuthService().getUserData();
+
     if(mounted){
       setState(() {});
     }
@@ -46,12 +45,11 @@ class _SmallScreenState extends State<SmallScreen> {
           onPressed: () async {
       AuthService auth_service = new AuthService();
       await auth_service.signInWithGoogle().then((result) {
-
-        print(result);
       }).catchError((error) {
         print('Registration Error: $error');
       });
-      setState(() {
+      if(mounted)
+        setState(() {
       });
 
           },

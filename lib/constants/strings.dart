@@ -5,8 +5,8 @@ class Urls {
   static String get_students = url + 'students-list';
 
   static String delete_tutors =  get_tutors+'delete';
-  static String request_card = url+'request-card';
-  static String cv_card = url+'services';
+  static String request_card = url+'card/request-card';
+  static String my_cvcard = url+'services';
   static String profile = url+'profile';
-  static String subjects = url+'session/subject';
+  static String subjects = url+'session/subjects';
 }

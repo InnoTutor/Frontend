@@ -10,7 +10,7 @@ part 'user.g.dart';
 class User {
   User(this.userId, this.name, this.email, this.imageUrl);
 
-  String userId;
+  int userId;
   String name;
   String surname;
   String email;

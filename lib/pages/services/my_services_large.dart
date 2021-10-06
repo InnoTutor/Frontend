@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
@@ -6,15 +7,17 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 import 'package:inno_tutor/ui_widgets/editable_cv_card_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
-import 'package:inno_tutor/globals.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 
 class MyServicesLargePage extends StatefulWidget {
   @override
@@ -22,7 +25,6 @@ class MyServicesLargePage extends StatefulWidget {
 }
 
 class _MyServicesLargeState extends State<MyServicesLargePage> {
-  bool data_fetched = false;
   @override
   initState() {
     super.initState();
@@ -30,18 +32,19 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
   }
 
   Future<List<Card>> fetch_cards(String search) async {
-    Services services = new Services();
-    myCards = await services.getCvCards();
-    if(mounted){
-      setState(() {     
-        data_fetched = true;
-    });
+    if(globals.myCards == null) {
+      globals.myCards = await new Services().getCvCards();
+      if (mounted) {
+        setState(() {
+        });
+      }
     }
-    return myCards;
+    return globals.myCards;
   }
 
   void update(){
-    setState(() {
+    if(mounted)
+      setState(() {
     });
   }
 
@@ -51,9 +54,9 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
       PageCap(text: "My Services"),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: data_fetched ? Column(
+        child: globals.myCards!=null ? Column(
             mainAxisSize: MainAxisSize.min,
-            children: myCards
+            children: globals.myCards
                 .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
                 .toList()) :
                 Container(
@@ -68,8 +71,10 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(primary: style.darkGreen),
-          onPressed: () {
-            _showDialog(context, update);
+          onPressed: ()async {
+            List<String>subjects = await Services().getSubjects();
+
+            _showDialog(context, update,subjects);
           },
           child: CustomText(
             text: "Add new Service Card",
@@ -81,11 +86,10 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
   }
 }
 
-void _showDialog(BuildContext context, Function update) {
+void _showDialog(BuildContext context, Function update, List<String> subjects) async{
 
   Card newCard = Card(0, 0, "", 0, "", [], [], false, 0);
   newCard.setEditable(false);
-  List<String> _locations = ['A', 'B', 'C', 'D']; // Option 2
   String _selectedLocation; // Option 2
   showDialog(
     context: context,
@@ -106,7 +110,7 @@ void _showDialog(BuildContext context, Function update) {
                 width: 610,
                 padding: EdgeInsets.only(top: 10),
                 alignment: Alignment.topLeft,
-                child: CustomDropDownButton(locations: _locations, card: newCard)
+                child: CustomDropDownButton(locations: subjects, card: newCard)
               ),
               Container(
                 width: 610,
@@ -150,8 +154,10 @@ void _showDialog(BuildContext context, Function update) {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () async{
-                    myCards.add(newCard);
-                    await Services().createCvCard(newCard);
+                    newCard = await Services().createCvCard(newCard);
+                    globals.myCards.add(newCard);
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
                     update();
                     Navigator.of(context).pop();
                   },
@@ -197,7 +203,8 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         hint: CustomText(text: "Choose subject", color: style.darkGrey, weight: FontWeight.bold,),
         value: widget.selectedLocation,
         onChanged: (newValue) {
-          setState(() {
+          if(mounted)
+            setState(() {
             widget.card.subject = newValue;
             widget.selectedLocation = newValue;
           });

@@ -18,37 +18,26 @@ class MyProfileLargePage extends StatefulWidget {
 }
 
 class _MyProfileLargeState extends State<MyProfileLargePage> {
-  var cards = List<Card>.generate(200, (index) => null);
-
-  bool data_fetched = false;
   @override
   initState() {
     super.initState();
-    fetch();
     fetch_cards('');
   }
-
-  fetch()async{
-    if(globals.user == null){
-     globals.user= await AuthService().getUserData();
-    }
-    if(mounted){
-      setState(() {
-
-      });
-    }
-  }
-
   Future<List<Card>> fetch_cards(String search) async {
-    Services services = new Services();
-    globals.myCards = await services.getCvCards();
-    print(globals.myCards);
-    if(mounted){
-      setState(() {
-            data_fetched = true;
-      });
+    if(globals.myCards == null) {
+      print(globals.user.name);
+      print(globals.myCards);
+      globals.myCards = await new Services().getCvCards();
+      print(globals.myCards);
+      if (mounted) {
+        setState(() {
+        });
+      }
     }
+    print('no error');
+
     return globals.myCards;
+
   }
 
   @override
@@ -102,7 +91,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
               )),
           Container(
                   padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                  child: data_fetched ? Column(
+                  child: globals.myCards!=null ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: 
                     globals.myCards.map((item) => CvCardWidget(card: item)).toList()
