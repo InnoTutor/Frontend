@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:inno_tutor/constants/controllers.dart';
 import 'package:inno_tutor/elements/routes.dart';
 import 'package:inno_tutor/elements/side_menu_item.dart';
+import 'package:inno_tutor/globals.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
+import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/pages/requests/my_requests.dart';
 import 'package:inno_tutor/pages/schedules/my_schedules.dart';
@@ -94,6 +96,9 @@ class _SideMenuState extends State<SideMenu> {
             children: sideMenuItems.map((itemName) => SideMenuItem(
               itemName: itemName,
               onTap: (){
+                for (Card card in myCards){
+                  card.setEditable(false);
+                }
                 if (!menuController.isActive(itemName)){
                   menuController.changeActiveItemTo(itemName);
                   widget.updPage(names[title.indexOf(itemName)]);
