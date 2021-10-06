@@ -7,7 +7,7 @@ part 'card.g.dart';
 
 @JsonSerializable()
 class Card{
-  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.isReserved, this.countVoted);
+  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.hidden, this.countVoted);
   int cardId;
   int creatorId;
   String subject;
@@ -16,7 +16,7 @@ class Card{
   List<String> sessionType;
   String description;
   int countVoted = 0;
-  bool isReserved = false;
+  bool hidden = false;
   bool editable = false;
   int height = 100;
   int currentIcon = 0;
@@ -27,13 +27,21 @@ class Card{
   void setEditable(bool edit){
     if (edit){
       this.editable = true;
-      this.isReserved = false;
+      this.hidden = false;
       this.currentIcon = 0;
     } else {
-      this.isReserved = false;
+      this.hidden = false;
       this.editable = false;
       this.currentIcon = 1;
     }
+  }
+  void initializeCard(){
+      this.editable = false;
+      this.hidden = false;
+      this.currentIcon = 0;
+      this.height = 100;
+      this.rating=0;
+
   }
 
   void setHeight(int height){

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -5,6 +7,8 @@ import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/user.dart' as user2;
 import 'package:inno_tutor/globals.dart' as globals;
+import 'package:inno_tutor/services/database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
 
@@ -16,10 +20,6 @@ class AuthService {
   bool authSignedIn;
   String uid;
   String userEmail;
-  Future<String> extractTokenAndAccessSecureResource() async {
-    var token = await extractToken();
-    return await accessSecureResource(token);
-  }
 
   Future<String> extractToken() async{
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -28,19 +28,24 @@ class AuthService {
     return token;
   }
 
-  Future<String> accessSecureResource(token) async {
+  Future<void> accessSecureResource(token) async {
     print("Token "+ token);
-    var response = await post(Uri.parse(Urls.profile),
+    var response = await get(Uri.parse(Urls.profile),
         headers: <String, String> {
         "Content-type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Authorization" :"Bearer " + globals.user.token
+        "Authorization" :"Bearer " + token
       },
-
     );
+
     int statusCode = response.statusCode;
     if(statusCode != 200){
       return "Could not post input to server";
+    }else{
+      print('in access secure resource and printing response body');
+      print(response.body);
+      globals.user = user2.User.fromJson(jsonDecode(response.body));
+      globals.user.token=token;
     }
     return response.body.toString();
   }
@@ -56,7 +61,7 @@ class AuthService {
     print("User signed out of Google account");
   }
   //SignIn
-  Future<User> signInWithGoogle() async {
+  Future<void> signInWithGoogle() async {
 
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount
@@ -71,35 +76,32 @@ class AuthService {
     final User user = userCredential.user;
 
     if (user != null) {
-      uid = user.uid;
-      name = user.displayName;
-      userEmail = user.email;
-      imageUrl = user.photoURL;
-      globals.user = user2.User(uid , name, userEmail,imageUrl);
-      globals.user.token = await user.getIdToken();
-      accessSecureResource(globals.user.token);
+      String token = await user.getIdToken();
+      await accessSecureResource(token);
+      globals.myCards = await Services().getCvCards();
+      globals.user.imageUrl =  user.photoURL;
       print('user data has been posted to the server successfully');
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // prefs.setBool('auth', true);
-      return user;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('user', json.encode(globals.user));
+      prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
     }
     return null;
 
   }
-  Future<user2.User> getUserData() async {
-
-    final User currentUser = await _auth.currentUser;
-    if(currentUser == null)
-      return null;
-
-    uid =  currentUser.uid;
-    name =  currentUser.displayName;
-    userEmail =  currentUser.email;
-    imageUrl =  currentUser.photoURL;
-
-    return user2.User(uid, name, userEmail, imageUrl);
-
-    }
+  // Future<user2.User> getUserData() async {
+  //
+  //   final User currentUser = await _auth.currentUser;
+  //   if(currentUser == null)
+  //     return null;
+  //
+  //   uid =  currentUser.uid;
+  //   name =  currentUser.displayName;
+  //   userEmail =  currentUser.email;
+  //   imageUrl =  currentUser.photoURL;
+  //
+  //   return globals.user;
+  //
+  //   }
 
 
 }

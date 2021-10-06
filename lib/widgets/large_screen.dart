@@ -1,16 +1,19 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:inno_tutor/elements/side_menu.dart';
-
+import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/style.dart' as style;
 import '../helpers/responsiveness.dart';
 import '../layout.dart';
 import 'package:inno_tutor/globals.dart' as globals;
-
+import 'package:inno_tutor/models/card.dart';
 class LargeScreen extends StatefulWidget {
   Widget page;
   bool login = false;
@@ -25,22 +28,46 @@ class LargeScreen extends StatefulWidget {
 
 class _LargeScreenState extends State<LargeScreen> {
   void updatePage(Widget nextPage) {
-    setState(() {
-      widget.page = nextPage;
-    });
+    if(mounted) {
+      setState(() {
+        widget.page = nextPage;
+      });
+    }
   }
   @override
   void initState() {
     super.initState();
     fetch();
+
   }
   fetch()async{
-    if(globals.user == null)
-      globals.user = await AuthService().getUserData();
-    if(mounted){
-      setState(() {});
+    if(globals.user==null){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String user = prefs.getString('user');
+      List<String> cards = prefs.getStringList('my_cards');
+      if(user!=null) {
+        globals.user = User.fromJson(json.decode(user));
+        print("I'm in large screen in fetch function user value ");
+        print(globals.user.toJson());
+        if(mounted){
+          setState(() {
+          });
+        }
+      }
+      if(cards!=null){
+        print("I'm in large screen in fetch function cards values ");
+
+        globals.myCards = cards.map((e) => Card.fromJson(json.decode(e))).toList();
+        print(globals.myCards.map((e) => e.toJson()));
+        if(mounted){
+          setState(() {
+          });
+        }
+      }
     }
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -134,10 +161,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                                 }
                                                 AuthService auth_service = new AuthService();
                                                 await auth_service
-                                                    .signInWithGoogle().then((result) {
-
-                                                  print(result);
-                                                }).catchError((error) {
+                                                    .signInWithGoogle().then((result) {}).catchError((error) {
                                                   print(
                                                       'Registration Error: $error');
                                                 });

@@ -15,7 +15,7 @@ import 'package:inno_tutor/ui_widgets/editable_cv_card_widget.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
-import 'package:inno_tutor/globals.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 
 class MyServicesLargePage extends StatefulWidget {
   @override
@@ -23,7 +23,6 @@ class MyServicesLargePage extends StatefulWidget {
 }
 
 class _MyServicesLargeState extends State<MyServicesLargePage> {
-  bool data_fetched = false;
   @override
   initState() {
     super.initState();
@@ -31,18 +30,19 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
   }
 
   Future<List<Card>> fetch_cards(String search) async {
-    Services services = new Services();
-    myCards = await services.getCvCards();
-    if(mounted){
-      setState(() {     
-        data_fetched = true;
-    });
+    if(globals.myCards == null) {
+      globals.myCards = await new Services().getCvCards();
+      if (mounted) {
+        setState(() {
+        });
+      }
     }
-    return myCards;
+    return globals.myCards;
   }
 
   void update(){
-    setState(() {
+    if(mounted)
+      setState(() {
     });
   }
 
@@ -52,9 +52,9 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
       PageCap(text: "My Services"),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: data_fetched ? Column(
+        child: globals.myCards!=null ? Column(
             mainAxisSize: MainAxisSize.min,
-            children: myCards
+            children: globals.myCards
                 .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
                 .toList()) :
                 Container(
@@ -152,8 +152,8 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () async{
-                    myCards.add(newCard);
-                    await Services().createCvCard(newCard);
+                    newCard = await Services().createCvCard(newCard);
+                    globals.myCards.add(newCard);
                     update();
                     Navigator.of(context).pop();
                   },
@@ -199,7 +199,8 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         hint: CustomText(text: "Choose subject", color: style.darkGrey, weight: FontWeight.bold,),
         value: widget.selectedLocation,
         onChanged: (newValue) {
-          setState(() {
+          if(mounted)
+            setState(() {
             widget.card.subject = newValue;
             widget.selectedLocation = newValue;
           });

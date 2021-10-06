@@ -7,7 +7,7 @@ part 'subject.g.dart';
 class Subject {
   Subject(this.subjectId, this.name);
 
-  String subjectId;
+  int subjectId;
   String name;
 
   factory Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);

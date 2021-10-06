@@ -15,7 +15,8 @@ class CheckBoxRow extends StatefulWidget {
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
   void manageParameters(String code, String param, bool value){
-    setState(() {
+    if(mounted)
+      setState(() {
       if (code == "format"){
         if (value){
           widget.card.sessionFormat.add(param);
@@ -53,7 +54,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "type", 
-            param: ["public", "private"]
+            param: ["group", "private"]
           )
         )
       ]

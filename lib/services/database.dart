@@ -4,9 +4,7 @@ import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/subject.dart';
-import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/globals.dart' as globals;
-import 'package:inno_tutor/services/auth.dart';
 
 class Services{
   Urls urls = Urls();
@@ -16,34 +14,28 @@ class Services{
     "Authorization" :"Bearer " + globals.user.token
   };
   Future<List<Card>> getCvCards() async{
-    if(globals.user.token == null){
-      globals.user.token = await AuthService().extractToken();
-    }
-    Response res = await get(Uri.parse(Urls.cv_card),headers: headers);
-
+    Response res = await get(Uri.parse(Urls.my_cvcard),headers: headers);
     if (res.statusCode == 200) {
+
       final obj = jsonDecode(res.body);
-      List<Card> cards =  [];
+      List<Card>cards=[];
       for (int i = 0; i < obj.length; i++) {
         Card card = Card.fromJson(obj[i]);
-        cards.add(card);
 
-      }
-      for(Card card in cards){
         card.setEditable(false);
         card.setHeight(100);
+        cards.add(card);
       }
-
       return cards;
     } else {
-      throw "Unable to cards data.";
+      throw "Unable to get cards data.";
     }
   }
   Future<List<Card>> getTutors() async {
 
   }
   // create request card
-  Future<void> createRequestCard(Card card) async {
+  Future<Card> createRequestCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
     var response = await post(Uri.parse(Urls.request_card),
@@ -53,44 +45,50 @@ class Services{
 
     print(response.body);
     if (response.statusCode == 200) {
-       // Card card = Card.fromJson(response.body);
-       // return card;
+       Card card = Card.fromJson(jsonDecode(response.body));
+       return card;
     }
   }
   // create cv card
-  Future<void> createCvCard(Card card) async {
+  Future<Card> createCvCard(Card card) async {
     final data = card.toJson();
     data.remove('cardId');
-    if(globals.user.token == null){
-      globals.user.token = await AuthService().extractToken();
-    }
-    var response = await post(Uri.parse(Urls.cv_card),
+    data.remove('hidden');
+    data.remove('height');
+    data.remove('rating');
+    data.remove('creatorId');
+    data.remove('countVoted');
+    data.remove('editable');
+    data.remove('currentIcon');
+    print(data);
+    print(jsonEncode(data));
+    var response = await post(Uri.parse(Urls.my_cvcard),
         headers: headers,
-        body: json.encode(data)
+        body: jsonEncode(data)
     );
-    print("I'm in create CV card");
     print(response.body);
-    if (response.statusCode == 200) {
-      Card card = Card.fromJson(jsonDecode(response.body));
+    print(response.statusCode);
+    if (response.statusCode == 201) {
+      Card newCard = Card.fromJson(jsonDecode(response.body));
+      newCard.initializeCard();
+      return newCard;
+    }else{
+      print("couldn't post the data of createCVCard");
       return card;
     }
   }
   Future<List<String>> getSubjects() async{
-    List<String>subject_names;
-    if(globals.user.token == null){
-      globals.user.token = await AuthService().extractToken();
-    }
+    List<String>subject_names=[];
     print("I'm in subject names helloooozz ");
 
     Response res = await get(Uri.parse(Urls.subjects),headers: headers);
-    print('getting subjects');
     if (res.statusCode == 200) {
       final obj = jsonDecode(res.body);
-      print(obj);
       List<Subject> subjects =  [];
       for (int i = 0; i < obj.length; i++) {
         Subject subject = Subject.fromJson(obj[i]);
         subjects.add(subject);
+
         subject_names.add(subject.name);
       }
       return subject_names;

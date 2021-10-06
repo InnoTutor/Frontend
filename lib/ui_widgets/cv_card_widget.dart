@@ -28,7 +28,8 @@ class _CvCardWidgetState extends State<CvCardWidget>{
 
   void updateHeight(){
     RenderBox params = textKey.currentContext.findRenderObject();
-    setState(() {
+    if(mounted)
+      setState(() {
       print("Not editable update" + widget.card.height.toString());
       height = params.size.height.toInt();
       initFrame = false;
@@ -42,7 +43,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
       return Wrap(children: [descriptionText]);
     }
     else{
-      return !widget.card.isReserved ? Container( 
+      return !widget.card.hidden ? Container(
           child: InkWell(
             child: Container(
               height: 68+height.toDouble(),

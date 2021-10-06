@@ -7,7 +7,7 @@ import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/style.dart' as style;
-import 'package:inno_tutor/globals.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 class EditableCvCardWidget extends StatefulWidget{
   Card card;
   Function updateMyServices;
@@ -32,14 +32,15 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
 
   void updateHeight(){
     RenderBox params = textKey.currentContext.findRenderObject();
-    setState(() {
+    if(mounted)
+      setState(() {
       widget.card.height = params.size.height.toInt();
       initFrame = false;
     });
   }
 
   void updateData(){
-    for(Card card in myCards){
+    for(Card card in globals.myCards){
       if (card.cardId == widget.card.cardId){
         card = widget.card;
       }
@@ -47,7 +48,8 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   }
 
   void manageEditButton(){
-    setState(() {
+    if(mounted)
+      setState(() {
       if (!widget.card.editable){
         widget.card.editable = true;
         widget.card.height = widget.card.height + 150;
@@ -65,7 +67,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   @override
   Widget build(BuildContext context) {
     descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
-    reserveButtonText = widget.card.isReserved ? "Unreserve" : "Reserve";
+    reserveButtonText = widget.card.hidden ? "Unreserve" : "Reserve";
     if (initFrame){
       print("rendering");
       return Wrap(children: [descriptionText]);
@@ -80,7 +82,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
               height: 68+widget.card.height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
               decoration: BoxDecoration(
-                color : widget.card.isReserved ? style.darkGrey : style.darkGreen,
+                color : widget.card.hidden ? style.darkGrey : style.darkGreen,
                 borderRadius:  BorderRadius.all(Radius.circular(10)),
               ),
               child: Container(
@@ -105,8 +107,9 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             primary: style.pink
                           ),
                           onPressed: () {
-                            setState(() {
-                              myCards.remove(widget.card);
+                            if(mounted)
+                              setState(() {
+                              globals.myCards.remove(widget.card);
                               widget.updateMyServices();
                             });
                           },
@@ -120,14 +123,16 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             primary: Colors.white
                           ),
                           onPressed: () {
-                            if (!widget.card.isReserved){
-                              widget.card.isReserved = true;
-                              setState(() {
+                            if (!widget.card.hidden){
+                              widget.card.hidden = true;
+                              if(mounted)
+                                setState(() {
                                 reserveButtonText = "Unreserve";
                               });
                             } else {
-                              widget.card.isReserved = false;
-                              setState(() {
+                              widget.card.hidden = false;
+                              if(mounted)
+                                setState(() {
                                 reserveButtonText = "Reserve";
                               });
                             }
@@ -163,7 +168,7 @@ class CardHeading extends StatelessWidget {
             CustomText(text : card.subject, weight: FontWeight.bold, color: Colors.white),
             IconButton(
               padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
-              icon: icons[card.currentIcon],
+              icon: globals.icons[card.currentIcon],
               constraints: BoxConstraints(),
               onPressed: (){
                 manageEditButton();

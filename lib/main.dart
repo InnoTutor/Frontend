@@ -19,9 +19,6 @@ void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  if(globals.user == null) {
-    globals.user = await AuthService().getUserData();
-  }
   runApp(MyApp());
 }
 

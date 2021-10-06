@@ -8,7 +8,7 @@ part of 'subject.dart';
 
 Subject _$SubjectFromJson(Map<String, dynamic> json) {
   return Subject(
-    json['subjectId'] as String,
+    json['subjectId'] as int,
     json['name'] as String,
   );
 }
