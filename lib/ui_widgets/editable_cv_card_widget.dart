@@ -10,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/style.dart' as style;
 import 'package:inno_tutor/globals.dart' as globals;
+import 'package:inno_tutor/services/database.dart';
 class EditableCvCardWidget extends StatefulWidget{
   Card card;
   Function updateMyServices;
@@ -109,13 +110,10 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                             primary: style.pink
                           ),
                           onPressed: ()async {
-                            SharedPreferences prefs = await SharedPreferences.getInstance();
-
+                            await Services().deleteCvCard(widget.card);
                             if(mounted)
                               setState(() {
-                              globals.myCards.remove(widget.card);
-                              prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
-                              widget.updateMyServices();
+                                 widget.updateMyServices();
                             });
                           },
                           child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),

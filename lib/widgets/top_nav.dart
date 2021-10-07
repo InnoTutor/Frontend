@@ -42,7 +42,7 @@ class _myAppBarState extends State<myAppBar> {
           !ResponsiveWidget.isSmallScreen(context)
               ? Logo(height: 30, leftPadding: 20, rightPadding: 0)
               : Container(),
-          Expanded(child: Container()),
+          // Expanded(child: Container()),
           Container(
             width: 15,
           ),
