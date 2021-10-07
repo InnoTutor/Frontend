@@ -5,6 +5,8 @@ import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/globals.dart' as globals;
+import 'package:inno_tutor/models/tutor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Services{
   Urls urls = Urls();
@@ -71,10 +73,46 @@ class Services{
     if (response.statusCode == 201) {
       Card newCard = Card.fromJson(jsonDecode(response.body));
       newCard.initializeCard();
+
+      globals.myCards.add(newCard);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
+
       return newCard;
     }else{
       print("couldn't post the data of createCVCard");
       return card;
+    }
+  }
+  Future<Card> updateCvCard(Card card)async{
+    String url = Urls.delete_cvcard;
+    url+=(card.cardId.toString()+"}");
+
+    var response = await put(Uri.parse(url),
+        headers: <String, String>{"Content-Type": "application/json"},
+        body: jsonEncode(card)
+    );
+    String responseString = response.body;
+    if (response.statusCode == 200 || response.statusCode==201) {
+      // todo
+      // update mycards and shared preferences
+    }
+  }
+  Future<Card> deleteCvCard(Card card)async{
+    String url = Urls.delete_cvcard;
+    url+=(card.cardId.toString()+"}");
+
+    var response = await delete(Uri.parse(url),
+      headers: headers,
+    );
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if (response.statusCode == 200 || response.statusCode==201) {
+      globals.myCards.remove(card);
+      prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
+      print(response.body);
+    }else {
+      print('couldnt delete a card');
     }
   }
   Future<List<String>> getSubjects() async{
@@ -98,26 +136,9 @@ class Services{
     }
   }
 
-  // Future<EmployeeModel> updateEmployees(
-  //     EmployeeModel employee, BuildContext context) async {
-  //   var Url = "http://localhost:8080/updateemployee";
-  //   var response = await http.put(Url,
-  //       headers: <String, String>{"Content-Type": "application/json"},
-  //       body: jsonEncode(employee));
-  //   String responseString = response.body;
-  //   if (response.statusCode == 200) {
-  //      print(responseString);
-  //   }
-  // }
-  // Future<Tutor> deleteEmployees(Tutor tutor) async {
-  //   var Url = "http://localhost:8080/deleteemployee";
-  //   var response = await delete(
-  //     Uri.parse(urls.delete_tutor),
-  //     headers: <String, String>{
-  //       "Content-Type": "application/json;charset=UTF-8,"
-  //     },
-  //   );
-  //   return Tutor.fromJson(jsonDecode(response.body));
-  // }
+
+  Future<Tutor> DeleteTutor(Tutor tutor) async {
+
+  }
 
 }

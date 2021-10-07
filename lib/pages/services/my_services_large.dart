@@ -155,9 +155,6 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () async{
                     newCard = await Services().createCvCard(newCard);
-                    globals.myCards.add(newCard);
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                    prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
                     update();
                     Navigator.of(context).pop();
                   },
