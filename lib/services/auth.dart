@@ -57,7 +57,11 @@ class AuthService {
     name = null;
     userEmail = null;
     imageUrl = null;
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    globals.user=null;
+    globals.myCards=null;
+    prefs.remove('user');
+    prefs.remove('my_cards');
     print("User signed out of Google account");
   }
   //SignIn

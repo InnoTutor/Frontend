@@ -20,7 +20,9 @@ class LargeScreen extends StatefulWidget {
   SiteLayout layout;
   Function updPage;
   void Function() onTap;
-  LargeScreen({ Key key , this.onTap, this.page, this.login, this.layout, this.updPage}) : super(key: key);
+  final Function() notifyParent;
+
+  LargeScreen({ Key key , this.onTap, @required this.notifyParent,this.page, this.login, this.layout, this.updPage}) : super(key: key);
 
   @override
   _LargeScreenState createState() => _LargeScreenState();
@@ -163,7 +165,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                                 });
                                                 if(mounted){
                                                   setState(() {
-                                                    widget.login = true;
+                                                    widget.notifyParent();
                                                   });
                                                 }
                                               },

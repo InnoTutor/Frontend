@@ -13,7 +13,6 @@ import './pages/students/my_students.dart';
 import './widgets/large_screen.dart';
 import './widgets/small_screen.dart';
 import './widgets/top_nav.dart';
-import 'globals.dart' as globals;
 class SiteLayout extends StatefulWidget {
   Widget page;
 
@@ -64,13 +63,13 @@ class _SiteLayoutState extends State<SiteLayout> {
     print(ModalRoute.of(context).settings.name);
     return Scaffold(
         key: scaffoldKey,
-        appBar: globals.user == null
-            ? TopNavigationBar(context, scaffoldKey)
-            : TopNavigationBar(context, scaffoldKey),
+        appBar: myAppBar(notifyParent: refresh,),
         body: ResponsiveWidget(
           largeScreen: LargeScreen(
+              notifyParent: refresh,
               page: widget.page),
           mediumScreen: LargeScreen(
+              notifyParent: refresh,
               page: widget.page),
           smallScreen: SmallScreen(
               page: widget.page),
@@ -79,5 +78,8 @@ class _SiteLayoutState extends State<SiteLayout> {
             // && !widget.login
             ? Drawer(child: SideMenu())
             : null);
+  }
+  refresh() {
+    setState(() {});
   }
 }
