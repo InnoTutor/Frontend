@@ -85,8 +85,7 @@ class Services{
     }
   }
   Future<Card> updateCvCard(Card card)async{
-    String url = Urls.delete_cvcard;
-    url+=(card.cardId.toString()+"}");
+    String url = Urls.my_cvcard + '/'+card.cardId.toString();
 
     var response = await put(Uri.parse(url),
         headers: <String, String>{"Content-Type": "application/json"},
@@ -99,9 +98,8 @@ class Services{
     }
   }
   Future<Card> deleteCvCard(Card card)async{
-    String url = Urls.delete_cvcard;
-    url+=(card.cardId.toString()+"}");
-
+    String url = Urls.my_cvcard + '/'+card.cardId.toString();
+    print(url);
     var response = await delete(Uri.parse(url),
       headers: headers,
     );

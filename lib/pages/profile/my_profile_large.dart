@@ -34,8 +34,6 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
         });
       }
     }
-    print('no error');
-
     return globals.myCards;
 
   }

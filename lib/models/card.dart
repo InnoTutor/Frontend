@@ -40,7 +40,7 @@ class Card{
       this.hidden = false;
       this.currentIcon = 1;
       this.height = 100;
-      this.rating=1;
+      this.rating=0;
 
   }
 

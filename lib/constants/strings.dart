@@ -7,7 +7,6 @@ class Urls {
   static String delete_tutors =  get_tutors+'delete';
   static String request_card = url+'card/request-card';
   static String my_cvcard = url+'services';
-  static String delete_cvcard = url+'services?cardId={';
   static String profile = url+'profile';
   static String subjects = url+'session/subjects';
 }

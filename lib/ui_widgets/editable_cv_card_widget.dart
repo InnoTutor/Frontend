@@ -127,16 +127,14 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                           ),
                           onPressed: () {
                             if (!widget.card.hidden){
-                              widget.card.hidden = true;
-                              if(mounted)
                                 setState(() {
+                                widget.card.hidden = true;
                                 reserveButtonText = "Unreserve";
                               });
                             } else {
-                              widget.card.hidden = false;
-                              if(mounted)
                                 setState(() {
-                                reserveButtonText = "Reserve";
+                                  widget.card.hidden = false;
+                                  reserveButtonText = "Reserve";
                               });
                             }
                           },
