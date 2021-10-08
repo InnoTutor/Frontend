@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/cupertino.dart' hide Color;
 import 'package:flutter/material.dart'hide Color;
 import 'package:inno_tutor/models/user.dart';

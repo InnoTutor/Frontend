@@ -19,7 +19,7 @@ class Card{
   bool hidden = false;
   bool editable = false;
   int height = 100;
-  int currentIcon = 0;
+  int currentIcon = 1;
   
 
   factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
@@ -38,9 +38,9 @@ class Card{
   void initializeCard(){
       this.editable = false;
       this.hidden = false;
-      this.currentIcon = 0;
+      this.currentIcon = 1;
       this.height = 100;
-      this.rating=0;
+      this.rating=1;
 
   }
 

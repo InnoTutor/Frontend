@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/widgets.dart';
+import 'package:inno_tutor/globals.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/database.dart';
