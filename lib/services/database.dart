@@ -266,7 +266,9 @@ class Services{
       throw "Unable to get tutors list.";
     }
   }
-  Future<List<StudentRequest>> getStudents() async {
+  Future<List<StudentRequest>> getStudents(String subject , String format , String type ) async {
+    String url = searchUrl(Urls.get_students, subject, format, type, null);
+    print(url);
     Response res = await get(Uri.parse(Urls.get_students),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
 
@@ -279,7 +281,7 @@ class Services{
       return students;
     } else if (res.statusCode == 403){
       await AuthService().accessSecureResource(await AuthService().extractToken());
-      return await getStudents();
+      return await getStudents(subject,format,type);
     }else {
       throw "Unable to get students list.";
     }
