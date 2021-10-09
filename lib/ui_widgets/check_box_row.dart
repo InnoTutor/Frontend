@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart' as style;
-import 'package:inno_tutor/models/card.dart'; 
+import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 
 class CheckBoxRow extends StatefulWidget {
@@ -14,6 +15,23 @@ class CheckBoxRow extends StatefulWidget {
 }
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
+  List<String>formats=[];
+  List<String>types=[];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetch_format();
+    super.initState();
+  }
+  fetch_format()async{
+    formats = await Services().getSessionFormat();
+    types = await Services().getSessionType();
+    if(mounted)
+    setState(() {
+
+    });
+  }
   void manageParameters(String code, String param, bool value){
     if(mounted)
       setState(() {
@@ -44,7 +62,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "format", 
-            param: ["online", "offline"]
+            param: formats
           )
         ),
         Flexible(
@@ -54,7 +72,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "type", 
-            param: ["group", "private"]
+            param: types
           )
         )
       ]

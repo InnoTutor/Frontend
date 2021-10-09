@@ -50,7 +50,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
               Container(
                   padding: EdgeInsets.all(15),
                   child: Image.network(
-                    globals.user.imageUrl,
+                    globals.user.picture,
                     fit: BoxFit.cover,
                     height: 230,
                   )),

@@ -68,7 +68,7 @@ class _myAppBarState extends State<myAppBar> {
                                               backgroundColor: style.lightGreen,
                                               child: CircleAvatar(
                                                   radius: 30,
-                                                  backgroundImage: NetworkImage(globals.user.imageUrl)))),
+                                                  backgroundImage: NetworkImage(globals.user.picture)))),
                                 ])
                               : Container(),
                           value: 0,

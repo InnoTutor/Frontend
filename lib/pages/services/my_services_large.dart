@@ -154,7 +154,7 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () async{
-                    newCard = await Services().createCvCard(newCard);
+                    newCard = await Services().postCvCard(newCard);
                     update();
                     Navigator.of(context).pop();
                   },

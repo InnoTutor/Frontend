@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/models/enrollment.dart';
 
 
 List<String> handle_arguments(var argument)  {
@@ -26,3 +30,20 @@ List<String> handle_arguments(var argument)  {
 
 }
 
+String removeExtraParametersCard(Card card){
+  final data = card.toJson();
+  data.remove('cardId');
+  data.remove('hidden');
+  data.remove('height');
+  data.remove('rating');
+  data.remove('creatorId');
+  data.remove('countVoted');
+  data.remove('editable');
+  data.remove('currentIcon');
+  return jsonEncode(data);
+}
+String removeExtraParametersEnroll(Enrollment card){
+  final data = card.toJson();
+  data.remove('enrollmentId');
+  return jsonEncode(data);
+}
