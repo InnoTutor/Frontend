@@ -230,8 +230,25 @@ class Services{
     }
   }
 
-  Future<List<Tutor>> getTutors() async {
-    Response res = await get(Uri.parse(Urls.get_tutors),headers: headers);
+  Future<List<Tutor>> getTutors(String subject, String format, String type,String sorting) async {
+    String url = Urls.get_tutors;
+    bool previous = false;
+    if(subject!=null){
+      url+=('?subject='+subject);
+      previous = true;
+    }
+    if(format != null){
+      url+=((previous?"&":"") + ("format="+format));
+      previous=true;
+    }if(type!=null){
+      url+=((previous?"&":"") + ("type="+type));
+      previous = true;
+    }
+    if(sorting!=null){
+      url+=((previous?"&":"") + ("sorting="+sorting));
+    }
+    print(url);
+    Response res = await get(Uri.parse(url),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
 
       final obj = jsonDecode(res.body);
@@ -243,7 +260,7 @@ class Services{
       return tutors;
     } else if (res.statusCode == 403){
       await AuthService().accessSecureResource(await AuthService().extractToken());
-      return await getTutors();
+      return await getTutors(subject, format , type,sorting);
     }else {
       throw "Unable to get tutors list.";
     }
