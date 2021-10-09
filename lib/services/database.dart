@@ -75,6 +75,7 @@ class Services{
       throw "Unable to get a card using this id data.";
     }
   }
+
   Future<void> updateCvCard(Card card)async{
     String url = Urls.my_cvcard + '/'+card.cardId.toString();
 
@@ -97,6 +98,7 @@ class Services{
     }
 
   }
+
   Future<void> deleteCvCard(Card card)async{
     String url = Urls.my_cvcard + '/'+card.cardId.toString();
     var response = await delete(Uri.parse(url),

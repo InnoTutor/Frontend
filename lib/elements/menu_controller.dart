@@ -24,6 +24,8 @@ class MenuController extends GetxController{
       case MyProfilePageRout:
         return _customIcon(Icons.person_outline, itemName);
       case MyStudentsPageRout:
+        return _customIcon(Icons.groups_outlined, itemName);
+      case MyTutorsPageRout:
         return _customIcon(Icons.school_outlined, itemName);
       case MySchedulePageRout:
         return _customIcon(Icons.calendar_today_outlined, itemName);

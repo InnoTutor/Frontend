@@ -6,11 +6,13 @@ import 'package:inno_tutor/elements/side_menu_item.dart';
 import 'package:inno_tutor/globals.dart';
 import 'package:inno_tutor/helpers/responsiveness.dart';
 import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/pages/need_help/need_help.dart';
 import 'package:inno_tutor/pages/profile/my_profile.dart';
 import 'package:inno_tutor/pages/requests/my_requests.dart';
 import 'package:inno_tutor/pages/schedules/my_schedules.dart';
 import 'package:inno_tutor/pages/services/my_serviecs.dart';
 import 'package:inno_tutor/pages/students/my_students.dart';
+import 'package:inno_tutor/pages/tutros/my_tutors.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/logo.dart';
 import '../../constants/style.dart' as style;
@@ -27,13 +29,14 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  List<String> title = ['My Profile','My Services','My Students','My Schedule', 'My Requests'];
+  List<String> title = ['My Profile','My Services','My Students','My Tutors', 'My Schedule', 'My Requests'];
     List<Widget> names = [
       MyProfile(),
       MyServices(),
       MyStudents(),
+      MyTutors(),
       MySchedules(),
-      MyRequests()
+      MyRequests(),
     ];    String route='';
 
   @override
@@ -105,7 +108,6 @@ class _SideMenuState extends State<SideMenu> {
                   if (ResponsiveWidget.isSmallScreen(context))
                     Get.back();
                 }
-
               }
             )).toList()
           )
