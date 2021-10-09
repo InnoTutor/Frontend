@@ -82,6 +82,8 @@ class AuthService {
     if (user != null) {
       await accessSecureResource(await extractToken());
       globals.myCards = await Services().getCvCards();
+      globals.formats = await Services().getSessionFormat();
+      globals.types = await Services().getSessionType();
       print('user data has been posted to the server successfully');
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user', json.encode(globals.user));

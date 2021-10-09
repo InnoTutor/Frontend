@@ -3,7 +3,7 @@ import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
-
+import 'package:inno_tutor/globals.dart' as globals;
 class CheckBoxRow extends StatefulWidget {
   Card card;
   Color color;
@@ -15,23 +15,14 @@ class CheckBoxRow extends StatefulWidget {
 }
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
-  List<String>formats=[];
-  List<String>types=[];
+
 
   @override
   void initState() {
     // TODO: implement initState
-    fetch_format();
     super.initState();
   }
-  fetch_format()async{
-    formats = await Services().getSessionFormat();
-    types = await Services().getSessionType();
-    if(mounted)
-    setState(() {
 
-    });
-  }
   void manageParameters(String code, String param, bool value){
     if(mounted)
       setState(() {
@@ -62,7 +53,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "format", 
-            param: formats
+            param: globals.formats
           )
         ),
         Flexible(
@@ -72,7 +63,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "type", 
-            param: types
+            param: globals.types
           )
         )
       ]
