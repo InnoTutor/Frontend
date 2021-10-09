@@ -4,9 +4,12 @@ import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
+import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
+import 'package:inno_tutor/ui_widgets/tutor_card_widget.dart';
 import 'package:inno_tutor/widgets/custom_dropdown_button.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/page_cap.dart';
+import 'package:inno_tutor/globals.dart' as globals;
 
 class NeedHelpLargePage extends StatefulWidget {
   const NeedHelpLargePage({ Key key }) : super(key: key);
@@ -34,9 +37,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
   }
 
   void updateResults(Card updatedCard){
-    newCard.sessionType = updatedCard.sessionType;
-    newCard.sessionFormat = updatedCard.sessionFormat;
-    newCard.subject = updatedCard.subject;
+    Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
   }
   
   Widget build(BuildContext context) {
@@ -64,6 +65,21 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
               weight: FontWeight.bold,
             )
           ) : Wrap(),
+          Container(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+              child: globals.allTutors!=null ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: 
+                globals.allTutors.map((item) => TutorCardWidget(tutor: item)).toList()
+              ) : 
+              Container(
+              padding: EdgeInsets.all(10),
+              child: CircularProgressIndicator(
+                  backgroundColor: style.grey,
+                  valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+                ),
+            ),
+          ),
           Container(
             height: 10,
           )

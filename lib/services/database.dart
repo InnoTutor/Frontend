@@ -230,22 +230,22 @@ class Services{
     }
   }
 
-  Future<List<Tutor>> getTutors(String subject, String format, String type,String sorting) async {
+  Future<List<Tutor>> getTutors(String subject, List<String> format, List<String> type,String sorting) async {
     String url = Urls.get_tutors;
     bool previous = false;
-    if(subject!=null){
+    if(subject!=""){
       url+=('?subject='+subject);
       previous = true;
     }
-    if(format != null){
-      url+=((previous?"&":"") + ("format="+format));
+    if(format.length == 1){
+      url+=((previous?"&":"") + ("?format="+ format[0]));
       previous=true;
-    }if(type!=null){
-      url+=((previous?"&":"") + ("type="+type));
+    }if(type.length == 1){
+      url+=((previous?"&":"") + ("?type="+type[0]));
       previous = true;
     }
     if(sorting!=null){
-      url+=((previous?"&":"") + ("sorting="+sorting));
+      url+=((previous?"&":"") + ("?sorting="+sorting));
     }
     print(url);
     Response res = await get(Uri.parse(url),headers: headers);
@@ -257,6 +257,8 @@ class Services{
         Tutor tutor = Tutor.fromJson(obj[i]);
         tutors.add(tutor);
       }
+      print(tutors);
+      globals.allTutors = tutors;
       return tutors;
     } else if (res.statusCode == 403){
       await AuthService().accessSecureResource(await AuthService().extractToken());

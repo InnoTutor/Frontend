@@ -18,7 +18,6 @@ class CheckBoxRow extends StatefulWidget {
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -50,6 +49,13 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.radio == null) 
+    setState(() {
+      widget.radio = false;
+    });
+    for (int i = 0; i < 50; i++){
+      print(widget.radio);
+    }
     return Row(
       children: [
         Flexible(
