@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/tutor.dart';
@@ -44,7 +42,7 @@ class _TutorCardWidgetState extends State<TutorCardWidget>{
       return Wrap(children: [descriptionText]);
     }
     else{
-      Container(
+      return Container(
           child: InkWell(
             child: Container(
               height: 68+height.toDouble(),

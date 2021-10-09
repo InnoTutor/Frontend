@@ -30,14 +30,18 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
   }
 
   Future<void> fetch_subjects() async {
+    await Services().getTutors("", [], [], null);
     subjects = await Services().getSubjects();
     setState(() {
       subjects_fetched = true;
     });
   }
 
-  void updateResults(Card updatedCard){
-    Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+  Future<void> updateResults(Card updatedCard) async{
+    await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+    setState(() {
+      
+    });
   }
   
   Widget build(BuildContext context) {

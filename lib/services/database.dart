@@ -238,14 +238,14 @@ class Services{
       previous = true;
     }
     if(format.length == 1){
-      url+=((previous?"&":"") + ("?format="+ format[0]));
+      url+=((previous?"&":"?") + ("format="+ format[0]));
       previous=true;
     }if(type.length == 1){
-      url+=((previous?"&":"") + ("?type="+type[0]));
+      url+=((previous?"&":"?") + ("type="+type[0]));
       previous = true;
     }
     if(sorting!=null){
-      url+=((previous?"&":"") + ("?sorting="+sorting));
+      url+=((previous?"&":"?") + ("sorting="+sorting));
     }
     print(url);
     Response res = await get(Uri.parse(url),headers: headers);
@@ -257,7 +257,6 @@ class Services{
         Tutor tutor = Tutor.fromJson(obj[i]);
         tutors.add(tutor);
       }
-      print(tutors);
       globals.allTutors = tutors;
       return tutors;
     } else if (res.statusCode == 403){
