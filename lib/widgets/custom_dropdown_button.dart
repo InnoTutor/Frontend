@@ -7,7 +7,9 @@ class CustomDropDownButton extends StatefulWidget {
   Card card;
   List<String> locations;
   String selectedLocation = "";
-  CustomDropDownButton({ Key key, this.locations, this.selectedLocation, this.card}) : super(key: key);
+  double width;
+  Function updateResults = null;
+  CustomDropDownButton({ Key key, this.locations, this.selectedLocation, this.card, this.width, this.updateResults}) : super(key: key);
 
   @override
   _CustomDropDownButtonState createState() => _CustomDropDownButtonState();
@@ -17,7 +19,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 600,
+      width: widget.width ?? 600,
       padding: EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
         color: style.grey,
@@ -36,6 +38,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
             setState(() {
             widget.card.subject = newValue;
             widget.selectedLocation = newValue;
+            if (widget.updateResults != null) widget.updateResults(widget.card);
           });
         },
         items: widget.locations.map((location) {
