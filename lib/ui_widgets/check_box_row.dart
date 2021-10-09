@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart' as style;
-import 'package:inno_tutor/models/card.dart'; 
+import 'package:inno_tutor/models/card.dart';
+import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
-
+import 'package:inno_tutor/globals.dart' as globals;
 class CheckBoxRow extends StatefulWidget {
   Card card;
   Color color;
@@ -14,6 +15,14 @@ class CheckBoxRow extends StatefulWidget {
 }
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void manageParameters(String code, String param, bool value){
     if(mounted)
       setState(() {
@@ -44,7 +53,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "format", 
-            param: ["online", "offline"]
+            param: globals.formats
           )
         ),
         Flexible(
@@ -54,7 +63,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "type", 
-            param: ["group", "private"]
+            param: globals.types
           )
         )
       ]

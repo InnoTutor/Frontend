@@ -39,8 +39,8 @@ class AuthService {
     );
 
     int statusCode = response.statusCode;
-    if(statusCode != 200){
-      return "Could not post input to server";
+    if(statusCode != 200 && statusCode != 201){
+      return "Could not get input to server";
     }else{
       print('in access secure resource and printing response body');
       print(response.body);
@@ -80,10 +80,10 @@ class AuthService {
     final User user = userCredential.user;
 
     if (user != null) {
-      String token = await user.getIdToken();
-      await accessSecureResource(token);
+      await accessSecureResource(await extractToken());
       globals.myCards = await Services().getCvCards();
-      globals.user.imageUrl =  user.photoURL;
+      globals.formats = await Services().getSessionFormat();
+      globals.types = await Services().getSessionType();
       print('user data has been posted to the server successfully');
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user', json.encode(globals.user));

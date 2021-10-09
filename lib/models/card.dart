@@ -41,7 +41,6 @@ class Card{
       this.currentIcon = 1;
       this.height = 100;
       this.rating=0;
-
   }
 
   void setHeight(int height){

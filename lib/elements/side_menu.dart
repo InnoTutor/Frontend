@@ -79,7 +79,7 @@ class _SideMenuState extends State<SideMenu> {
                         padding: EdgeInsets.all(15),
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundImage:NetworkImage(globals.user.imageUrl)
+                          backgroundImage:NetworkImage(globals.user.picture)
                   )
                       ),
                       CustomText(

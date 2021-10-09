@@ -8,7 +8,7 @@ part of 'session_format.dart';
 
 SessionFormat _$SessionFormatFromJson(Map<String, dynamic> json) {
   return SessionFormat(
-    json['sessionFormatId'] as String,
+    json['sessionFormatId'] as int,
     json['name'] as String,
   );
 }
