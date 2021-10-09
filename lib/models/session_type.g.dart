@@ -8,7 +8,7 @@ part of 'session_type.dart';
 
 SessionType _$SessionTypeFromJson(Map<String, dynamic> json) {
   return SessionType(
-    json['sessionTypeId'] as String,
+    json['sessionTypeId'] as int,
     json['name'] as String,
   );
 }

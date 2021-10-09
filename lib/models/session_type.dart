@@ -7,7 +7,7 @@ part 'session_type.g.dart';
 class SessionType {
   SessionType(this.sessionTypeId, this.name);
 
-  String sessionTypeId;
+  int sessionTypeId;
   String name;
 
   factory SessionType.fromJson(Map<String, dynamic> json) => _$SessionTypeFromJson(json);

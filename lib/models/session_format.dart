@@ -7,7 +7,7 @@ part 'session_format.g.dart';
 class SessionFormat {
   SessionFormat(this.sessionFormatId, this.name);
 
-  String sessionFormatId;
+  int sessionFormatId;
   String name;
 
   factory SessionFormat.fromJson(Map<String, dynamic> json) => _$SessionFormatFromJson(json);
