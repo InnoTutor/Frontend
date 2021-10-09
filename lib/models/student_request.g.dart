@@ -8,8 +8,8 @@ part of 'student_request.dart';
 
 StudentRequest _$StudentRequestFromJson(Map<String, dynamic> json) {
   return StudentRequest(
-    json['studentId'] as String,
-    json['cardId'] as String,
+    json['studentId'] as int,
+    json['cardId'] as int,
     json['description'] as String,
     json['subject'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),

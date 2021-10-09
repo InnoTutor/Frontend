@@ -7,8 +7,8 @@ part 'tutor.g.dart';
 class Tutor{
   Tutor(this.tutorId, this.cardId, this.rating, this.countVoted, this.description,this.subject,this.sessionFormat,this.sessionType);
 
-  String tutorId;
-  String cardId;
+  int tutorId;
+  int cardId;
   double rating;
   int countVoted;
   String description;

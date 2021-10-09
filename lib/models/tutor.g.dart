@@ -8,8 +8,8 @@ part of 'tutor.dart';
 
 Tutor _$TutorFromJson(Map<String, dynamic> json) {
   return Tutor(
-    json['tutorId'] as String,
-    json['cardId'] as String,
+    json['tutorId'] as int,
+    json['cardId'] as int,
     (json['rating'] as num)?.toDouble(),
     (json['countVoted'] as num)?.toInt(),
     json['description'] as String,

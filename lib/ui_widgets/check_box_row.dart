@@ -24,25 +24,26 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
     super.initState();
   }
 
-  void manageParameters(String code, String param, bool value){
+  void manageParameters(String code, String param, bool value)async{
+    if (code == "format"){
+      if (value){
+        widget.card.sessionFormat.add(param);
+      } else {
+        widget.card.sessionFormat.remove(param);
+      }
+    } else if (code == "type"){
+      if (value){
+        widget.card.sessionType.add(param);
+      } else {
+        widget.card.sessionType.remove(param);
+      }
+    }
+
+    if (widget.updateResults != null) await widget.updateResults(widget.card);
+
     if(mounted)
       setState(() {
-      if (code == "format"){
-        if (value){
-          widget.card.sessionFormat.add(param);
-        } else {
-          widget.card.sessionFormat.remove(param);
-        }
-      } else if (code == "type"){
-        if (value){
-          widget.card.sessionType.add(param);
-        } else {
-          widget.card.sessionType.remove(param);
-        }
-      }
-
-      if (widget.updateResults != null) widget.updateResults(widget.card);
-      print(widget.card.sessionFormat);
+        print(widget.card.sessionFormat);
       print(widget.card.sessionType);
     });
   }

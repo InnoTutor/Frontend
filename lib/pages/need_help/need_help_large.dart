@@ -36,8 +36,12 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
     });
   }
 
-  void updateResults(Card updatedCard){
-    Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+  Future<void> updateResults(Card updatedCard)async{
+    await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat!=null?updatedCard.sessionFormat[0]:null, updatedCard.sessionType!=null?updatedCard.sessionType[0]:null, null);
+    setState(() {
+
+    });
+    return;
   }
   
   Widget build(BuildContext context) {
