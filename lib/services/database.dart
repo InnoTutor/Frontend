@@ -85,6 +85,7 @@ class Services{
     }
   }
   Future<Card> updateCvCard(Card card)async{
+    print("will update a card now");
     String url = Urls.my_cvcard + '/'+card.cardId.toString();
 
     var response = await put(Uri.parse(url),
@@ -95,9 +96,12 @@ class Services{
     if (response.statusCode == 200 || response.statusCode==201) {
       // todo
       // update mycards and shared preferences
+    } else {
+      print(response.statusCode);
     }
   }
   Future<Card> deleteCvCard(Card card)async{
+
     String url = Urls.my_cvcard + '/'+card.cardId.toString();
     print(url);
     var response = await delete(Uri.parse(url),
@@ -110,6 +114,7 @@ class Services{
       prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
       print(response.body);
     }else {
+      print(response.statusCode);
       print('couldnt delete a card');
     }
   }

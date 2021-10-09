@@ -64,6 +64,10 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
           .addPostFrameCallback((_) => updateHeight());
         widget.card.currentIcon = 1;
       }
+
+      
+      Services().updateCvCard(widget.card);
+      updateData();
     });
   }
 

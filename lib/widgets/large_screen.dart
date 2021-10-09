@@ -5,9 +5,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/rendering.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:get/get.dart';
+import 'package:inno_tutor/constants/controllers.dart';
 import 'package:inno_tutor/elements/side_menu.dart';
+import 'package:inno_tutor/globals.dart';
 import 'package:inno_tutor/models/user.dart';
+import 'package:inno_tutor/pages/need_help/need_help.dart';
+import 'package:inno_tutor/pages/offer_help/offer_help.dart';
 import 'package:inno_tutor/services/auth.dart';
+import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/style.dart' as style;
 import '../helpers/responsiveness.dart';
@@ -91,7 +97,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                       child: Container(
                                           width: 230,
                                           height: ResponsiveWidget.isCustomSize(
-                                              context) ? 520 : 300,
+                                              context) ? 620 : 360,
                                           margin: const EdgeInsets.only(
                                               right: 5, left: 10, top: 10),
                                           decoration: BoxDecoration(
@@ -188,8 +194,14 @@ class _LargeScreenState extends State<LargeScreen> {
                       ),
                       Expanded(
                           child: Container(
-                              width: 150,
-                              color: style.lightGrey
+                              color: style.lightGrey,
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                children: [
+                                  LayoutButton(text: "Need Help", updPage: updatePage,),
+                                  LayoutButton(text: "Offer Help",updPage: updatePage,),
+                                ],
+                              ),
                           )
                       ),
                     ],
@@ -198,6 +210,48 @@ class _LargeScreenState extends State<LargeScreen> {
               ),
             );
           }
+      ),
+    );
+  }
+}
+
+class LayoutButton extends StatelessWidget {
+  String text;
+  Function updPage;
+  LayoutButton({ Key key, this.text, this.updPage}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      height: 50,
+      child: Container(
+        padding: EdgeInsets.only(top:10, left: 5, right: 10),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              )
+            ),
+            backgroundColor: MaterialStateProperty.all(style.darkGreen),
+          ),
+          onPressed: () {
+            for (Card card in myCards){
+              card.setEditable(false);
+            }
+            if (!menuController.isActive(text)){
+              menuController.changeActiveItemTo(text);
+              updPage(text == "Need Help" ? NeedHelp() : OfferHelp());
+              if (ResponsiveWidget.isSmallScreen(context))
+                Get.back();
+            }
+          },
+          child: CustomText(
+            text: text,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

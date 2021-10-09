@@ -12,6 +12,7 @@ import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 import 'package:inno_tutor/ui_widgets/editable_cv_card_widget.dart';
+import 'package:inno_tutor/widgets/custom_dropdown_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
@@ -171,48 +172,3 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
   );
 }
 
-class CustomDropDownButton extends StatefulWidget {
-  Card card;
-  List<String> locations;
-  String selectedLocation = "";
-  CustomDropDownButton({ Key key, this.locations, this.selectedLocation, this.card}) : super(key: key);
-
-  @override
-  _CustomDropDownButtonState createState() => _CustomDropDownButtonState();
-}
-
-class _CustomDropDownButtonState extends State<CustomDropDownButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 600,
-      padding: EdgeInsets.only(left: 10, right: 10),
-      decoration: BoxDecoration(
-        color: style.grey,
-        borderRadius:  BorderRadius.all(Radius.circular(10)),
-      ),
-      child: DropdownButton(
-        itemHeight: kMinInteractiveDimension,
-        iconEnabledColor: style.lightGrey,
-        dropdownColor: style.grey,
-        focusColor: style.darkGrey,
-        borderRadius: BorderRadius.circular(10),
-        hint: CustomText(text: "Choose subject", color: style.darkGrey, weight: FontWeight.bold,),
-        value: widget.selectedLocation,
-        onChanged: (newValue) {
-          if(mounted)
-            setState(() {
-            widget.card.subject = newValue;
-            widget.selectedLocation = newValue;
-          });
-        },
-        items: widget.locations.map((location) {
-          return DropdownMenuItem(
-            child: new CustomText(text: location, color: style.darkGrey, weight: FontWeight.bold,),
-            value: location,
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
