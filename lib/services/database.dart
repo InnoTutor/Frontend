@@ -230,23 +230,8 @@ class Services{
     }
   }
 
-  Future<List<Tutor>> getTutors(String subject, List<String> format, List<String> type,String sorting) async {
-    String url = Urls.get_tutors;
-    bool previous = false;
-    if(subject!=""){
-      url+=('?subject='+subject);
-      previous = true;
-    }
-    if(format.length == 1){
-      url+=((previous?"&":"") + ("?format="+ format[0]));
-      previous=true;
-    }if(type.length == 1){
-      url+=((previous?"&":"") + ("?type="+type[0]));
-      previous = true;
-    }
-    if(sorting!=null){
-      url+=((previous?"&":"") + ("?sorting="+sorting));
-    }
+  Future<List<Tutor>> getTutors(String subject, String format, String type,String sorting) async {
+    String url = searchUrl(Urls.get_tutors, subject, format, type, sorting);
     print(url);
     Response res = await get(Uri.parse(url),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
@@ -267,7 +252,9 @@ class Services{
       throw "Unable to get tutors list.";
     }
   }
-  Future<List<StudentRequest>> getStudents() async {
+  Future<List<StudentRequest>> getStudents(String subject , String format , String type ) async {
+    String url = searchUrl(Urls.get_students, subject, format, type, null);
+    print(url);
     Response res = await get(Uri.parse(Urls.get_students),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
 
@@ -280,7 +267,7 @@ class Services{
       return students;
     } else if (res.statusCode == 403){
       await AuthService().accessSecureResource(await AuthService().extractToken());
-      return await getStudents();
+      return await getStudents(subject,format,type);
     }else {
       throw "Unable to get students list.";
     }
