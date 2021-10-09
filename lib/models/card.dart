@@ -27,10 +27,8 @@ class Card{
   void setEditable(bool edit){
     if (edit){
       this.editable = true;
-      this.hidden = false;
       this.currentIcon = 0;
     } else {
-      this.hidden = false;
       this.editable = false;
       this.currentIcon = 1;
     }

@@ -242,6 +242,8 @@ class Services{
         Tutor tutor = Tutor.fromJson(obj[i]);
         tutors.add(tutor);
       }
+      print(tutors);
+      globals.allTutors = tutors;
       return tutors;
     } else if (res.statusCode == 403){
       await AuthService().accessSecureResource(await AuthService().extractToken());

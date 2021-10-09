@@ -8,14 +8,15 @@ class CheckBoxRow extends StatefulWidget {
   Card card;
   Color color;
   Color themeColor;
-  CheckBoxRow({ Key key, this.card, this.color, this.themeColor}) : super(key: key);
+  Function updateResults = null;
+  bool radio = false;
+  CheckBoxRow({ Key key, this.card, this.color, this.themeColor, this.updateResults, this.radio}) : super(key: key);
 
   @override
   _CheckBoxRowState createState() => _CheckBoxRowState();
 }
 
 class _CheckBoxRowState extends State<CheckBoxRow> {
-
 
   @override
   void initState() {
@@ -39,11 +40,22 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
           widget.card.sessionType.remove(param);
         }
       }
+
+      if (widget.updateResults != null) widget.updateResults(widget.card);
+      print(widget.card.sessionFormat);
+      print(widget.card.sessionType);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.radio == null) 
+    setState(() {
+      widget.radio = false;
+    });
+    for (int i = 0; i < 50; i++){
+      print(widget.radio);
+    }
     return Row(
       children: [
         Flexible(
@@ -53,7 +65,8 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "format", 
-            param: globals.formats
+            param: globals.formats,
+            radio: widget.radio,
           )
         ),
         Flexible(
@@ -63,7 +76,8 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             card: widget.card,
             manageParameters: manageParameters, 
             code: "type", 
-            param: globals.types
+            param: globals.types,
+            radio: widget.radio,
           )
         )
       ]
@@ -103,6 +117,100 @@ class CheckBoxItem extends StatelessWidget {
   }
 }
 
+
+class RadioButtons extends StatefulWidget {
+  Card card;
+  Function manageParameters;
+  String code;
+  String param;
+  Color color;
+  Color themeColor;
+  RadioButtons({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor}) : super(key: key);
+
+  @override
+  _RadioButtonsState createState() => _RadioButtonsState();
+}
+
+class _RadioButtonsState extends State<RadioButtons> {
+  int val = -1;
+   @override
+  Widget build(BuildContext context) {
+    return new Theme(
+      data: Theme.of(context).copyWith(
+        unselectedWidgetColor: widget.themeColor,
+      ),
+      child:  Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Radio(
+              value: 1,
+              groupValue: val,
+              onChanged: (value) {
+                setState(() {
+                  if (widget.manageParameters != (){}){
+                    val = value;
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val == value);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val != value);
+                  }
+                });
+              },
+              activeColor: style.darkGreen,
+            ),
+            CustomText(text: widget.code == "format" ? "online" : "private", color: widget.color ?? Colors.white),
+            ],
+          ),
+          Row(
+            children: [
+              Radio(
+              value: 2,
+              groupValue: val,
+              onChanged: (value) {
+                setState(() {
+                  if (widget.manageParameters != (){}){
+                    val = value;
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val == value);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val != value);
+                  }
+                });
+              },
+              activeColor:style.darkGreen,
+            ),
+            CustomText(text: widget.code == "format" ? "offline" : "group", color: widget.color ?? Colors.white),
+            ],
+          ),
+          Row(
+            children: [
+              Radio(
+              value: 3,
+              groupValue: val,
+              onChanged: (value) {
+                setState(() {
+                  if (widget.manageParameters != (){}){
+                    val = value;
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val == value);
+                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val == value);
+                  }
+                });
+              },
+              activeColor:style.darkGreen,
+            ),
+            CustomText(text: "both", color: widget.color ?? Colors.white),
+            ],
+          ),
+        ],
+      )
+    );
+  }
+}
+
 class CheckBoxGroup extends StatelessWidget {
   Card card;
   Function manageParameters;
@@ -110,7 +218,8 @@ class CheckBoxGroup extends StatelessWidget {
   List<String> param;
   Color color;
   Color themeColor;
-  CheckBoxGroup({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor}) : super(key: key);
+  bool radio = false;
+  CheckBoxGroup({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor, this.radio}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,14 +228,15 @@ class CheckBoxGroup extends StatelessWidget {
         children : [
           Container(
             padding: EdgeInsets.only(left: 10),
-            child: CustomText(text: "Type:", weight: FontWeight.bold, color: color ?? Colors.white),
+            child: CustomText(text: code == "type" ? "Type:" : "Format:", weight: FontWeight.bold, color: color ?? Colors.white),
           ),
-          Column(
+          !radio ? Column(
             children: [
               CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,),
               CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(1), color: color, themeColor: themeColor,)
             ],
-          )
+          ) :
+          RadioButtons(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,)
         ]
       )
     );
