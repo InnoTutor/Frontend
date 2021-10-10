@@ -3,7 +3,7 @@
 ![logo](https://user-images.githubusercontent.com/44948387/136674082-18921bd1-b4f5-40d3-81bf-f98028c159c6.png)   <br>
 
 <img src="https://img.shields.io/github/stars/InnoTutor/Frontend?style=social">ᅠ ![License](https://img.shields.io/badge/license-MIT-green.svg)  ᅠ
-![Hits-of-Code](https://hitsofcode.com/github/InnoTutor/Frontend?branch=main)
+ [![Hits-of-Code](https://hitsofcode.com/github/InnoTutor/Frontend?branch=main)](https://hitsofcode.com/github/InnoTutor/Frontend/view?branch=main)
 <br><br><br>
 **Authors**: Emil Khabibulin, Tasneem Toolba
 <br><br>
