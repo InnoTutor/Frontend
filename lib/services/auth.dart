@@ -24,7 +24,9 @@ class AuthService {
   Future<String> extractToken() async{
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     User user = await firebaseAuth.currentUser;
+    if(user == null)return null;
     String token = (await user.getIdToken());
+    globals.token = token;
     return token;
   }
 
@@ -88,7 +90,7 @@ class AuthService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user', json.encode(globals.user));
       prefs.setStringList('my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
-      await Services().getTutors(null, null, null, null);
+      // await Services().getTutors(null, null, null, null);
     }
     return null;
 

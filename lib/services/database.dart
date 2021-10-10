@@ -231,23 +231,14 @@ class Services{
   }
 
   Future<List<Tutor>> getTutors(String subject, List<String> format, List<String> type,String sorting) async {
-    String url = Urls.get_tutors;
-    bool previous = false;
-    if(subject!=""){
-      url+=('?subject='+subject);
-      previous = true;
-    }
-    if(format.length == 1){
-      url+=((previous?"&":"?") + ("format="+ format[0]));
-      previous=true;
-    }if(type.length == 1){
-      url+=((previous?"&":"?") + ("type="+type[0]));
-      previous = true;
-    }
-    if(sorting!=null){
-      url+=((previous?"&":"?") + ("sorting="+sorting));
-    }
-    print(url);
+    String url = searchUrl(
+        Urls.get_tutors ,
+        subject !=null?subject:null,
+        format!=null && format.length==1?format[0]:null,
+        type!=null && type.length==1?type[0]:null,
+        sorting !=null?sorting:null
+    );
+
     Response res = await get(Uri.parse(url),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
 

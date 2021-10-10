@@ -50,19 +50,20 @@ String removeExtraParametersEnroll(Enrollment card){
 String searchUrl(String URLL, String subject, String format, String type, String sorting){
   String url = URLL;
   bool previous = false;
-  if(subject!=null){
+  if(subject!=""){
     url+=('?subject='+subject);
     previous = true;
   }
-  if(format != null){
-    url+=((previous?"&":"?") + ("format="+format));
+  if(format!=null){
+    url+=((previous?"&":"?") + ("format="+ format[0]));
     previous=true;
   }if(type!=null){
-    url+=((previous?"&":"?") + ("type="+type));
+    url+=((previous?"&":"?") + ("type="+type[0]));
     previous = true;
   }
   if(sorting!=null){
     url+=((previous?"&":"?") + ("sorting="+sorting));
   }
+  print(url);
   return url;
 }
