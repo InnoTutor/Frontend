@@ -39,21 +39,17 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
 
   Future<void> updateResults(Card updatedCard) async{
     await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+    print("now updated");
     setState(() {
       
     });
 
   }
 
-  int count = 0;
   Future<void> updateResultsWithCount(Card updatedCard) async{
-    count++;
     await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
-    if (count == 4){
-      count = 0;
-      setState(() {
-      });
-    }
+    setState(() {
+    });
   }
   
   Widget build(BuildContext context) {

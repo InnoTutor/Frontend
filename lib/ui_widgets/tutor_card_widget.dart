@@ -87,6 +87,19 @@ class _TutorCardWidgetState extends State<TutorCardWidget>{
                         //padding: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
                         child: CustomText(text: "                 " + widget.tutor.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+                      ),
+                      Container(
+                        child: Column(
+                          children: [
+                            widget.tutor.sessionFormat.length == 2 ? 
+                            CustomText(text: "both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
+                            CustomText(text: widget.tutor.sessionFormat[0], size: 12, weight: FontWeight.w400, color: Colors.white,),
+
+                            widget.tutor.sessionType.length == 2 ? 
+                            CustomText(text: "both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
+                            CustomText(text: widget.tutor.sessionType[0], size: 12, weight: FontWeight.w400, color: Colors.white,)
+                          ],
+                        ),
                       )
                     ],)
                   ],),
