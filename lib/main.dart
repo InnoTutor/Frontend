@@ -1,51 +1,49 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:inno_tutor_flutter/constants/controllers.dart';
-import 'package:inno_tutor_flutter/controllers/menu_controller.dart';
-import 'package:inno_tutor_flutter/pages/my_profile/my_profile.dart';
-import 'package:inno_tutor_flutter/pages/my_requests/my_requests.dart';
-import 'package:inno_tutor_flutter/pages/my_schedule/my_schedule.dart';
-import 'package:inno_tutor_flutter/pages/my_services/my_services.dart';
-import 'package:inno_tutor_flutter/pages/my_students/my_students.dart';
-import 'package:inno_tutor_flutter/widgets/large_screen.dart';
+import 'package:inno_tutor/constants/style.dart';
+import 'package:inno_tutor/elements/menu_controller.dart';
+import 'package:inno_tutor/services/auth.dart';
+import 'package:inno_tutor/services/database.dart';
 
-import 'layout.dart';
-
-void main() {
+import './pages/login_page.dart';
+import './layout.dart';
+import 'pages/profile/my_profile.dart';
+import 'pages/requests/my_requests.dart';
+import 'pages/schedules/my_schedules.dart';
+import 'pages/services/my_serviecs.dart';
+import 'pages/students/my_students.dart';
+import 'globals.dart'as globals;
+void main() async{
   Get.put(MenuController());
-  //Get.put(NavigationController());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
-
+  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context){
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title:"Dash",
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
-        textTheme: GoogleFonts.mulishTextTheme(
-          Theme.of(context).textTheme
-        ).apply(
-          bodyColor: Colors.black
-        ),
-        pageTransitionsTheme: PageTransitionsTheme(builders: {
-          TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder()
-        }),
         primaryColor: Colors.black,
+        unselectedWidgetColor: Colors.white
       ),
-      home: SiteLayout(page: MyProfile()),
-      routes: {'My Services': (context) => SiteLayout(page: MyServices()),
-        'My Profile': (context) => SiteLayout(page: MyProfile()),
-        'My Students': (context) => SiteLayout(page: MyStudents()),
-        'My Schedule': (context) => SiteLayout(page: MySchedule()),
-        'My Requests': (context) => SiteLayout(page: MyRequests()),
+      routes: {
+        // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
+        '/services': (BuildContext context) => SiteLayout(page: MyServices()),
+        '/profile': (BuildContext context) => SiteLayout(page: MyProfile()),
+        '/students': (BuildContext context)=> SiteLayout(page: MyStudents()),
+        '/schedule': (BuildContext context)=> SiteLayout(page: MySchedules()),
+        '/requests': (BuildContext context)=> SiteLayout(page: MyRequests()),
       },
+      debugShowCheckedModeBanner: false,
+      // initialRoute: '/',
+      home: SiteLayout(page: Login()),
     );
   }
 }

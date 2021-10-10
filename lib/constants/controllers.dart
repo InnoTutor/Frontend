@@ -1,3 +1,3 @@
-import 'package:inno_tutor_flutter/controllers/menu_controller.dart';
+import 'package:inno_tutor/elements/menu_controller.dart';
 
 MenuController menuController = MenuController.instance;

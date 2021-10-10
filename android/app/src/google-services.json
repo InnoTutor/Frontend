@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "96577166391",
+    "project_id": "innotutor-324ff",
+    "storage_bucket": "innotutor-324ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96577166391:android:683eda90c9b315b365b3b2",
+        "android_client_info": {
+          "package_name": "com.example.inno_tutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96577166391-qqdsjgntksfjqao3i9cnai4ugudlm39v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.inno_tutor",
+            "certificate_hash": "59693ba638e0d750f302d0dc14b5064c0e5bd7eb"
+          }
+        },
+        {
+          "client_id": "96577166391-b7h82j5mc4hpplct3cr4f3psuuh5vg3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWOti2EOcaoh2Nc87keSiIjMQie0E1gz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96577166391-8j84hfer4f9mk7ma39cgqprg6etd8gra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
