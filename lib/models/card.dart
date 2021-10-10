@@ -20,7 +20,7 @@ class Card{
 
   String description;
   int countVoted = 0;
-  bool hidden = false;
+  bool hidden;
 
   bool editable = false;
   int height = 100;
