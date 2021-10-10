@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:inno_tutor/pages/services/my_services_large.dart';
+import 'package:inno_tutor/pages/students/my_students_large.dart';
 import '../../services/global_funtions.dart';
 import '../../elements/drawer.dart';
 import '../../helpers/responsiveness.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
 import '../../constants/style.dart' as style;
+
 class MyStudents extends StatefulWidget {
   @override
   _MyStudentsState createState() => _MyStudentsState();
 }
 
 class _MyStudentsState extends State<MyStudents> {
-  GlobalKey<ScaffoldState> _key = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -24,7 +25,7 @@ class _MyStudentsState extends State<MyStudents> {
         return true;
       },
       child: !ResponsiveWidget.isSmallScreen(context) ?
-        PageCap(text: "My Students") :
+        MyStudentsLargePage() :
         Center(
           child: CustomText(
             selectable: true,

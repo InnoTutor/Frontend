@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cv_card.dart';
+part of 'requested_students.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CvCard _$CvCardFromJson(Map<String, dynamic> json) {
-  return CvCard(
+MyStudentsModel _$MyStudentsModelFromJson(Map<String, dynamic> json) {
+  return MyStudentsModel(
     (json['newStudents'] as List)
-        ?.map(
-            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     (json['acceptedStudents'] as List)
-        ?.map(
-            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    json['rating'] as int,
   );
 }
 
-Map<String, dynamic> _$CvCardToJson(CvCard instance) => <String, dynamic>{
+Map<String, dynamic> _$MyStudentsModelToJson(MyStudentsModel instance) =>
+    <String, dynamic>{
       'newStudents': instance.newStudents,
       'acceptedStudents': instance.acceptedStudents,
-      'rating': instance.rating,
     };

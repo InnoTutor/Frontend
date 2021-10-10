@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inno_tutor/pages/services/my_services_large.dart';
 import '../../services/global_funtions.dart';
 import '../../elements/drawer.dart';
 import '../../helpers/responsiveness.dart';
@@ -23,7 +24,7 @@ class _MyServicesState extends State<MyServices> {
         return true;
       },
       child: !ResponsiveWidget.isSmallScreen(context) ?
-        PageCap(text: "My Services") :
+        MyServicesLargePage() :
         Center(
           child: CustomText(
             selectable: true,

@@ -8,23 +8,28 @@ part of 'session.dart';
 
 Session _$SessionFromJson(Map<String, dynamic> json) {
   return Session(
-    json['tutor'] == null
-        ? null
-        : User.fromJson(json['tutor'] as Map<String, dynamic>),
-    (json['studentsList'] as List)
-        ?.map(
-            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    json['formatSession'] as String,
-    json['formatType'] as String,
+    json['sessionId'] as int,
+    json['tutorId'] as int,
+    (json['studentIDsList'] as List)?.map((e) => e as int)?.toList(),
+    json['subject'] as String,
+    json['date'] as String,
+    json['startTime'] as String,
+    json['endTime'] as String,
+    json['sessionFormat'] as String,
+    json['sessionType'] as String,
     json['description'] as String,
   );
 }
 
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
-      'tutor': instance.tutor,
-      'studentsList': instance.studentsList,
-      'formatSession': instance.formatSession,
-      'formatType': instance.formatType,
+      'sessionId': instance.sessionId,
+      'tutorId': instance.tutorId,
+      'studentIDsList': instance.studentIDsList,
+      'subject': instance.subject,
+      'date': instance.date,
+      'startTime': instance.startTime,
+      'endTime': instance.endTime,
+      'sessionFormat': instance.sessionFormat,
+      'sessionType': instance.sessionType,
       'description': instance.description,
     };

@@ -8,20 +8,32 @@ part of 'card.dart';
 
 Card _$CardFromJson(Map<String, dynamic> json) {
   return Card(
-    json['creator'] == null
-        ? null
-        : User.fromJson(json['creator'] as Map<String, dynamic>),
+    json['cardId'] as int,
+    json['creatorId'] as int,
     json['subject'] as String,
-    json['formatSession'] as String,
-    json['formatType'] as String,
+    (json['rating'] as num)?.toDouble(),
     json['description'] as String,
-  );
+    (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
+    (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
+    json['hidden'] as bool,
+    json['countVoted'] as int,
+  )
+    ..editable = json['editable'] as bool
+    ..height = json['height'] as int
+    ..currentIcon = json['currentIcon'] as int;
 }
 
 Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
-      'creator': instance.creator,
+      'cardId': instance.cardId,
+      'creatorId': instance.creatorId,
       'subject': instance.subject,
-      'formatSession': instance.formatSession,
-      'formatType': instance.formatType,
+      'rating': instance.rating,
+      'sessionFormat': instance.sessionFormat,
+      'sessionType': instance.sessionType,
       'description': instance.description,
+      'countVoted': instance.countVoted,
+      'hidden': instance.hidden,
+      'editable': instance.editable,
+      'height': instance.height,
+      'currentIcon': instance.currentIcon,
     };

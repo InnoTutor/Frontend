@@ -1,23 +1,22 @@
+import 'package:inno_tutor/models/requested_students.dart';
 import 'package:inno_tutor/models/sessions_list.dart';
 import "package:json_annotation/json_annotation.dart";
+
+import 'card.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable()
 class User {
-  User(this.id, this.name, this.email, this.imageUrl);
+  User(this.userId, this.name, this.email, this.picture);
 
-  String id;
+  int userId;
   String name;
   String surname;
   String email;
-  String password;
-  String imageUrl;
-
-  SessionsList sessions;
-  // RequestsList requests;
-  // ServicesList services;
-  // StudentsList students;
+  String contacts;
+  String description;
+  String picture;
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

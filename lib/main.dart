@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
+import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/database.dart';
 
 import './pages/login_page.dart';
@@ -11,7 +13,7 @@ import 'pages/requests/my_requests.dart';
 import 'pages/schedules/my_schedules.dart';
 import 'pages/services/my_serviecs.dart';
 import 'pages/students/my_students.dart';
-
+import 'globals.dart'as globals;
 void main() async{
   Get.put(MenuController());
 
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         primaryColor: Colors.black,
+        unselectedWidgetColor: Colors.white
       ),
       routes: {
         // '/': (BuildContext context) => SiteLayout(page: MyProfile()),
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       // initialRoute: '/',
-      home: SiteLayout(page: Login(), login: false),
+      home: SiteLayout(page: Login()),
     );
   }
 }
