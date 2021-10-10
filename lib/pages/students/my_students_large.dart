@@ -29,6 +29,7 @@ class MyStudentsLargePage extends StatefulWidget {
 }
 
 class _MyStudentsLargeState extends State<MyStudentsLargePage> {
+  List<Card> myStudentsCards = [];
   @override
   initState() {
     super.initState();
@@ -39,13 +40,19 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
 
   Future<List<Enrollment>> fetch_cards(String search) async {
     MyStudentsModel myStudentsModel = await new MyStudentsServices().getStudents();
-    globals.myStudents = myStudentsModel.newStudentsList;
+    globals.myStudents = myStudentsModel.acceptedStudentsList;
+    for (Enrollment en in globals.myStudents){
+      Card studentCard = await CardServices().getCvCard(en.cardId);
+      print(studentCard.cardId);
+      myStudentsCards.add(studentCard);
+    }
     if (mounted) {
       setState(() {
       });
     }
     setState(() {
       students_fetched = true;
+      print(myStudentsCards);
     });
     return globals.myStudents;
   }
@@ -62,10 +69,10 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
       PageCap(text: "My Students"),
       students_fetched ? Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: globals.myStudents!=null ? Column(
+        child: students_fetched ? Column(
             mainAxisSize: MainAxisSize.min,
-            children: globals.myStudents
-                .map((item) => StudentCardWidget(enrollment: item, updateMyStudents: update))
+            children: myStudentsCards
+                .map((item) => StudentCardWidget(card: item))
                 .toList()) :
                 Container(
                   padding: EdgeInsets.all(10),
