@@ -39,6 +39,7 @@ flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=ht
 
 # Deployment
 To generate the release files of the web version that you need to deploy, you need to apply,
+
 flutter build web --release
 
 Github Pages is used to deploy the website version of the flutter app, you need to cd build/web, then init a new repo and push files there to a new branch, that you would mention/choose in github pages.
