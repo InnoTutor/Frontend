@@ -338,9 +338,9 @@ class SearchServices {
 }
 
 class CardServices {
-  Future<Card> getCvCard(String cardId) async {
+  Future<Card> getCvCard(int cardId) async {
     Response res =
-        await get(Uri.parse(Urls.get_card + cardId), headers: await headers());
+        await get(Uri.parse(Urls.get_card + cardId.toString()), headers: await headers());
     if (res.statusCode == 200 || res.statusCode == 201) {
       final obj = jsonDecode(res.body);
       Card card = Card.fromJson(obj);
@@ -454,4 +454,3 @@ class SessionServices {
     }
   }
 }
-

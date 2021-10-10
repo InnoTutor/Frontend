@@ -40,11 +40,11 @@ String searchUrl(String URLL, String subject, String format, String type,
     previous = true;
   }
   if (format != null) {
-    url += ((previous ? "&" : "?") + ("format=" + format[0]));
+    url += ((previous ? "&" : "?") + ("format=" + format));
     previous = true;
   }
   if (type != null) {
-    url += ((previous ? "&" : "?") + ("type=" + type[0]));
+    url += ((previous ? "&" : "?") + ("type=" + type));
     previous = true;
   }
   if (sorting != null) {
