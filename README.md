@@ -1,9 +1,10 @@
 # InnoTutor
 This is the frontend part of InnoTutor, it's done by Flutter.
+## Check the main readme for glossary, stackholder roles, and diagrams used
+you can check it here: https://github.com/InnoTutor/README
+
 # Used IDE
 Visual Studio Code, and Android studio.
-# check the main readme for glossary, stackholder roles, and diagrams used
-you can check it here: https://github.com/InnoTutor/README
 
 # Getting Started
 ## Setup Flutter
