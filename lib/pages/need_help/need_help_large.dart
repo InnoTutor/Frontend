@@ -30,7 +30,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
   }
 
   Future<void> fetch_subjects() async {
-    await Services().getTutors("", [], [], null);
+    await SearchServices().getTutors("", null, null, null);
     subjects = await Services().getSubjects();
     setState(() {
       subjects_fetched = true;
@@ -38,8 +38,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
   }
 
   Future<void> updateResults(Card updatedCard) async{
-    await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
-    print("now updated");
+    await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
       
     });

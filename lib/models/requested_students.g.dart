@@ -6,8 +6,8 @@ part of 'requested_students.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RequestedStudents _$RequestedStudentsFromJson(Map<String, dynamic> json) {
-  return RequestedStudents(
+MyStudentsModel _$MyStudentsModelFromJson(Map<String, dynamic> json) {
+  return MyStudentsModel(
     (json['newStudentsList'] as List)
         ?.map((e) =>
             e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
@@ -19,7 +19,7 @@ RequestedStudents _$RequestedStudentsFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$RequestedStudentsToJson(RequestedStudents instance) =>
+Map<String, dynamic> _$MyStudentsModelToJson(MyStudentsModel instance) =>
     <String, dynamic>{
       'newStudentsList': instance.newStudentsList,
       'acceptedStudentsList': instance.acceptedStudentsList,

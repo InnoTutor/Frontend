@@ -27,7 +27,7 @@ class _MyProfileLargeState extends State<MyProfileLargePage> {
     if(globals.myCards == null) {
       print(globals.user.name);
       print(globals.myCards);
-      globals.myCards = await new Services().getCvCards();
+      globals.myCards = await new Services().getMyCvCards();
       print(globals.myCards);
       if (mounted) {
         setState(() {
