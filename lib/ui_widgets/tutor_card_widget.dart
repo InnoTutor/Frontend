@@ -45,7 +45,7 @@ class _TutorCardWidgetState extends State<TutorCardWidget>{
       return Container(
           child: InkWell(
             child: Container(
-              height: 68+height.toDouble(),
+              height: 120+height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
               decoration: BoxDecoration(
                 color : color,
@@ -87,30 +87,35 @@ class _TutorCardWidgetState extends State<TutorCardWidget>{
                         //padding: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
                         child: CustomText(text: "                 " + widget.tutor.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
-                      ),
-                      Container(
-                        child: Column(
-                          children: [
-                            widget.tutor.sessionFormat.length == 2 ? 
-                            CustomText(text: "both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                            CustomText(text: widget.tutor.sessionFormat[0], size: 12, weight: FontWeight.w400, color: Colors.white,),
-
-                            widget.tutor.sessionType.length == 2 ? 
-                            CustomText(text: "both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                            CustomText(text: widget.tutor.sessionType[0], size: 12, weight: FontWeight.w400, color: Colors.white,)
-                          ],
-                        ),
-                      )
+                      ),  
                     ],)
                   ],),
                   // Expanded(
                   //   child: Container(height: 0,),
                   // ),
+                  Container(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      alignment: Alignment.topLeft,
+                      child: widget.tutor.sessionFormat.length == 2 ? 
+                      CustomText(text: "Format: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
+                      CustomText(text: "Format: " + widget.tutor.sessionFormat[0], size: 12, weight: FontWeight.w400, color: Colors.white,),
+                    )
+                  ),
+                  Container(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      alignment: Alignment.topLeft,
+                      child: widget.tutor.sessionType.length == 2 ? 
+                      CustomText(text: "Type: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
+                      CustomText(text: "Type: " + widget.tutor.sessionType[0], size: 12, weight: FontWeight.w400, color: Colors.white,)
+                    ),
+                  ),
                   Flexible(
                     child: Container(
-                    padding: EdgeInsets.all(10),
-                    alignment: Alignment.bottomLeft,
-                    child: descriptionText
+                      padding: EdgeInsets.only(left: 10, bottom: 10),
+                      alignment: Alignment.bottomLeft,
+                      child: descriptionText
                     )
                   )
                 ],

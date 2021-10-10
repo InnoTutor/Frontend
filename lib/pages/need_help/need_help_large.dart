@@ -46,6 +46,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
 
   }
 
+
   Future<void> updateResultsWithCount(Card updatedCard) async{
     await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
@@ -77,7 +78,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
               weight: FontWeight.bold,
             )
           ) : Wrap(),
-          Container(
+          subjects_fetched ? Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
               child: globals.allTutors!=null ? Column(
                 mainAxisSize: MainAxisSize.min,
@@ -91,7 +92,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
                   valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
                 ),
             ),
-          ),
+          ) : Wrap(),
           Container(
             height: 10,
           )
