@@ -26,7 +26,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
 
   void manageParameters(String code, String param, bool value, bool radio) {
     setState(() {
-      if (radio){
+      if (!radio){
         if (code == "format"){
           if (value){
             widget.card.sessionFormat.add(param);
@@ -102,8 +102,9 @@ class CheckBoxItem extends StatelessWidget {
             activeColor: style.darkGreen,
             value: code == "format" ? card.sessionFormat.contains(param) : code == "type" ? card.sessionType.contains(param) : false, 
             onChanged: (bool newValue){
-              if (manageParameters != (){})
+              if (manageParameters != (){}){
                 manageParameters(code, param, newValue, false);
+              }
             }
           ),
           CustomText(text: " " + param.toString(), color: color ?? Colors.white),
