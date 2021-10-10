@@ -133,6 +133,7 @@ class _LargeScreenState extends State<LargeScreen> {
                                           ))))))
                       : Expanded(child: Container(color: style.lightGrey)),
                   Container(
+                    color: style.lightGrey,
                       alignment: globals.user != null
                           ? Alignment.center
                           : Alignment.topCenter,

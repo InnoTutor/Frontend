@@ -15,6 +15,10 @@ class StudentRequest {
   List<String> sessionFormat;
   List<String> sessionType;
 
+  int height = 100;
+  void initializeCard(){
+      this.height = 100;
+  }
 
   factory StudentRequest.fromJson(Map<String, dynamic> json) => _$StudentRequestFromJson(json);
 

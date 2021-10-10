@@ -45,6 +45,9 @@ class _myAppBarState extends State<myAppBar> {
           Container(
             width: 15,
           ),
+          Expanded(
+            child: Container(),
+          ),
           Container(
             child: ResponsiveWidget.isSmallScreen(context) || globals.user == null
                 ? null

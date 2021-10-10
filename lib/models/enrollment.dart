@@ -6,8 +6,9 @@ part 'enrollment.g.dart';
 
 @JsonSerializable()
 class Enrollment{
-  Enrollment(this.enrollmentId, this.cardId, this.sessionFormat, this.sessionType);
+  Enrollment(this.enrollmentId, this.enrollerId, this.cardId, this.sessionFormat, this.sessionType);
   int enrollmentId;
+  int enrollerId;
   int cardId;
   List<String> sessionFormat;
   List<String> sessionType;

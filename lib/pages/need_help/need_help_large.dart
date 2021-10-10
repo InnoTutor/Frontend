@@ -5,7 +5,7 @@ import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
-import 'package:inno_tutor/ui_widgets/tutor_card_widget.dart';
+import 'package:inno_tutor/ui_widgets/search_tutor_card_widget.dart';
 import 'package:inno_tutor/widgets/custom_dropdown_button.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/page_cap.dart';
@@ -37,18 +37,14 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
     });
   }
 
+  bool updated = true;
   Future<void> updateResults(Card updatedCard) async{
-    await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
-      
+      updated = false;
     });
-
-  }
-
-
-  Future<void> updateResultsWithCount(Card updatedCard) async{
     await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
+      updated = true;
     });
   }
   
@@ -65,7 +61,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
           subjects_fetched ? Container(
             width: 610,
             padding: EdgeInsets.only(top: 10),
-            child: CheckBoxRow(card: newCard, color: style.darkGrey, themeColor: style.darkGrey, updateResults: updateResultsWithCount, radio: true)
+            child: CheckBoxRow(card: newCard, color: style.darkGrey, themeColor: style.darkGrey, updateResults: updateResults, radio: true)
           ) : Wrap(),
           subjects_fetched ? Container(
             alignment: Alignment.topLeft,
@@ -77,12 +73,12 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
               weight: FontWeight.bold,
             )
           ) : Wrap(),
-          subjects_fetched ? Container(
+          subjects_fetched && updated ? Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
               child: globals.allTutors!=null ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: 
-                globals.allTutors.map((item) => TutorCardWidget(tutor: item)).toList()
+                globals.allTutors.map((item) => SearchTutorCardWidget(tutor: item)).toList()
               ) : 
               Container(
               padding: EdgeInsets.all(10),

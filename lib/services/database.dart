@@ -320,8 +320,13 @@ class SearchServices {
   }
 
   Future<List<StudentRequest>> getStudents(
-      String subject, String format, String type) async {
-    String url = searchUrl(Urls.get_students, subject, format, type, null);
+      String subject, List<String> format, List<String> type) async {
+    String url = searchUrl(
+        Urls.get_students,
+        subject != null ? subject : null,
+        format != null && format.length == 1 ? format[0] : null,
+        type != null && type.length == 1 ? type[0] : null,
+        null);
     print(url);
     Response res = await get(Uri.parse(url),
         headers: await headers());
@@ -332,6 +337,7 @@ class SearchServices {
         StudentRequest student = StudentRequest.fromJson(obj[i]);
         students.add(student);
       }
+      globals.allStudents = students;
       return students;
     }else {
       throw "Unable to get students list given certain criteria";
