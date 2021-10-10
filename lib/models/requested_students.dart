@@ -6,13 +6,13 @@ import "package:json_annotation/json_annotation.dart";
 part 'requested_students.g.dart';
 
 @JsonSerializable()
-class RequestedStudents {
-  RequestedStudents(this.newStudentsList, this.acceptedStudentsList);
+class MyStudentsModel {
+  MyStudentsModel(this.newStudentsList, this.acceptedStudentsList);
 
   List<Enrollment>newStudentsList;
   List<Enrollment>acceptedStudentsList;
 
-  factory RequestedStudents.fromJson(Map<String, dynamic> json) => _$RequestedStudentsFromJson(json);
+  factory MyStudentsModel.fromJson(Map<String, dynamic> json) => _$MyStudentsModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$RequestedStudentsToJson(this);
+  Map<String, dynamic> toJson() => _$MyStudentsModelToJson(this);
 }

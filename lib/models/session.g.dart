@@ -10,10 +10,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) {
   return Session(
     json['sessionId'] as int,
     json['tutorId'] as int,
-    (json['studentsList'] as List)
-        ?.map(
-            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    (json['studentIDsList'] as List)?.map((e) => e as int)?.toList(),
     json['subject'] as String,
     json['date'] as String,
     json['startTime'] as String,
@@ -27,7 +24,7 @@ Session _$SessionFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SessionToJson(Session instance) => <String, dynamic>{
       'sessionId': instance.sessionId,
       'tutorId': instance.tutorId,
-      'studentsList': instance.studentsList,
+      'studentIDsList': instance.studentIDsList,
       'subject': instance.subject,
       'date': instance.date,
       'startTime': instance.startTime,
