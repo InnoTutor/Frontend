@@ -43,6 +43,17 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
       
     });
   }
+
+  int count = 0;
+  Future<void> updateResultsWithCount(Card updatedCard) async{
+    count++;
+    await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+    if (count == 4){
+      count = 0;
+      setState(() {
+      });
+    }
+  }
   
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +68,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
           subjects_fetched ? Container(
             width: 610,
             padding: EdgeInsets.only(top: 10),
-            child: CheckBoxRow(card: newCard, color: style.darkGrey, themeColor: style.darkGrey, updateResults: updateResults, radio: true)
+            child: CheckBoxRow(card: newCard, color: style.darkGrey, themeColor: style.darkGrey, updateResults: updateResultsWithCount, radio: true)
           ) : Wrap(),
           subjects_fetched ? Container(
             alignment: Alignment.topLeft,

@@ -233,8 +233,11 @@ class Services{
   Future<List<Tutor>> getTutors(String subject, List<String> format, List<String> type,String sorting) async {
     String url = Urls.get_tutors;
     bool previous = false;
+
+    String formattedSubject = subject.replaceAll(" ", "+");
+
     if(subject!=""){
-      url+=('?subject='+subject);
+      url+=('?subject='+formattedSubject);
       previous = true;
     }
     if(format.length == 1){
