@@ -259,7 +259,9 @@ class MyStudentsServices {
     Response res =
     await get(Uri.parse(Urls.my_students), headers: await headers());
     if (res.statusCode == 200 || res.statusCode == 201) {
+      print(res.body);
       MyStudentsModel myStudents = MyStudentsModel.fromJson(jsonDecode(res.body));
+      print(myStudents.toJson());
       print('got my students successfully');
       return myStudents;
     } else {

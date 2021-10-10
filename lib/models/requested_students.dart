@@ -7,10 +7,10 @@ part 'requested_students.g.dart';
 
 @JsonSerializable()
 class MyStudentsModel {
-  MyStudentsModel(this.newStudentsList, this.acceptedStudentsList);
+  MyStudentsModel(this.newStudents, this.acceptedStudents);
 
-  List<Enrollment>newStudentsList;
-  List<Enrollment>acceptedStudentsList;
+  List<Enrollment>newStudents;
+  List<Enrollment>acceptedStudents;
 
   factory MyStudentsModel.fromJson(Map<String, dynamic> json) => _$MyStudentsModelFromJson(json);
 

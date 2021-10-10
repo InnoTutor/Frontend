@@ -39,7 +39,7 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
 
   Future<List<Enrollment>> fetch_cards(String search) async {
     MyStudentsModel myStudentsModel = await new MyStudentsServices().getStudents();
-    globals.myStudents = myStudentsModel.newStudentsList;
+    globals.myStudents = myStudentsModel.newStudents;
     if (mounted) {
       setState(() {
       });

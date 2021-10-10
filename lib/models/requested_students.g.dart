@@ -8,11 +8,11 @@ part of 'requested_students.dart';
 
 MyStudentsModel _$MyStudentsModelFromJson(Map<String, dynamic> json) {
   return MyStudentsModel(
-    (json['newStudentsList'] as List)
+    (json['newStudents'] as List)
         ?.map((e) =>
             e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    (json['acceptedStudentsList'] as List)
+    (json['acceptedStudents'] as List)
         ?.map((e) =>
             e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
@@ -21,6 +21,6 @@ MyStudentsModel _$MyStudentsModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$MyStudentsModelToJson(MyStudentsModel instance) =>
     <String, dynamic>{
-      'newStudentsList': instance.newStudentsList,
-      'acceptedStudentsList': instance.acceptedStudentsList,
+      'newStudents': instance.newStudents,
+      'acceptedStudents': instance.acceptedStudents,
     };
