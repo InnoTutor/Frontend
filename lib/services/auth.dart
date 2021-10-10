@@ -26,7 +26,6 @@ class AuthService {
     User user = await firebaseAuth.currentUser;
     if(user == null)return null;
     String token = (await user.getIdToken());
-    globals.token = token;
     return token;
   }
 
@@ -47,7 +46,6 @@ class AuthService {
       print('in access secure resource and printing response body');
       print(response.body);
       globals.user = user2.User.fromJson(jsonDecode(response.body));
-      globals.user.token=token;
     }
     return response.body.toString();
   }
@@ -83,9 +81,9 @@ class AuthService {
 
     if (user != null) {
       await accessSecureResource(await extractToken());
-      globals.myCards = await Services().getCvCards();
-      globals.formats = await Services().getSessionFormat();
-      globals.types = await Services().getSessionType();
+      globals.myCards = await Services().getMyCvCards();
+      globals.formats = await SessionServices().getFormats();
+      globals.types = await SessionServices().getTypes();
       print('user data has been posted to the server successfully');
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('user', json.encode(globals.user));

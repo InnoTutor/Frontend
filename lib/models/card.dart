@@ -7,16 +7,21 @@ part 'card.g.dart';
 
 @JsonSerializable()
 class Card{
-  Card(this.cardId, this.creatorId, this.subject, this.rating, this.description , this.sessionFormat, this.sessionType, this.hidden, this.countVoted);
+  Card(this.cardId, this.creatorId, this.subject,
+      this.rating, this.description , this.sessionFormat,
+      this.sessionType, this.hidden, this.countVoted);
   int cardId;
   int creatorId;
   String subject;
+
   double rating;
   List<String> sessionFormat;
   List<String> sessionType;
+
   String description;
   int countVoted = 0;
   bool hidden = false;
+
   bool editable = false;
   int height = 100;
   int currentIcon = 1;

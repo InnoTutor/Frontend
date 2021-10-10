@@ -7,17 +7,19 @@ part 'session.g.dart';
 
 @JsonSerializable()
 class Session {
-  Session(this.sessionId, this.tutorId ,this.studentsList ,this.subject,this.date,this.startTime,this.endTime,this.sessionFormat,this.sessionType, this.description);
+  Session(this.sessionId, this.tutorId ,this.studentIDsList ,this.subject,this.date,this.startTime,this.endTime,this.sessionFormat,this.sessionType, this.description);
   int sessionId;
   int tutorId;
-  List<User>studentsList;
+  List<int>studentIDsList;
+
   String subject;
   String date;
   String startTime;
-  String endTime;
 
+  String endTime;
   String sessionFormat;
   String sessionType;
+
   String description;
 
 

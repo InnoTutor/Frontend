@@ -214,13 +214,13 @@ class _LargeScreenState extends State<LargeScreen> {
                     child: Column(
                       children: [
                         Visibility(
-                            visible: globals.token == null ? false : true,
+                            visible: globals.user == null ? false : true,
                             child: LayoutButton(
                               text: "Need Help",
                               updPage: updatePage,
                             )),
                         Visibility(
-                            visible: globals.token == null ? false : true,
+                            visible: globals.user == null ? false : true,
                             child: LayoutButton(
                               text: "Offer Help",
                               updPage: updatePage,

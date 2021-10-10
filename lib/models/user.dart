@@ -16,11 +16,6 @@ class User {
   String email;
   String contacts;
   String description;
-  SessionsList sessions;
-  List<Card> servicesList;
-  RequestedStudents myStudentsList;
-  List<Card> requestsList;
-  String token;
   String picture;
 
   /// A necessary factory constructor for creating a new User instance

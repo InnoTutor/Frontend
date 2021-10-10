@@ -34,7 +34,7 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
 
   Future<List<Card>> fetch_cards(String search) async {
     if(globals.myCards == null) {
-      globals.myCards = await new Services().getCvCards();
+      globals.myCards = await new Services().getMyCvCards();
       if (mounted) {
         setState(() {
         });
@@ -155,7 +155,7 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: style.darkGreen),
                   onPressed: () async{
-                    newCard = await Services().postCvCard(newCard);
+                    newCard = await Services().create(newCard);
                     update();
                     Navigator.of(context).pop();
                   },

@@ -10,6 +10,7 @@ class StudentRequest {
   int studentId;
   int cardId;
   String description;
+
   String subject;
   List<String> sessionFormat;
   List<String> sessionType;
