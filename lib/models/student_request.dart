@@ -7,8 +7,8 @@ part 'student_request.g.dart';
 class StudentRequest {
   StudentRequest(this.studentId, this.cardId, this.description,this.subject,this.sessionFormat,this.sessionType);
 
-  String studentId;
-  String cardId;
+  int studentId;
+  int cardId;
   String description;
   String subject;
   List<String> sessionFormat;
