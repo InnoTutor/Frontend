@@ -40,6 +40,7 @@ flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=ht
 # Deployment
 To generate the release files of the web version that you need to deploy, you need to apply,
 flutter build web --release
+
 Github Pages is used to deploy the website version of the flutter app, you need to cd build/web, then init a new repo and push files there to a new branch, that you would mention/choose in github pages.
 It's worth mentioning that you need to add the generated link by github pages to the Authorised JavaScript origins in the credentials to be able to use google login api as mentioned in AuthServices above.
 
