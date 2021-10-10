@@ -45,7 +45,7 @@ class _TutorCardWidgetState extends State<TutorCardWidget>{
       return Container(
           child: InkWell(
             child: Container(
-              height: 120+height.toDouble(),
+              height: 100+height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
               decoration: BoxDecoration(
                 color : color,
