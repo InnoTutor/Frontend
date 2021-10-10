@@ -10,8 +10,10 @@ Tutor _$TutorFromJson(Map<String, dynamic> json) {
   return Tutor(
     json['tutorId'] as int,
     json['cardId'] as int,
-    (json['rating'] as num)?.toDouble(),
-    (json['countVoted'] as num)?.toInt(),
+    json['rating'] as double,
+    json['countVoted'] as int,
+//     (json['rating'] as num)?.toDouble(),
+//     (json['countVoted'] as num)?.toInt(),
     json['description'] as String,
     json['subject'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),

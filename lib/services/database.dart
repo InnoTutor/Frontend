@@ -230,8 +230,23 @@ class Services{
     }
   }
 
-  Future<List<Tutor>> getTutors(String subject, String format, String type,String sorting) async {
-    String url = searchUrl(Urls.get_tutors, subject, format, type, sorting);
+  Future<List<Tutor>> getTutors(String subject, List<String> format, List<String> type,String sorting) async {
+    String url = Urls.get_tutors;
+    bool previous = false;
+    if(subject!=""){
+      url+=('?subject='+subject);
+      previous = true;
+    }
+    if(format.length == 1){
+      url+=((previous?"&":"?") + ("format="+ format[0]));
+      previous=true;
+    }if(type.length == 1){
+      url+=((previous?"&":"?") + ("type="+type[0]));
+      previous = true;
+    }
+    if(sorting!=null){
+      url+=((previous?"&":"?") + ("sorting="+sorting));
+    }
     print(url);
     Response res = await get(Uri.parse(url),headers: headers);
     if (res.statusCode == 200 || res.statusCode == 201) {
@@ -242,7 +257,6 @@ class Services{
         Tutor tutor = Tutor.fromJson(obj[i]);
         tutors.add(tutor);
       }
-      print(tutors);
       globals.allTutors = tutors;
       return tutors;
     } else if (res.statusCode == 403){
