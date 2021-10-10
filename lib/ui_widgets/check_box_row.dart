@@ -24,23 +24,26 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
     super.initState();
   }
 
-  void manageParameters(String code, String param, bool value)async{
-    if (code == "format"){
-      if (value){
-        widget.card.sessionFormat.add(param);
-      } else {
-        widget.card.sessionFormat.remove(param);
+  void manageParameters(String code, String param, bool value, bool radio) {
+    setState(() {
+      if (!radio){
+        if (code == "format"){
+          if (value){
+            widget.card.sessionFormat.add(param);
+          } else {
+            widget.card.sessionFormat.remove(param);
+          }
+        } else if (code == "type"){
+          if (value){
+            widget.card.sessionType.add(param);
+          } else {
+            widget.card.sessionType.remove(param);
+          }
+        }
       }
-    } else if (code == "type"){
-      if (value){
-        widget.card.sessionType.add(param);
-      } else {
-        widget.card.sessionType.remove(param);
-      }
-    }
 
       if (widget.updateResults != null) widget.updateResults(widget.card);
-
+    });
   }
 
   @override
@@ -99,8 +102,9 @@ class CheckBoxItem extends StatelessWidget {
             activeColor: style.darkGreen,
             value: code == "format" ? card.sessionFormat.contains(param) : code == "type" ? card.sessionType.contains(param) : false, 
             onChanged: (bool newValue){
-              if (manageParameters != (){})
-                manageParameters(code, param, newValue);
+              if (manageParameters != (){}){
+                manageParameters(code, param, newValue, false);
+              }
             }
           ),
           CustomText(text: " " + param.toString(), color: color ?? Colors.white),
@@ -143,10 +147,16 @@ class _RadioButtonsState extends State<RadioButtons> {
               onChanged: (value) {
                   if (widget.manageParameters != (){}){
                     val = value;
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val == value);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val != value);
+                    if (widget.code == "format"){
+                      if (val == value){
+                        widget.card.sessionFormat = ["online"];
+                      }
+                    } else {
+                      if (val == value){
+                        widget.card.sessionType = ["private"];
+                      }
+                    }
+                    widget.manageParameters("", "", false, true);
                   }
                   setState(() {
                 });
@@ -164,12 +174,18 @@ class _RadioButtonsState extends State<RadioButtons> {
               onChanged: (value) {
                   if (widget.manageParameters != (){}){
                     val = value;
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val == value);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val != value);
+                    if (widget.code == "format"){
+                      if (val == value){
+                        widget.card.sessionFormat = ["offline"];
+                      }
+                    } else {
+                      if (val == value){
+                        widget.card.sessionType = ["group"];
+                      }
+                    }
+                    widget.manageParameters("", "", false, true);
                   }
-                   setState(() {
+                  setState(() {
                 });
               },
               activeColor:style.darkGreen,
@@ -185,10 +201,16 @@ class _RadioButtonsState extends State<RadioButtons> {
               onChanged: (value) {
                   if (widget.manageParameters != (){}){
                     val = value;
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", false);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "offline" : "group", val == value);
-                    widget.manageParameters(widget.code, widget.code == "format" ? "online" : "private", val == value);
+                    if (widget.code == "format"){
+                      if (val == value){
+                        widget.card.sessionFormat = [];
+                      }
+                    } else {
+                      if (val == value){
+                        widget.card.sessionFormat = [];
+                      }
+                    }
+                    widget.manageParameters("", "", false, true);
                   }
                   setState(() {
                 });

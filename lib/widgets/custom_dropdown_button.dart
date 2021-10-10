@@ -31,7 +31,7 @@ class _CustomDropDownButtonState extends State<CustomDropDownButton> {
         dropdownColor: style.grey,
         focusColor: style.darkGrey,
         borderRadius: BorderRadius.circular(10),
-        hint: CustomText(text: "Choose subject", color: style.darkGrey, weight: FontWeight.bold,),
+        hint: CustomText(text: widget.card.subject == "" ? "Choose subject" : widget.card.subject, color: style.darkGrey, weight: FontWeight.bold,),
         value: widget.selectedLocation,
         onChanged: (newValue) {
           if(mounted)
