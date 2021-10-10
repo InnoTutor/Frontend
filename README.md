@@ -12,7 +12,7 @@ Visual Studio Code, and Android studio.
 - Visual Studio Code: https://flutter.dev/docs/get-started/editor
 
 ## Clone the repo
-you can git clone using the repository link
+You can git clone using the repository link
 git clone https://github.com/InnoTutor/Frontend.git
 
 ## Get dependencies 
@@ -31,15 +31,17 @@ flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=ht
 
  # Services folder
  ## AuthServices
- the used method in logging in is google api, by adding the localhost link in OAuth2.0 here https://console.cloud.google.com/apis/credentials , mentioning the used port (7357 in this case).
+ The used method in logging in is google api, by adding the localhost link in OAuth2.0 here https://console.cloud.google.com/apis/credentials , mentioning the used port (7357 in this case).
  ## Database
- it's for getting data from the backend(you can check the backend repo for more information). 
+ It's for getting data from the backend(you can check the backend repo for more information). 
  it follows the backend documentation, https://documenter.getpostman.com/view/16213957/UUy65PgU , 
  consider the order of classes and functions as in the backend documentation to avoid any confusions. 
 
 # Deployment
-github pages is used to deploy the website version of the flutter app.
-it's worth mentioning that you need to add the generated link by github pages to the Authorised JavaScript origins in the credentials to be able to use google login api as mentioned in AuthServices above.
+To generate the release files of the web version that you need to deploy, you need to apply,
+flutter build web --release
+Github Pages is used to deploy the website version of the flutter app, you need to cd build/web, then init a new repo and push files there to a new branch, that you would mention/choose in github pages.
+It's worth mentioning that you need to add the generated link by github pages to the Authorised JavaScript origins in the credentials to be able to use google login api as mentioned in AuthServices above.
 
 # You can test the app from here
 https://innotutor.github.io/Frontend/
