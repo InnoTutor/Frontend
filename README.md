@@ -1,4 +1,4 @@
-# inno_tutor
+# InnoTutor
 This is the frontend part of InnoTutor, it's done by Flutter.
 # Used IDE
 Visual Studio Code, and Android studio.
@@ -30,5 +30,5 @@ flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=ht
 github pages is used to deploy the website version of the flutter app.
 it's worth mentioning that you need to add the generated link by github pages to the Authorised JavaScript origins in the credentials to be able to use google login api as mentioned in AuthServices above.
 
-# you can test the app from here
+# You can test the app from here
 https://innotutor.github.io/Frontend/
