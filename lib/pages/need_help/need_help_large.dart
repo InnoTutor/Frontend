@@ -47,7 +47,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
 
 
   Future<void> updateResultsWithCount(Card updatedCard) async{
-    await Services().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
+    await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
     });
   }
