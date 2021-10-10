@@ -1,10 +1,44 @@
-# InnoTutor
-This is the frontend part of InnoTutor, it's done by Flutter.
-## Check the main readme for glossary, stackholder roles, and diagrams used
-you can check it here: https://github.com/InnoTutor/README
+# Frontend
 
-# Used IDE
-Visual Studio Code, and Android studio.
+![logo](https://user-images.githubusercontent.com/44948387/136674082-18921bd1-b4f5-40d3-81bf-f98028c159c6.png)   <br>
+
+<img src="https://img.shields.io/github/stars/InnoTutor/Frontend?style=social">ᅠ [![License](https://img.shields.io/badge/license-MIT-green.svg)]
+<br><br><br>
+**Authors**: Emil Khabibulin, Tasneem Toolba
+<br><br>
+
+## Contents
+- [Requirements](#requirements)
+- [API](#api)
+- [Getting Started](#getting-started)
+- [Services folder](#services-folder)
+- [Deployment](#deployment)
+- [You can test the app from here](#you-can-test-the-app-from-here)
+- [Want to contribute?](#want-to-contribute)
+
+This is the frontend part of InnoTutor, it's done by Flutter.
+
+Check the main README for glossary, stackholder roles, and diagrams used here: https://github.com/InnoTutor/README
+
+# Requirements
+**Technical Stack**: <br>
+* **Flutter (FrontEnd)**: UI cross-platform applications for Android, IOS, and WEB
+  * Visual Studio Code and Android Studio are used as an IDE
+> For this open-source project, we used the simplest registration way via Google [Firebase](https://firebase.google.com)
+> - as a website user, you need to have a Google account
+> - as a developer, who is going to host this project version, you need to get your own Google credentials.
+> 
+> In case of using this project in **Innopolis University** we'll change authentication to **innopolis email** login page.
+
+## Stakeholders and their roles 👤
+* **Backend Development Team**
+  * **Developer 1** – Frontend developer. Integrate backend with frontend and implement the logic of UI elements.
+  * **Developer 2** – Frontend developer. Create and implement a user-friendly design using Flutter, containing all the features made on the backend where all developers will test their parts before integrating parts. <br>
+ **Stake**: Development process
+
+# API
+There is documentation with all requests which backend supports. So frontend must communicate with it via API.
+You can read about API documentation [here](https://documenter.getpostman.com/view/16213957/UUy65PgU)
 
 # Getting Started
 ## Setup Flutter
@@ -29,7 +63,7 @@ https://flutter.dev/docs/development/data-and-backend/json
 ## Build the website through
 flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=html
 
- # Services folder
+# Services folder
  ## AuthServices
  The used method in logging in is google api, by adding the localhost link in OAuth2.0 here https://console.cloud.google.com/apis/credentials , mentioning the used port (7357 in this case).
  ## Database
@@ -47,3 +81,7 @@ It's worth mentioning that you need to add the generated link by github pages to
 
 # You can test the app from here
 https://innotutor.github.io/Frontend/
+
+# Want to contribute?
+You can contribute to this project. Just fork the repository from the `develop` branch, implement changes you want to propose and make a pull request.
+Also, there are [issues](https://github.com/InnoTutor/Frontend/issues), so feel free to submit a new one or participate in existing.
