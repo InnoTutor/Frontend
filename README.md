@@ -2,18 +2,28 @@
 This is the frontend part of InnoTutor, it's done by Flutter.
 # Used IDE
 Visual Studio Code, and Android studio.
-# check the main readme for glossary 
+# check the main readme for glossary, stackholder roles, and diagrams used
 you can check it here: https://github.com/InnoTutor/README
 
 # Getting Started
+## Setup Flutter
+- Android Studio: https://flutter.dev/docs/get-started/editor
+- Visual Studio Code: https://flutter.dev/docs/get-started/editor
+
+## Clone the repo
 you can git clone using the repository link
+git clone https://github.com/InnoTutor/Frontend.git
+
 ## Get dependencies 
 flutter pub get
+
 ## Build model files that are used for json serialization
 flutter pub run build_runner build --delete-conflicting-outputs
 
 all .g.dart files are generated using this command, so in order to change them,
-you need to change the model then run this command, considering synchronising the names
+you need to change the model then run the command above, considering the synchronisation of the models and file names.
+for more info, check: 
+https://flutter.dev/docs/development/data-and-backend/json
 
 ## Build the website through
 flutter run -d chrome --web-hostname localhost --web-port 7357 --web-renderer=html
