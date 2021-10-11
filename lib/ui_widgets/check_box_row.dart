@@ -207,7 +207,7 @@ class _RadioButtonsState extends State<RadioButtons> {
                       }
                     } else {
                       if (val == value){
-                        widget.card.sessionFormat = [];
+                        widget.card.sessionType = [];
                       }
                     }
                     widget.manageParameters("", "", false, true);

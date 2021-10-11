@@ -42,6 +42,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
 
   @override
   Widget build(BuildContext context) {
+
     CustomText descriptionText = CustomText(text : widget.studentRequest.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
     if (initFrame){
       return Wrap(children: [descriptionText]);
@@ -78,7 +79,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       alignment: Alignment.topLeft,
                       child: widget.studentRequest.sessionFormat.length == 2 ? 
                       CustomText(text: "Format: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Format: " + widget.studentRequest.sessionFormat[0], size: 12, weight: FontWeight.w400, color: Colors.white,),
+                      CustomText(text: "Format: " + (widget.studentRequest.sessionFormat.length == 1 ? widget.studentRequest.sessionFormat[0] : "both"), size: 12, weight: FontWeight.w400, color: Colors.white,),
                     )
                   ),
                   Container(
@@ -87,7 +88,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       alignment: Alignment.topLeft,
                       child: widget.studentRequest.sessionType.length == 2 ? 
                       CustomText(text: "Type: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Type: " + widget.studentRequest.sessionType[0], size: 12, weight: FontWeight.w400, color: Colors.white,)
+                      CustomText(text: "Type: " + (widget.studentRequest.sessionType.length == 1 ? widget.studentRequest.sessionType[0] : "both"), size: 12, weight: FontWeight.w400, color: Colors.white,)
                     ),
                   ),
                   Flexible(
