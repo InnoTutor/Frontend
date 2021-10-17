@@ -84,15 +84,15 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
       Container(
         margin: EdgeInsets.only(top: 15, left:10, right:10, bottom: 5),
         decoration: BoxDecoration(
-          color :style.lightGrey,
-          borderRadius:  BorderRadius.all(Radius.circular(10)),
+          color :style.grey.withOpacity(0.6),
+          borderRadius:  BorderRadius.all(Radius.circular(5)),
         ),
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 20, top: 10),
-              child: CustomText(text: "New Students (" + myNewStudents.length.toString() + "):", size: 18, weight: FontWeight.bold,)
+              child: CustomText(text: "New Students (" + myNewStudents.length.toString() + "):", size: 18, weight: FontWeight.bold, color: style.darkGrey)
             ),
             Container(
               padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),

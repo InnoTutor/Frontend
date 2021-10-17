@@ -15,5 +15,5 @@ BoxDecoration commonBoxDecoration = BoxDecoration(
 
 BoxDecoration commonCardDecoration = BoxDecoration(
   color: darkGreen,
-  borderRadius: BorderRadius.all(Radius.circular(10)),
+  borderRadius: BorderRadius.all(Radius.circular(5)),
 );

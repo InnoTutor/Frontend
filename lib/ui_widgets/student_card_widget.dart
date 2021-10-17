@@ -45,6 +45,7 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
 
   @override
   Widget build(BuildContext context) {
+    print(widget.student.name);
     Row description = Row(
       key: textKey,
       children: [
@@ -53,13 +54,15 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
       ],
     );
     if (initFrame){
+      print("here0");
       return Wrap(children: [description]);
     }
     else{
-      return !widget.enrollmentCard.hidden ? Container(
+      print("here1");
+      return Container(
           child: InkWell(
             child: Container(
-              height: 100+height.toDouble(),
+              height:90+height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
               decoration: commonCardDecoration,
               child: Container(
@@ -113,7 +116,7 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
               )
             ),
           )
-      ) : Wrap();
+      );
     }
   }
 }
@@ -140,7 +143,7 @@ class _StudentCardButtonState extends State<StudentCardButton> {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0.0),
-            side: BorderSide(color: Colors.white.withOpacity(0.1))
+            side: BorderSide(color: Colors.white.withOpacity(0.5))
           )
         )
       ),
