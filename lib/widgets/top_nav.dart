@@ -13,7 +13,8 @@ import 'logo.dart'hide Color;
 
 class myAppBar extends StatefulWidget implements PreferredSizeWidget {
   final Function() notifyParent;
-  myAppBar({Key key, @required this.notifyParent}) : super(key: key);
+  final Function() logOut;
+  myAppBar({Key key, @required this.notifyParent, @required this.logOut}) : super(key: key);
   @override
   Size get preferredSize => new Size.fromHeight(kToolbarHeight);
   @override
@@ -84,7 +85,7 @@ class _myAppBarState extends State<myAppBar> {
                             setState(() {
                             _value=0;  
                             });
-                            widget.notifyParent();
+                            widget.logOut();
 
                           },
                         ),

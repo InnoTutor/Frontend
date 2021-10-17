@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:inno_tutor/elements/side_menu.dart';
 import 'package:inno_tutor/models/user.dart';
+import 'package:inno_tutor/pages/login_page.dart';
 import 'package:inno_tutor/services/auth.dart' as auth;
 import './elements/drawer.dart';
 import './helpers/responsiveness.dart';
@@ -15,6 +16,7 @@ import './widgets/small_screen.dart';
 import './widgets/top_nav.dart';
 class SiteLayout extends StatefulWidget {
   Widget page;
+  bool login = false;
 
   SiteLayout({Key key, this.page}) : super(key: key);
 
@@ -62,24 +64,37 @@ class _SiteLayoutState extends State<SiteLayout> {
   Widget build(BuildContext context) {
     print(ModalRoute.of(context).settings.name);
     return Scaffold(
-        key: scaffoldKey,
-        appBar: myAppBar(notifyParent: refresh,),
-        body: ResponsiveWidget(
-          largeScreen: LargeScreen(
-              notifyParent: refresh,
-              page: widget.page),
-          mediumScreen: LargeScreen(
-              notifyParent: refresh,
-              page: widget.page),
-          smallScreen: SmallScreen(
-              page: widget.page),
-        ),
-        drawer: ResponsiveWidget.isSmallScreen(context)
-            // && !widget.login
-            ? Drawer(child: SideMenu())
-            : null);
+      key: scaffoldKey,
+      appBar: myAppBar(notifyParent: refresh, logOut: setLoggedOut,),
+      body: widget.login == true ? ResponsiveWidget(
+        largeScreen: LargeScreen(
+            notifyParent: refresh,
+            page: widget.page),
+        mediumScreen: LargeScreen(
+            notifyParent: refresh,
+            page: widget.page),
+        smallScreen: SmallScreen(
+            page: widget.page),
+      ) : Login(notifyParent: setLoggedIn,),
+      drawer: ResponsiveWidget.isSmallScreen(context)
+        && widget.login == false
+        ? Drawer(child: SideMenu())
+        : null
+    );
   }
   refresh() {
+    setState(() {});
+  }
+
+  setLoggedIn(){
+    widget.login = true;
+    widget.page = MyProfile();
+    setState(() {});
+  }
+
+  setLoggedOut(){
+    widget.login = false;
+    widget.page = Login(notifyParent: setLoggedIn,);
     setState(() {});
   }
 }

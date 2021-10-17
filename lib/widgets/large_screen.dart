@@ -53,40 +53,6 @@ class _LargeScreenState extends State<LargeScreen> {
   }
 
   @override
-  void initState() {
-    widget.login = false;
-    super.initState();
-    fetch();
-  }
-
-  fetch() async {
-    String token = await AuthService().extractToken();
-
-    if (globals.user == null && token != null) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String user = prefs.getString('user');
-      List<String> cards = prefs.getStringList('my_cards');
-      if (user != null) {
-        widget.login=true;
-        globals.user = User.fromJson(json.decode(user));
-        if (mounted) {
-          setState(() {});
-        }
-      }
-      if (cards != null) {
-        globals.myCards =
-            cards.map((e) => Card.fromJson(json.decode(e))).toList();
-        print(globals.myCards.map((e) => e.toJson()));
-        if (mounted) {
-          setState(() {});
-        }
-      }
-    } else {
-      setState(() {});
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     String route = '';
     return Scaffold(
@@ -99,8 +65,7 @@ class _LargeScreenState extends State<LargeScreen> {
             child: IntrinsicHeight(
               child: Row(
                 children: [
-                  globals.user != null
-                      ? Expanded(
+                      Expanded(
                           child: Container(
                               color: style.lightGrey,
                               child: Container(
@@ -130,24 +95,18 @@ class _LargeScreenState extends State<LargeScreen> {
                                               ]),
                                           child: SideMenu(
                                             updPage: updatePage,
-                                          ))))))
-                      : Expanded(child: Container(color: style.lightGrey)),
+                                          )))))),
                   Container(
                     color: style.lightGrey,
-                      alignment: globals.user != null
-                          ? Alignment.center
-                          : Alignment.topCenter,
+                      alignment: Alignment.center,
                       child: Column(
                         children: [
                           Container(
-                              width: globals.user != null ? 700 : 300,
+                              width: 700,
                               color: style.lightGrey,
-                              alignment: globals.user != null
-                                  ? Alignment.center
-                                  : Alignment.topCenter,
+                              alignment: Alignment.center,
                               child: SizedBox(
                                   child: Container(
-                                      // height: widget.login ? 70 : 500,
                                       margin: const EdgeInsets.only(
                                           right: 5, left: 5, top: 10),
                                       decoration: BoxDecoration(
@@ -162,50 +121,14 @@ class _LargeScreenState extends State<LargeScreen> {
                                               blurRadius: 7,
                                             )
                                           ]),
-                                      child: globals.user != null
-                                          ? widget.page
-                                          : Container(
-                                              padding: EdgeInsets.all(15),
-                                              child: widget.clicked==false?SignInButton(
-                                                Buttons.Google,
-                                                text: "Sign up with Google",
-                                                onPressed: () async {
-                                                  if(mounted)
-                                                  setState(() {
-                                                    widget.clicked=true;
-
-                                                  });
-                                                  AuthService auth_service =
-                                                      new AuthService();
-                                                  await auth_service
-                                                      .signInWithGoogle()
-                                                      .then((result) {})
-                                                      .catchError((error) {
-                                                    print(
-                                                        'Registration Error: $error');
-                                                  });
-                                                  if(mounted)
-                                                  setState(() {
-                                                    widget.login=true;
-                                                    widget.notifyParent();
-
-                                                  });
-                                                },
-                                              ):CircularProgressIndicator(
-                                                backgroundColor: style.grey,
-                                                valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
-                                              ),
-                                      )
+                                      child:  widget.page
                                   )
                               )
-                          ),
-                          globals.user != null
-                              ? Expanded(
+                          ),Expanded(
                                   child: Container(
                                       height: 50,
                                       width: 700,
                                       color: style.lightGrey))
-                              : Wrap()
                         ],
                       )),
                   Expanded(
@@ -215,13 +138,11 @@ class _LargeScreenState extends State<LargeScreen> {
                     child: Column(
                       children: [
                         Visibility(
-                            visible: globals.user == null ? false : true,
                             child: LayoutButton(
                               text: "Need Help",
                               updPage: updatePage,
                             )),
                         Visibility(
-                            visible: globals.user == null ? false : true,
                             child: LayoutButton(
                               text: "Offer Help",
                               updPage: updatePage,
