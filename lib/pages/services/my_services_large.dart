@@ -1,20 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
-import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 import 'package:inno_tutor/ui_widgets/editable_cv_card_widget.dart';
 import 'package:inno_tutor/widgets/custom_dropdown_button.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:inno_tutor/services/database.dart';
 import '../../constants/style.dart' as style;
 import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
@@ -56,17 +49,17 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: globals.myCards!=null ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: globals.myCards
-                .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
-                .toList()) :
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: CircularProgressIndicator(
-                      backgroundColor: style.grey,
-                      valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
-                    ),
+          mainAxisSize: MainAxisSize.min,
+          children: globals.myCards
+            .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
+            .toList()) :
+            Container(
+              padding: EdgeInsets.all(10),
+              child: CircularProgressIndicator(
+                  backgroundColor: style.grey,
+                  valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
                 ),
+            ),
       ),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -74,7 +67,6 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
           style: ElevatedButton.styleFrom(primary: style.darkGreen),
           onPressed: ()async {
             List<String>subjects = await Services().getSubjects();
-
             _showDialog(context, update,subjects);
           },
           child: CustomText(

@@ -1,16 +1,14 @@
-import 'dart:convert';
 import 'dart:ui';
-
 import 'package:flutter/material.dart' hide Card;
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/style.dart' as style;
 import 'package:inno_tutor/globals.dart' as globals;
 import 'package:inno_tutor/services/database.dart';
+
+// ignore: must_be_immutable
 class EditableCvCardWidget extends StatefulWidget{
   Card card;
   Function updateMyServices;
@@ -75,7 +73,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
     descriptionText = CustomText(text : widget.card.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
     reserveButtonText = widget.card.hidden ? "Unreserve" : "Reserve";
     if (initFrame){
-      print("rendering");
       return Wrap(children: [descriptionText]);
     }
     else{
@@ -107,10 +104,17 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                        padding: EdgeInsets.only(left: 10, bottom: 15),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: style.pink
+                          style: ButtonStyle(
+                              backgroundColor:
+                                MaterialStateProperty.all(style.pink.withOpacity(0.2)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  side: BorderSide(color: Colors.white.withOpacity(0.5))
+                                )
+                              )
                           ),
                           onPressed: ()async {
                             await Services().deleteCvCard(widget.card);
@@ -119,14 +123,21 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                                  widget.updateMyServices();
                             });
                           },
-                          child: CustomText(text: "Delete", color: style.darkGrey, weight: FontWeight.bold,),
+                          child: CustomText(text: "Delete", color: Colors.white, weight: FontWeight.normal,),
                         ),
                       ),
                       Container(
                         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white
+                          style: ButtonStyle(
+                              backgroundColor:
+                                MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  side: BorderSide(color: Colors.white.withOpacity(0.5))
+                                )
+                              )
                           ),
                           onPressed: () {
                             if (!widget.card.hidden){
@@ -141,7 +152,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
                               });
                             }
                           },
-                          child: CustomText(text: reserveButtonText, color: style.darkGrey, weight: FontWeight.bold,),
+                          child: CustomText(text: reserveButtonText, color: Colors.white, weight: FontWeight.normal,),
                         ),
                       ),
                     ],
@@ -156,6 +167,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   }
 }
 
+// ignore: must_be_immutable
 class CardHeading extends StatelessWidget {
   Card card;
   Function manageEditButton;
@@ -185,6 +197,7 @@ class CardHeading extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CardDescription extends StatelessWidget {
   CustomText descriptionText;
   Card card;
@@ -219,6 +232,7 @@ class CardDescription extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class VoteInformation extends StatefulWidget {
   Card card;
   VoteInformation({ Key key, this.card}) : super(key: key);
@@ -261,3 +275,4 @@ class _VoteInformationState extends State<VoteInformation> {
     );
   }
 }
+

@@ -45,7 +45,6 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
 
   @override
   Widget build(BuildContext context) {
-    print(widget.student.name);
     Row description = Row(
       key: textKey,
       children: [
@@ -54,11 +53,9 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
       ],
     );
     if (initFrame){
-      print("here0");
       return Wrap(children: [description]);
     }
     else{
-      print("here1");
       return Container(
           child: InkWell(
             child: Container(
