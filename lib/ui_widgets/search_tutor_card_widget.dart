@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart' hide Card;
-import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/tutor.dart';
+import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/style.dart' as style;
 
 class SearchTutorCardWidget extends StatefulWidget{
   Tutor tutor;
-  SearchTutorCardWidget({ Key key, this.tutor}) : super(key: key);
+  User user;
+  SearchTutorCardWidget({ Key key, this.tutor, this.user}) : super(key: key);
 
   @override
   _SearchTutorCardWidgetState createState() => _SearchTutorCardWidgetState();
@@ -61,7 +62,7 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       child: Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      child: CustomText(text : widget.tutor.subject, weight: FontWeight.bold, color: Colors.white),
+                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.tutor.subject, weight: FontWeight.bold, color: Colors.white),
                       )
                     ),
                     Column(children: [
