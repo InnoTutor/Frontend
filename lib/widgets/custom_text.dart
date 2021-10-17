@@ -7,6 +7,7 @@ class CustomText extends StatelessWidget {
   final FontWeight weight;
   final String fontFamily;
   final bool selectable;
+  bool underline = false;
   double width;
 
   CustomText({ Key key,
@@ -16,7 +17,8 @@ class CustomText extends StatelessWidget {
    this.weight,
    this.fontFamily,
    this.selectable,
-   this.width }) : super(key: key);
+   this.width,
+   this.underline}) : super(key: key);
 
   Size textSize;
 
@@ -44,7 +46,8 @@ class CustomText extends StatelessWidget {
             fontFamily: fontFamily ?? 'SourceSans',
             fontSize: size ?? 16,
             color: color ?? Colors.black,
-            fontWeight: weight)
+            fontWeight: weight,
+            decoration: underline == true ? TextDecoration.underline : TextDecoration.none)
         )
       );
   }

@@ -3,6 +3,7 @@ import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 
+// ignore: must_be_immutable
 class CustomDropDownButton extends StatefulWidget {
   Card card;
   List<String> locations;
