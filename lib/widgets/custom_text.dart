@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:inno_tutor/constants/style.dart' as style;
 
 class CustomText extends StatelessWidget {
   String text;
@@ -42,11 +44,10 @@ class CustomText extends StatelessWidget {
           softWrap: false,
           overflow: TextOverflow.ellipsis,
           maxLines: 5,
-          style: TextStyle(
-            fontFamily: fontFamily ?? 'SourceSans',
+          style: GoogleFonts.sourceSansPro(
             fontSize: size ?? 16,
             color: color ?? Colors.black,
-            fontWeight: weight,
+            fontWeight: weight ?? FontWeight.w300,
             decoration: underline == true ? TextDecoration.underline : TextDecoration.none)
         )
       );

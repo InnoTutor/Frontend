@@ -53,13 +53,13 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
           children: globals.myCards
             .map((item) => EditableCvCardWidget(card: item, updateMyServices: update))
             .toList()) :
-            Container(
-              padding: EdgeInsets.all(10),
-              child: CircularProgressIndicator(
-                  backgroundColor: style.grey,
-                  valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
-                ),
-            ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: CircularProgressIndicator(
+              backgroundColor: style.grey,
+              valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+          ),
+        ),
       ),
       Container(
         padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -83,7 +83,6 @@ void _showDialog(BuildContext context, Function update, List<String> subjects) a
 
   Card newCard = Card(0, 0, "", 0, "", [], [], false, 0);
   newCard.setEditable(false);
-  String _selectedLocation; // Option 2
   showDialog(
     context: context,
     builder: (_) => AlertDialog(

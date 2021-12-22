@@ -13,7 +13,6 @@ import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/models/user.dart';
-import 'package:inno_tutor/services/auth.dart';
 import 'package:inno_tutor/services/global_funtions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -121,16 +120,20 @@ class Services {
   }
 
 
-  Future<Card> edit(Card card) async {
-    String url = Urls.services + '/' + card.cardId.toString();
+
+  Future<Card> edit(int cardId) async {
+    print("Card id is" + cardId.toString());
+    Card card = globals.getCardById(cardId);
+    if (card == null) return null;
+    String url = Urls.services + '/' + cardId.toString();
     var response = await put(Uri.parse(url),
         headers:await headers(), body: removeExtraParameters().edit_card(card));
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      globals.myCards.remove(card);
-      card = Card.fromJson(jsonDecode(response.body));
-      globals.myCards.add(card);
+      Card new_card = Card.fromJson(jsonDecode(response.body));
+      card = globals.getCardById(cardId);
+      globals.myCards[globals.myCards.indexOf(card)] = new_card;
       prefs.setStringList(
           'my_cards', (globals.myCards.map((e) => json.encode(e)).toList()));
       return card;

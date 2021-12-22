@@ -1,10 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart' hide Card;
+import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../constants/style.dart' as style;
 import 'package:inno_tutor/globals.dart' as globals;
 import 'package:inno_tutor/services/database.dart';
 
@@ -28,7 +28,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   void initState() {
     super.initState();
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => updateHeight());
+      .addPostFrameCallback((_) => updateHeight());
   }
 
   void updateHeight(){
@@ -41,11 +41,13 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   }
 
   void updateData(){
+    print(globals.myCards.map((card) => card.cardId).toList());
     for(Card card in globals.myCards){
       if (card.cardId == widget.card.cardId){
         card = widget.card;
       }
     }
+    print("done");
   }
 
   void manageEditButton(){
@@ -57,13 +59,14 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
         heightUpdateNeeded = false;
         widget.card.currentIcon = 0;
       } else {
-        Services().edit(widget.card);
         widget.card.editable = false;
         WidgetsBinding.instance
           .addPostFrameCallback((_) => updateHeight());
         widget.card.currentIcon = 1;
+        print("first");
+        Services().edit(widget.card.cardId);
+        print("second");
       }
-
       updateData();
     });
   }
@@ -79,89 +82,61 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
       if (heightUpdateNeeded){
         updateHeight();
       } 
-      return Container( 
-          child: InkWell(
-            child: Container(
-              height: 68+widget.card.height.toDouble(),
-              margin: const EdgeInsets.only(right:5, left:5, top: 10),
-              decoration: BoxDecoration(
-                color : widget.card.hidden ? style.darkGrey : style.darkGreen,
-                borderRadius:  BorderRadius.all(Radius.circular(10)),
+      return Container(
+        height: 68 + widget.card.height.toDouble(),
+        margin: const EdgeInsets.only(right:5, left:5, top: 10),
+        decoration: widget.card.hidden ? commonHiddenCardDecoration : commonCardDecoration,
+        child: Column(children: [       
+          Row( //Card Heading
+            children: [
+              CardHeading(card: widget.card, manageEditButton: manageEditButton),
+              VoteInformation(card: widget.card)
+            ],
+          ),
+
+          CardDescription(card: widget.card, descriptionText: descriptionText,),
+          widget.card.editable ? CheckBoxRow(card: widget.card, themeColor: Colors.white,) : Wrap(),
+          widget.card.editable ?
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 10, bottom: 15),
+                child: ElevatedButton( //Delete Button
+                  style: editableCardButtonStyle("delete"),
+                  onPressed: ()async {
+                    await Services().deleteCvCard(widget.card);
+                    if(mounted)
+                      setState(() {
+                         widget.updateMyServices();
+                    });
+                  },
+                  child: CustomText(text: "Delete", color: Colors.white, weight: FontWeight.normal,),
+                ),
               ),
-              child: Container(
-                child: 
-                Column(children: [       
-                  Row(
-                    children: [
-                      CardHeading(card: widget.card, manageEditButton: manageEditButton),
-                      VoteInformation(card: widget.card)
-                    ],
-                  ),
-                  CardDescription(card: widget.card, descriptionText: descriptionText,),
-                  widget.card.editable ? 
-                    CheckBoxRow(card: widget.card, themeColor: Colors.white,) : Wrap(),
-                  widget.card.editable ?
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 10, bottom: 15),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                MaterialStateProperty.all(style.pink.withOpacity(0.2)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  side: BorderSide(color: Colors.white.withOpacity(0.5))
-                                )
-                              )
-                          ),
-                          onPressed: ()async {
-                            await Services().deleteCvCard(widget.card);
-                            if(mounted)
-                              setState(() {
-                                 widget.updateMyServices();
-                            });
-                          },
-                          child: CustomText(text: "Delete", color: Colors.white, weight: FontWeight.normal,),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                              backgroundColor:
-                                MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  side: BorderSide(color: Colors.white.withOpacity(0.5))
-                                )
-                              )
-                          ),
-                          onPressed: () {
-                            if (!widget.card.hidden){
-                                setState(() {
-                                widget.card.hidden = true;
-                                reserveButtonText = "Unreserve";
-                              });
-                            } else {
-                                setState(() {
-                                  widget.card.hidden = false;
-                                  reserveButtonText = "Reserve";
-                              });
-                            }
-                          },
-                          child: CustomText(text: reserveButtonText, color: Colors.white, weight: FontWeight.normal,),
-                        ),
-                      ),
-                    ],
-                  ) : Wrap()
-                ],
+              Container( //ReserveButton
+                padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                child: ElevatedButton(
+                  style: editableCardButtonStyle("reserve"),
+                  onPressed: () {
+                    if (!widget.card.hidden){
+                        setState(() {
+                        widget.card.hidden = true;
+                        reserveButtonText = "Unreserve";
+                      });
+                    } else {
+                        setState(() {
+                          widget.card.hidden = false;
+                          reserveButtonText = "Reserve";
+                      });
+                    }
+                  },
+                  child: CustomText(text: reserveButtonText, color: Colors.white, weight: FontWeight.normal,),
+                ),
               ),
-              )
-            ),
-          )
+            ],
+          ) : Wrap()
+        ],
+        )
       );
     }
   }
@@ -181,7 +156,7 @@ class CardHeading extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Row(
           children : [
-            CustomText(text : card.subject, weight: FontWeight.bold, color: Colors.white),
+            CustomText(text : card.subject, weight: FontWeight.w400, color: Colors.white),
             IconButton(
               padding: EdgeInsets.only(left: 10, top: 0, bottom: 0, right: 0),
               icon: globals.icons[card.currentIcon],
@@ -216,12 +191,16 @@ class CardDescription extends StatelessWidget {
           keyboardType: TextInputType.multiline,
           maxLines: 10,
           style: TextStyle(fontFamily: 'SourceSans', color: Colors.white),
+          cursorColor: Colors.white,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white)
             ),
-            border: const OutlineInputBorder(),
-            fillColor: Colors.grey
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            fillColor: Colors.white.withOpacity(0.1),
+            filled: true
           ),
           onChanged: (text) {
             card.description = text;

@@ -13,7 +13,25 @@ BoxDecoration commonBoxDecoration = BoxDecoration(
   boxShadow: [commonBoxShadow]
 );
 
-BoxDecoration commonCardDecoration = BoxDecoration(
-  color: darkGreen,
-  borderRadius: BorderRadius.all(Radius.circular(5)),
+BoxDecoration commonHiddenCardDecoration = BoxDecoration(
+  color: almostDarkGrey,
+  borderRadius: BorderRadius.all(Radius.circular(3)),
 );
+
+BoxDecoration commonCardDecoration = BoxDecoration(
+  color: lightGreen,
+  borderRadius: BorderRadius.all(Radius.circular(4)),
+);
+
+ButtonStyle editableCardButtonStyle(String button){
+  return ButtonStyle(
+    backgroundColor:
+      MaterialStateProperty.all(button == "delete" ? pink.withOpacity(0.2) : Colors.white.withOpacity(0.2)),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0.0),
+        side: BorderSide(color: Colors.white.withOpacity(0.5))
+      )
+    )
+  );
+}

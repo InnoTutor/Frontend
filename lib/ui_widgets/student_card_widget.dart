@@ -134,13 +134,14 @@ class _StudentCardButtonState extends State<StudentCardButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
         backgroundColor: (widget.code == "Remove" || widget.code == "Decline") ? 
           MaterialStateProperty.all(style.pink.withOpacity(0.25)):
           MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(0.0),
-            side: BorderSide(color: Colors.white.withOpacity(0.5))
+            // side: BorderSide(color: Colors.white.withOpacity(0.5))
           )
         )
       ),
@@ -163,3 +164,4 @@ class _StudentCardButtonState extends State<StudentCardButton> {
     );
   }
 }
+

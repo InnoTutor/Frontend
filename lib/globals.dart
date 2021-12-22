@@ -19,3 +19,11 @@ Map <int , Icon> icons = {0:Icon(Icons.done, color: Colors.white) , 1 : Icon(Ico
 List<String>formats=[];
 List<String>types=[];
 
+Card getCardById(int cardId){
+  for (Card c in myCards){
+    if (c.cardId == cardId){
+      return c;
+    }
+    return null;
+  }
+}

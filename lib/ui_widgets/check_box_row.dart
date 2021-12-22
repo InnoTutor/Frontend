@@ -137,7 +137,7 @@ class _RadioButtonsState extends State<RadioButtons> {
         unselectedWidgetColor: widget.themeColor,
       ),
       child:  Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -246,6 +246,7 @@ class CheckBoxGroup extends StatelessWidget {
             child: CustomText(text: code == "type" ? "Type:" : "Format:", weight: FontWeight.bold, color: color ?? Colors.white),
           ),
           !radio ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,),
               CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(1), color: color, themeColor: themeColor,)
