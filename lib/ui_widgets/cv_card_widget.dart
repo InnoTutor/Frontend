@@ -39,9 +39,10 @@ class _CvCardWidgetState extends State<CvCardWidget>{
 
   @override
   Widget build(BuildContext context) {
-    CustomText descriptionText = CustomText(text : widget.card.description, color: Colors.white, width: 660, key: textKey);
+    CustomText descriptionTextSetup = CustomText(text : widget.card.description, color: cardBrighterColor.withOpacity(0), width: 660, key: textKey, weight: cardMediumWeight);
+    CustomText descriptionText = CustomText(text : widget.card.description, color: cardBrighterColor, width: 660, key: textKey, weight: cardMediumWeight);
     if (initFrame){
-      return Wrap(children: [descriptionText]);
+      return Wrap(children: [descriptionTextSetup]);
     }
     else{
       return !widget.card.hidden ? Container(
@@ -58,7 +59,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                     child: Container(
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.topLeft,
-                    child: CustomText(text : widget.card.subject, weight: FontWeight.w400, color: Colors.white),
+                    child: CustomText(text : widget.card.subject, weight: cardBoldWeight, color: cardDarkerColor),
                     )
                   ),
                   Column(children: [
@@ -71,9 +72,9 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                         allowHalfRating: true,
                         itemCount: 5,
                         ratingWidget: RatingWidget(
-                          full: Icon(Icons.star, color: Colors.white),
-                          half: Icon(Icons.star_half, color: Colors.white),
-                          empty: Icon(Icons.star_border, color: Colors.white),
+                          full: Icon(Icons.star, color: cardBrighterColor),
+                          half: Icon(Icons.star_half, color: cardBrighterColor),
+                          empty: Icon(Icons.star_border, color: cardBrighterColor),
                         ),
                         ignoreGestures: true,
                         onRatingUpdate: (rating) {
@@ -83,7 +84,7 @@ class _CvCardWidgetState extends State<CvCardWidget>{
                     ),
                     Container(
                       alignment: Alignment.centerLeft,
-                      child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, color: Colors.white,)
+                      child: CustomText(text: "                 " + widget.card.countVoted.toString() + " voted", size: 12, color: cardBrighterColor, weight: cardMediumWeight,)
                     )
                   ],)
                 ],),

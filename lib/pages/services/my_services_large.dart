@@ -47,7 +47,7 @@ class _MyServicesLargeState extends State<MyServicesLargePage> {
     return Column(children: [
       PageCap(text: "My Services"),
       Container(
-        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+        padding: EdgeInsets.only(bottom: 10),
         child: globals.myCards!=null ? Column(
           mainAxisSize: MainAxisSize.min,
           children: globals.myCards

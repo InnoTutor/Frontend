@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Card;
+import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/student_request.dart';
 import 'package:inno_tutor/models/tutor.dart';
@@ -43,9 +44,10 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
   @override
   Widget build(BuildContext context) {
 
-    CustomText descriptionText = CustomText(text : widget.studentRequest.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
+    CustomText descriptionTextSetup = CustomText(text : widget.studentRequest.description, weight: cardMediumWeight, color: cardBrighterColor.withOpacity(0), width: 660, key: textKey);
+    CustomText descriptionText = CustomText(text : widget.studentRequest.description, weight: cardMediumWeight, color: cardBrighterColor, width: 660, key: textKey);
     if (initFrame){
-      return Wrap(children: [descriptionText]);
+      return Wrap(children: [descriptionTextSetup]);
     }
     else{
       return Container(
@@ -53,10 +55,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
             child: Container(
               height: 100+height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
-              decoration: BoxDecoration(
-                color : color,
-                borderRadius:  BorderRadius.all(Radius.circular(10)),
-              ),
+              decoration: commonCardDecoration,
               child: Container(
                 child: 
                 Column(children: [
@@ -66,7 +65,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       child: Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.studentRequest.subject, weight: FontWeight.bold, color: Colors.white),
+                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.studentRequest.subject, weight: cardBoldWeight, color: cardDarkerColor),
                       )
                     ),
                   ],),
@@ -78,8 +77,8 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       padding: EdgeInsets.only(left: 10),
                       alignment: Alignment.topLeft,
                       child: widget.studentRequest.sessionFormat.length == 2 ? 
-                      CustomText(text: "Format: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Format: " + (widget.studentRequest.sessionFormat.length == 1 ? widget.studentRequest.sessionFormat[0] : "both"), size: 12, weight: FontWeight.w400, color: Colors.white,),
+                      CustomText(text: "Format: both", size: 12, weight: cardMediumWeight, color: cardBrighterColor) :
+                      CustomText(text: "Format: " + (widget.studentRequest.sessionFormat.length == 1 ? widget.studentRequest.sessionFormat[0] : "both"), size: 12, weight: cardMediumWeight, color: cardBrighterColor),
                     )
                   ),
                   Container(
@@ -87,8 +86,8 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       padding: EdgeInsets.only(left: 10),
                       alignment: Alignment.topLeft,
                       child: widget.studentRequest.sessionType.length == 2 ? 
-                      CustomText(text: "Type: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Type: " + (widget.studentRequest.sessionType.length == 1 ? widget.studentRequest.sessionType[0] : "both"), size: 12, weight: FontWeight.w400, color: Colors.white,)
+                      CustomText(text: "Type: both", size: 12, weight: cardMediumWeight, color: cardBrighterColor) :
+                      CustomText(text: "Type: " + (widget.studentRequest.sessionType.length == 1 ? widget.studentRequest.sessionType[0] : "both"), size: 12, weight: cardMediumWeight, color: cardBrighterColor)
                     ),
                   ),
                   Flexible(

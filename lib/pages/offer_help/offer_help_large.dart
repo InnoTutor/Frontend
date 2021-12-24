@@ -113,7 +113,13 @@ class _OfferHelpLargePageState extends State<OfferHelpLargePage> {
                   valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
                 ),
             ),
-          ) : Wrap(),
+          ) : Container(
+            padding: EdgeInsets.all(10),
+            child: CircularProgressIndicator(
+                backgroundColor: style.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+              ),
+          ),
           Container(
             height: 10,
           )

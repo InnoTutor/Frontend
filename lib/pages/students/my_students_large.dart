@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Card;
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/enrollment.dart';
 import 'package:inno_tutor/models/requested_students.dart';
@@ -17,62 +18,35 @@ import '../../widgets/custom_text.dart';
 import '../../widgets/page_cap.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 
-class Triple<T1, T2, T3> {
-  final T1 user;
-  final T2 enrollmentCard;
-  final T3 enrollment;
-
-  Triple(this.user, this.enrollmentCard, this.enrollment);
-}
-
 class MyStudentsLargePage extends StatefulWidget {
   @override
   _MyStudentsLargeState createState() => _MyStudentsLargeState();
 }
 
 class _MyStudentsLargeState extends State<MyStudentsLargePage> {
-  List<Triple<User, Card, Enrollment>> myNewStudents;
-  List<Triple<User, Card, Enrollment>> myAcceptedStudents;
   @override
   initState() {
     super.initState();
     fetch_cards('');
   }
 
-  bool students_fetched = false;
+  bool fetch_required = true;
 
   Future<List<Enrollment>> fetch_cards(String search) async {
-    myNewStudents = [];
-    myAcceptedStudents = [];
-    
     MyStudentsModel myStudentsModel = await new MyStudentsServices().getStudents();
 
     globals.myNewStudents = myStudentsModel.newStudents;
-    for (Enrollment en in globals.myNewStudents){
-      User student = await UserServices().getUser(en.enrollerId.toString());
-      Card enrollmentCard = await CardServices().getCvCard(en.cardId);
-      myNewStudents.add(Triple(student, enrollmentCard, en));
-    }
-
     globals.myAcceptedStudents = myStudentsModel.acceptedStudents;
-    for (Enrollment en in globals.myAcceptedStudents){
-      User student = await UserServices().getUser(en.enrollerId.toString());
-      Card enrollmentCard = await CardServices().getCvCard(en.cardId);
-      myAcceptedStudents.add(Triple(student, enrollmentCard, en));
-    }
 
     setState(() {
-      students_fetched = true;
+      fetch_required = false;
     });
     return globals.myNewStudents;
   }
 
   void update(){
     setState(() {
-      students_fetched = false;
-    });
-    fetch_cards('');
-    setState(() {
+      fetch_required = false;
     });
   }
 
@@ -80,26 +54,23 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
   Widget build(BuildContext context) {
     return Column(children: [
       PageCap(text: "My Students"),
-      students_fetched && myNewStudents.length != 0 ? 
+      !fetch_required && globals.myNewStudents.length != 0 ? 
       Container(
-        margin: EdgeInsets.only(top: 15, left:10, right:10, bottom: 5),
-        decoration: BoxDecoration(
-          color :style.grey.withOpacity(0.6),
-          borderRadius:  BorderRadius.all(Radius.circular(5)),
-        ),
+        margin: EdgeInsets.only(top: 15, left:10, right:10),
+        decoration: commonHiddenCardDecoration,
         child: Column(
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 20, top: 10),
-              child: CustomText(text: "New Students (" + myNewStudents.length.toString() + "):", size: 18, weight: FontWeight.bold, color: style.darkGrey)
+              padding: EdgeInsets.only(left: 10, top: 10),
+              child: CustomText(text: "New Students (" + globals.myNewStudents.length.toString() + "):", size: 18, weight: FontWeight.bold, color: style.darkGrey)
             ),
             Container(
-              padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-              child: students_fetched ? Column(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              child: !fetch_required ? Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: myNewStudents
-                      .map((item) => StudentCardWidget(student: item.user, enrollmentCard: item.enrollmentCard, enrollment: item.enrollment, isNew: true, update: update))
+                  children: globals.myNewStudents
+                      .map((item) => StudentCardWidget(enrollment: item, isNew: true, update: update))
                       .toList()) :
                       Container(
                         padding: EdgeInsets.all(10),
@@ -112,13 +83,13 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
           ],
         ),
       ) : Wrap(),
-      students_fetched && globals.myAcceptedStudents.length != 0 ? 
+      !fetch_required && globals.myAcceptedStudents.length != 0 ? 
       Container(
-        padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-        child: students_fetched ? Column(
+        padding: EdgeInsets.only(left: 10, right: 10),
+        child: !fetch_required ? Column(
           mainAxisSize: MainAxisSize.min,
-          children: myAcceptedStudents
-              .map((item) => StudentCardWidget(student: item.user, enrollmentCard: item.enrollmentCard, enrollment: item.enrollment, isNew: false, update: update,))
+          children: globals.myAcceptedStudents
+              .map((item) => StudentCardWidget(enrollment: item, isNew: false, update: update,))
               .toList()) :
               Container(
                 padding: EdgeInsets.all(10),
@@ -128,7 +99,7 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
                 ),
               ),
       ) : Wrap(),
-      !students_fetched ?
+      fetch_required ?
       Container(
         padding: EdgeInsets.all(10),
         child: CircularProgressIndicator(
@@ -136,6 +107,9 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
             valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
           ),
       ) : Wrap(),
+      Container(
+        height: 20,
+      )
     ]);
   }
 }

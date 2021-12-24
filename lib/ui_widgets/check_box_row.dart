@@ -99,7 +99,7 @@ class CheckBoxItem extends StatelessWidget {
       child: Row(
         children: [
           Checkbox(
-            activeColor: style.darkGreen,
+            activeColor: style.almostDarkGrey,
             value: code == "format" ? card.sessionFormat.contains(param) : code == "type" ? card.sessionType.contains(param) : false, 
             onChanged: (bool newValue){
               if (manageParameters != (){}){
@@ -161,7 +161,7 @@ class _RadioButtonsState extends State<RadioButtons> {
                   setState(() {
                 });
               },
-              activeColor: style.darkGreen,
+              activeColor: style.almostDarkGrey,
             ),
             CustomText(text: widget.code == "format" ? "online" : "private", color: widget.color ?? Colors.white),
             ],
@@ -188,7 +188,7 @@ class _RadioButtonsState extends State<RadioButtons> {
                   setState(() {
                 });
               },
-              activeColor:style.darkGreen,
+              activeColor:style.almostDarkGrey,
             ),
             CustomText(text: widget.code == "format" ? "offline" : "group", color: widget.color ?? Colors.white),
             ],
@@ -215,7 +215,7 @@ class _RadioButtonsState extends State<RadioButtons> {
                   setState(() {
                 });
               },
-              activeColor:style.darkGreen,
+              activeColor:style.almostDarkGrey,
             ),
             CustomText(text: "both", color: widget.color ?? Colors.white),
             ],

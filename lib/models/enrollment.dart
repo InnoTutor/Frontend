@@ -6,14 +6,46 @@ part 'enrollment.g.dart';
 
 @JsonSerializable()
 class Enrollment{
-  Enrollment(this.enrollmentId, this.enrollerId, this.cardId, this.sessionFormat, this.sessionType);
+  Enrollment(this.enrollmentId,
+    this.studentId,
+    this.studentName,
+    this.studentSurname,
+    this.studentEmail,
+    this.studentContacts,
+    this.studentDescription,
+    this.studentPicture,
+    this.cardId,
+    this.subject,
+    this.rating,
+    this.countVoted,
+    this.description,
+    this.hidden,
+    this.sessionFormat,
+    this.sessionType);
+
   int enrollmentId;
-  int enrollerId;
-  int cardId;
+  int studentId;
+  String studentName;
+  String studentSurname;
+  String studentEmail;
+  String studentContacts;
+  String studentDescription;
+  String studentPicture;
+  int cardId; 
+  String subject;
+  double rating;
+  int countVoted;
+  String description;
+  bool hidden;
   List<String> sessionFormat;
   List<String> sessionType;
+  int height = 100;
 
   factory Enrollment.fromJson(Map<String, dynamic> json) => _$EnrollmentFromJson(json);
+
+  void setHeight(int height){
+    this.height = height;
+  }
 
   Map<String, dynamic> toJson() => _$EnrollmentToJson(this);
 }

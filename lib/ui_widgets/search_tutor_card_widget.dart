@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide Card;
+import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
@@ -39,9 +40,10 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
 
   @override
   Widget build(BuildContext context) {
-    CustomText descriptionText = CustomText(text : widget.tutor.description, weight: FontWeight.normal, color: Colors.white, width: 660, key: textKey);
+    CustomText descriptionTextSetup = CustomText(text : widget.tutor.description, weight: FontWeight.normal, color: cardBrighterColor.withOpacity(0), width: 660, key: textKey);
+    CustomText descriptionText = CustomText(text : widget.tutor.description, weight: FontWeight.normal, color: cardBrighterColor, width: 660, key: textKey);
     if (initFrame){
-      return Wrap(children: [descriptionText]);
+      return Wrap(children: [descriptionTextSetup]);
     }
     else{
       return Container(
@@ -49,10 +51,7 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
             child: Container(
               height: 100+height.toDouble(),
               margin: const EdgeInsets.only(right:5, left:5, top: 10),
-              decoration: BoxDecoration(
-                color : color,
-                borderRadius:  BorderRadius.all(Radius.circular(10)),
-              ),
+              decoration: commonCardDecoration,
               child: Container(
                 child: 
                 Column(children: [
@@ -62,7 +61,7 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       child: Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.tutor.subject, weight: FontWeight.bold, color: Colors.white),
+                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.tutor.subject, weight: cardBoldWeight, color: cardDarkerColor),
                       )
                     ),
                     Column(children: [
@@ -75,9 +74,9 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                           allowHalfRating: true,
                           itemCount: 5,
                           ratingWidget: RatingWidget(
-                            full: Icon(Icons.star, color: Colors.white),
-                            half: Icon(Icons.star_half, color: Colors.white),
-                            empty: Icon(Icons.star_border, color: Colors.white),
+                            full: Icon(Icons.star, color: cardBrighterColor),
+                            half: Icon(Icons.star_half, color: cardBrighterColor),
+                            empty: Icon(Icons.star_border, color: cardBrighterColor),
                           ),
                           ignoreGestures: true,
                           onRatingUpdate: (rating) {
@@ -88,7 +87,7 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       Container(
                         //padding: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
-                        child: CustomText(text: "                 " + widget.tutor.countVoted.toString() + " voted", size: 12, weight: FontWeight.w400, color: Colors.white,)
+                        child: CustomText(text: "                 " + widget.tutor.countVoted.toString() + " voted", size: 12, weight: cardMediumWeight, color: cardBrighterColor)
                       ),  
                     ],)
                   ],),
@@ -100,8 +99,8 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       padding: EdgeInsets.only(left: 10),
                       alignment: Alignment.topLeft,
                       child: widget.tutor.sessionFormat.length == 2 ? 
-                      CustomText(text: "Format: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Format: " + widget.tutor.sessionFormat[0], size: 12, weight: FontWeight.w400, color: Colors.white,),
+                      CustomText(text: "Format: both", size: 12, weight: cardMediumWeight, color: cardBrighterColor) :
+                      CustomText(text: "Format: " + widget.tutor.sessionFormat[0], size: 12, weight: cardMediumWeight, color: cardBrighterColor),
                     )
                   ),
                   Container(
@@ -109,8 +108,8 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       padding: EdgeInsets.only(left: 10),
                       alignment: Alignment.topLeft,
                       child: widget.tutor.sessionType.length == 2 ? 
-                      CustomText(text: "Type: both", size: 12, weight: FontWeight.w400, color: Colors.white,) :
-                      CustomText(text: "Type: " + widget.tutor.sessionType[0], size: 12, weight: FontWeight.w400, color: Colors.white,)
+                      CustomText(text: "Type: both", size: 12, weight: cardMediumWeight, color: cardBrighterColor) :
+                      CustomText(text: "Type: " + widget.tutor.sessionType[0], size: 12, weight: cardMediumWeight, color: cardBrighterColor)
                     ),
                   ),
                   Flexible(

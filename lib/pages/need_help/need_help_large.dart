@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
-import 'package:inno_tutor/ui_widgets/cv_card_widget.dart';
 import 'package:inno_tutor/ui_widgets/search_tutor_card_widget.dart';
 import 'package:inno_tutor/widgets/custom_dropdown_button.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
@@ -113,7 +111,13 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
                   valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
                 ),
             ),
-          ) : Wrap(),
+          ) : Container(
+            padding: EdgeInsets.all(10),
+            child: CircularProgressIndicator(
+                backgroundColor: style.grey,
+                valueColor: new AlwaysStoppedAnimation<Color>(style.lightGrey),
+              ),
+          ),
           Container(
             height: 10,
           )
