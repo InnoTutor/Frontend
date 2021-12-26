@@ -59,11 +59,11 @@ class _OfferHelpLargePageState extends State<OfferHelpLargePage> {
   bool updated = true;
   Future<void> updateResults(Card updatedCard) async{
     students = [];
+    await SearchServices().getStudents(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType);
     setState(() {
       updated = false;
     });
-    await SearchServices().getStudents(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType);
-    for (StudentRequest sq in globals.allStudents){
+    for (StudentRequest sq in globals.filteredStudents){
       print(sq.studentId.toString());
       User user = await UserServices().getUser(sq.studentId.toString());
       students.add(Pair(user, sq));

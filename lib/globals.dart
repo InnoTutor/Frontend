@@ -13,7 +13,9 @@ User user;
 
 List<Card> myCards ;
 List<Tutor> allTutors;
+List<Tutor> filteredTutors;
 List<StudentRequest> allStudents;
+List<StudentRequest> filteredStudents;
 List<Enrollment> myNewStudents;
 List<Enrollment> myAcceptedStudents;
 Map <int , Icon> icons = {0:Icon(Icons.done, color: almostDarkGrey) , 1 : Icon(Icons.create_rounded, color: almostDarkGrey)};

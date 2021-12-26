@@ -315,7 +315,9 @@ class SearchServices {
         Tutor tutor = Tutor.fromJson(obj[i]);
         tutors.add(tutor);
       }
-      globals.allTutors = tutors;
+      if (subject == "" && format == null && type == null && sorting == null)
+        globals.allTutors = tutors;
+      else globals.filteredTutors = tutors;
       return tutors;
     }else {
       throw "Unable to get tutors list given searching criteria";
@@ -340,7 +342,11 @@ class SearchServices {
         StudentRequest student = StudentRequest.fromJson(obj[i]);
         students.add(student);
       }
-      globals.allStudents = students;
+      if (subject == "" && format.length == 0 && type.length == 0){
+        print("la la la la la");
+        globals.allStudents = students;
+      }
+      else globals.filteredStudents = students;
       return students;
     }else {
       throw "Unable to get students list given certain criteria";

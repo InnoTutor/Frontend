@@ -57,16 +57,16 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
 
   bool updated = true;
   Future<void> updateResults(Card updatedCard) async{
+    await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     tutors = [];
     setState(() {
       updated = false;
     });
-    for (Tutor t in globals.allTutors){
+    for (Tutor t in globals.filteredTutors){
       print(t.tutorId.toString());
       User user = await UserServices().getUser(t.tutorId.toString());
       tutors.add(Pair(user, t));
     };
-    await SearchServices().getTutors(updatedCard.subject, updatedCard.sessionFormat, updatedCard.sessionType, null);
     setState(() {
       updated = true;
     });
