@@ -9,6 +9,8 @@ part of 'student_request.dart';
 StudentRequest _$StudentRequestFromJson(Map<String, dynamic> json) {
   return StudentRequest(
     json['studentId'] as int,
+    json['studentName'] as String,
+    json['studentSurname'] as String,
     json['cardId'] as int,
     json['description'] as String,
     json['subject'] as String,
@@ -20,6 +22,8 @@ StudentRequest _$StudentRequestFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$StudentRequestToJson(StudentRequest instance) =>
     <String, dynamic>{
       'studentId': instance.studentId,
+      'studentName' : instance.studentName,
+      'studentSurname' : instance.studentSurname,
       'cardId': instance.cardId,
       'description': instance.description,
       'subject': instance.subject,

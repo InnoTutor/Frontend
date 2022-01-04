@@ -5,9 +5,11 @@ part 'student_request.g.dart';
 
 @JsonSerializable()
 class StudentRequest {
-  StudentRequest(this.studentId, this.cardId, this.description,this.subject,this.sessionFormat,this.sessionType);
+  StudentRequest(this.studentId, this.studentName, this.studentSurname, this.cardId, this.description,this.subject,this.sessionFormat,this.sessionType);
 
   int studentId;
+  String studentName;
+  String studentSurname;
   int cardId;
   String description;
 

@@ -9,6 +9,8 @@ part of 'tutor.dart';
 Tutor _$TutorFromJson(Map<String, dynamic> json) {
   return Tutor(
     json['tutorId'] as int,
+    json['tutorName'] as String,
+    json['tutorSurname'] as String,
     json['cardId'] as int,
     (json['rating'] as num)?.toDouble(),
     json['countVoted'] as int,
@@ -21,6 +23,8 @@ Tutor _$TutorFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$TutorToJson(Tutor instance) => <String, dynamic>{
       'tutorId': instance.tutorId,
+      'tutorName' : instance.tutorName,
+      'tutorSurname' : instance.tutorSurname,
       'cardId': instance.cardId,
       'rating': instance.rating,
       'countVoted': instance.countVoted,

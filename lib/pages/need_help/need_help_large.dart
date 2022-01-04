@@ -11,12 +11,6 @@ import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/widgets/page_cap.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 
-class Pair<T1, T2> {
-  final T1 user;
-  final T2 tutor;
-
-  Pair(this.user, this.tutor);
-}
 
 class NeedHelpLargePage extends StatefulWidget {
   const NeedHelpLargePage({ Key key }) : super(key: key);
@@ -29,7 +23,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
   List<String> subjects;
   bool subjects_fetched = false; 
   Card newCard = Card(0, 0, "", 0, "", [], [], false, 0);
-  List<Pair<User, Tutor>> tutors;
+  List<Tutor> tutors;
 
   @override
   initState() {
@@ -39,17 +33,11 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
 
   Future<void> fetch_subjects() async {
     tutors = [];
+    subjects = await Services().getSubjects();
     await SearchServices().getTutors("", null, null, null);
-    subjects = await Services().getSubjects();
     for (Tutor t in globals.allTutors){
-      print(t.tutorId.toString());
-      User user = await UserServices().getUser(t.tutorId.toString());
-      tutors.add(Pair(user, t));
+      tutors.add(t);
     }
-    subjects = await Services().getSubjects();
-    setState(() {
-      subjects_fetched = true;
-    });
     setState(() {
       subjects_fetched = true;
     });
@@ -63,9 +51,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
       updated = false;
     });
     for (Tutor t in globals.filteredTutors){
-      print(t.tutorId.toString());
-      User user = await UserServices().getUser(t.tutorId.toString());
-      tutors.add(Pair(user, t));
+      tutors.add(t);
     };
     setState(() {
       updated = true;
@@ -102,7 +88,7 @@ class _NeedHelpLargePageState extends State<NeedHelpLargePage> {
               child: tutors != [] ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: 
-                tutors.map((item) => SearchTutorCardWidget(tutor: item.tutor, user: item.user)).toList()
+                tutors.map((item) => SearchTutorCardWidget(tutor: item)).toList()
               ) : 
               Container(
               padding: EdgeInsets.all(10),

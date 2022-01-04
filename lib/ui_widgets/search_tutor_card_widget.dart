@@ -8,8 +8,7 @@ import '../constants/style.dart' as style;
 
 class SearchTutorCardWidget extends StatefulWidget{
   Tutor tutor;
-  User user;
-  SearchTutorCardWidget({ Key key, this.tutor, this.user}) : super(key: key);
+  SearchTutorCardWidget({ Key key, this.tutor}) : super(key: key);
 
   @override
   _SearchTutorCardWidgetState createState() => _SearchTutorCardWidgetState();
@@ -61,7 +60,7 @@ class _SearchTutorCardWidgetState extends State<SearchTutorCardWidget>{
                       child: Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.tutor.subject, weight: cardBoldWeight, color: cardDarkerColor),
+                      child: CustomText(text : widget.tutor.tutorName + " " + widget.tutor.tutorSurname + ", " + widget.tutor.subject, weight: cardBoldWeight, color: cardDarkerColor),
                       )
                     ),
                     Column(children: [

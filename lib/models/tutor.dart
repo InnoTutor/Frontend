@@ -5,9 +5,11 @@ part 'tutor.g.dart';
 
 @JsonSerializable()
 class Tutor{
-  Tutor(this.tutorId, this.cardId, this.rating, this.countVoted, this.description,this.subject,this.sessionFormat,this.sessionType);
+  Tutor(this.tutorId, this.tutorName, this.tutorSurname, this.cardId, this.rating, this.countVoted, this.description,this.subject,this.sessionFormat,this.sessionType);
 
   int tutorId;
+  String tutorName;
+  String tutorSurname;
   int cardId;
   double rating;
   int countVoted;

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/ui_constants.dart';
-import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/student_request.dart';
-import 'package:inno_tutor/models/tutor.dart';
-import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../constants/style.dart' as style;
 
+// ignore: must_be_immutable
 class SearchStudentCardWidget extends StatefulWidget{
-  User user;
   StudentRequest studentRequest;
-  SearchStudentCardWidget({ Key key, this.user, this.studentRequest}) : super(key: key);
+  SearchStudentCardWidget({ Key key, this.studentRequest}) : super(key: key);
 
   @override
   _SearchStudentCardWidgetState createState() => _SearchStudentCardWidgetState();
@@ -65,7 +61,7 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
                       child: Container(
                       padding: EdgeInsets.all(10),
                       alignment: Alignment.topLeft,
-                      child: CustomText(text : widget.user.name + " " + widget.user.surname + ", " + widget.studentRequest.subject, weight: cardBoldWeight, color: cardDarkerColor),
+                      child: CustomText(text : widget.studentRequest.studentName + " " + widget.studentRequest.studentSurname + ", " + widget.studentRequest.subject, weight: cardBoldWeight, color: cardDarkerColor),
                       )
                     ),
                   ],),
@@ -101,18 +97,6 @@ class _SearchStudentCardWidgetState extends State<SearchStudentCardWidget>{
               ),
               )
             ),
-            // onTap: () {
-            
-            // },
-            // onHover: (isHovering){
-            //   setState(() {
-            //     if (isHovering){
-            //       color = style.grey;
-            //     } else{
-            //       color = style.darkGreen;
-            //     }
-            //   });
-            // }
           )
       );
     }
