@@ -46,7 +46,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
   }
 
   void updateData(){
-    print(globals.myCards.map((card) => card.cardId).toList());
     for(Card card in globals.myCards){
       if (card.cardId == widget.card.cardId){
         card = widget.card;
@@ -70,7 +69,6 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
         widget.card.currentIcon = 1;
         widget.card.hidden = hidden;
         Services().edit(widget.card.cardId);
-
       }
       updateData();
     });

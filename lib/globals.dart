@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/models/enrollment.dart';
-import 'package:inno_tutor/models/requested_students.dart';
 import 'package:inno_tutor/models/student_request.dart';
 import 'package:inno_tutor/models/tutor.dart';
-import 'package:inno_tutor/pages/students/my_students.dart';
 
 import 'models/card.dart';
 import 'models/user.dart';
@@ -27,6 +25,6 @@ Card getCardById(int cardId){
     if (c.cardId == cardId){
       return c;
     }
-    return null;
   }
+  return null;
 }
