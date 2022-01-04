@@ -10,11 +10,11 @@ MyStudentsModel _$MyStudentsModelFromJson(Map<String, dynamic> json) {
   return MyStudentsModel(
     (json['newStudents'] as List)
         ?.map((e) =>
-            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
+            e == null ? null : MyStudent.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     (json['acceptedStudents'] as List)
         ?.map((e) =>
-            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
+            e == null ? null : MyStudent.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

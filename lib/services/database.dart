@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/enrollment.dart';
+import 'package:inno_tutor/models/my_student.dart';
 import 'package:inno_tutor/models/requested_students.dart';
 import 'package:inno_tutor/models/session.dart';
 import 'package:inno_tutor/models/session_format.dart';
@@ -372,13 +373,28 @@ class CardServices {
     var response = await post(
       Uri.parse(Urls.enroll),
       headers: await headers(),
-      body: removeExtraParameters().enroll(enroll),
+      body: json.encode(enroll),
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
       Enrollment newEnroll = Enrollment.fromJson(jsonDecode(response.body));
       return newEnroll;
     } else {
       throw "couldn't post the data of the new enroll";
+    }
+  }
+
+  Future<void> deleteEnroll(int cardId) async {
+    String url = Urls.unenroll + cardId.toString();
+    print(url);
+
+    var response = await delete(
+      Uri.parse(url),
+      headers: await headers(),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("unenrolled");
+    } else {
+      throw "couldn't unenroll";
     }
   }
 }

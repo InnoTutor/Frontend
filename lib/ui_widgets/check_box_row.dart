@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import 'package:inno_tutor/globals.dart' as globals;
 class CheckBoxRow extends StatefulWidget {
@@ -9,8 +8,12 @@ class CheckBoxRow extends StatefulWidget {
   Color color;
   Color themeColor;
   Function updateResults = null;
+  Function updateDialog = null;
   bool radio = false;
-  CheckBoxRow({ Key key, this.card, this.color, this.themeColor, this.updateResults, this.radio}) : super(key: key);
+  List<String> availableSessionFormats;
+  List<String> availableSessionTypes;
+  CheckBoxRow({ Key key, this.card, this.color, this.themeColor, this.updateResults, this.radio,
+    this.availableSessionFormats, this.availableSessionTypes, this.updateDialog}) : super(key: key);
 
   @override
   _CheckBoxRowState createState() => _CheckBoxRowState();
@@ -20,11 +23,27 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    filterParams();
   }
 
-  void manageParameters(String code, String param, bool value, bool radio) {
+  void filterParams(){
+    setState(() {
+      if (widget.availableSessionTypes != null){
+        if (widget.availableSessionTypes.length == 1){
+          manageParameters("type", widget.availableSessionTypes[0], true, false, true);
+        }
+      }
+      
+      if (widget.availableSessionFormats != null){
+        if (widget.availableSessionFormats.length == 1){
+          manageParameters("format", widget.availableSessionFormats[0], true, false, true);
+        }
+      }
+    });
+  }
+
+  void manageParameters(String code, String param, bool value, bool radio, [bool filtering = false]) {
     setState(() {
       if (!radio){
         if (code == "format"){
@@ -42,6 +61,7 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
         }
       }
 
+      if (!filtering && widget.updateDialog != null) widget.updateDialog();
       if (widget.updateResults != null) widget.updateResults(widget.card);
     });
   }
@@ -63,6 +83,8 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             code: "format", 
             param: globals.formats,
             radio: widget.radio,
+            availableSessionFormats: widget.availableSessionFormats,
+            availableSessionTypes: widget.availableSessionTypes,
           )
         ),
         Flexible(
@@ -74,6 +96,8 @@ class _CheckBoxRowState extends State<CheckBoxRow> {
             code: "type", 
             param: globals.types,
             radio: widget.radio,
+            availableSessionFormats: widget.availableSessionFormats,
+            availableSessionTypes: widget.availableSessionTypes,
           )
         )
       ]
@@ -88,10 +112,21 @@ class CheckBoxItem extends StatelessWidget {
   String param;
   Color color;
   Color themeColor;
-  CheckBoxItem({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor}) : super(key: key);
+  List<String> availableSessionFormats;
+  List<String> availableSessionTypes;
+  CheckBoxItem({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor,
+    this.availableSessionFormats, this.availableSessionTypes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isTypeFixed = availableSessionTypes != null ? availableSessionTypes.length == 1 : false;
+    bool isFormatFixed = availableSessionFormats != null ? availableSessionFormats.length == 1 : false;
+
+    bool value = isTypeFixed && code == "type" ? (param == availableSessionTypes.elementAt(0) ? true : false) :
+      isFormatFixed && code == "format" ? (param == availableSessionFormats.elementAt(0) ? true : false) :
+      code == "format" ? card.sessionFormat.contains(param) : 
+      code == "type" ? card.sessionType.contains(param) : false;
+
     return new Theme(
       data: Theme.of(context).copyWith(
         unselectedWidgetColor: themeColor,
@@ -100,12 +135,12 @@ class CheckBoxItem extends StatelessWidget {
         children: [
           Checkbox(
             activeColor: style.almostDarkGrey,
-            value: code == "format" ? card.sessionFormat.contains(param) : code == "type" ? card.sessionType.contains(param) : false, 
-            onChanged: (bool newValue){
-              if (manageParameters != (){}){
-                manageParameters(code, param, newValue, false);
-              }
-            }
+            value: value,
+            onChanged: !isTypeFixed && code == "type" || !isFormatFixed && code == "format" ? (bool newValue){
+                if (manageParameters != (){}){
+                  manageParameters(code, param, newValue, false);
+                } 
+              } : null
           ),
           CustomText(text: " " + param.toString(), color: color ?? Colors.white),
         ],
@@ -234,7 +269,10 @@ class CheckBoxGroup extends StatelessWidget {
   Color color;
   Color themeColor;
   bool radio = false;
-  CheckBoxGroup({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor, this.radio}) : super(key: key);
+  List<String> availableSessionFormats;
+  List<String> availableSessionTypes;
+  CheckBoxGroup({ Key key, this.card, this.manageParameters, this.code, this.param, this.color, this.themeColor, this.radio,
+    this.availableSessionFormats, this.availableSessionTypes}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -248,8 +286,10 @@ class CheckBoxGroup extends StatelessWidget {
           !radio ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,),
-              CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(1), color: color, themeColor: themeColor,)
+              CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,
+                availableSessionFormats: availableSessionFormats, availableSessionTypes: availableSessionTypes),
+              CheckBoxItem(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(1), color: color, themeColor: themeColor,
+                availableSessionFormats: availableSessionFormats, availableSessionTypes: availableSessionTypes)
             ],
           ) :
           RadioButtons(card: card, manageParameters: manageParameters, code: code, param: param.elementAt(0), color: color, themeColor: themeColor,)

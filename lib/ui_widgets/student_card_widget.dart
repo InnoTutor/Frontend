@@ -2,14 +2,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/globals.dart' as globals;
-import 'package:inno_tutor/models/enrollment.dart';
+import 'package:inno_tutor/models/my_student.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
 import '../constants/style.dart' as style;
 
 // ignore: must_be_immutable
 class StudentCardWidget extends StatefulWidget{
-  Enrollment enrollment;
+  MyStudent enrollment;
   Function update;
   bool isNew;
   StudentCardWidget({ Key key, this.enrollment, this.update, this.isNew}) : super(key: key);
@@ -118,7 +118,7 @@ class _StudentCardWidgetState extends State<StudentCardWidget>{
 class StudentCardButton extends StatefulWidget {
   String code;
   Function update;
-  Enrollment enrollment;
+  MyStudent enrollment;
   StudentCardButton({ Key key, this.code, this.update, this.enrollment}) : super(key: key);
 
   @override

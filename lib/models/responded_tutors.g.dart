@@ -10,11 +10,11 @@ RespondedTutors _$RespondedTutorsFromJson(Map<String, dynamic> json) {
   return RespondedTutors(
     (json['newTutorsList'] as List)
         ?.map((e) =>
-            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
+            e == null ? null : MyStudent.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     (json['acceptedTutorsList'] as List)
         ?.map((e) =>
-            e == null ? null : Enrollment.fromJson(e as Map<String, dynamic>))
+            e == null ? null : MyStudent.fromJson(e as Map<String, dynamic>))
         ?.toList(),
   );
 }

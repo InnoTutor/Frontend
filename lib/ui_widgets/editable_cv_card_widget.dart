@@ -106,7 +106,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
               Container(
                 padding: EdgeInsets.only(left: 10, bottom: 15),
                 child: ElevatedButton( //Delete Button
-                  style: editableCardButtonStyle("delete"),
+                  style: editableCardButtonStyle("red"),
                   onPressed: ()async {
                     await Services().deleteCvCard(widget.card);
                     if(mounted)
@@ -120,7 +120,7 @@ class _EditableCvCardWidgetState extends State<EditableCvCardWidget>{
               Container( //ReserveButton
                 padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
                 child: ElevatedButton(
-                  style: editableCardButtonStyle("reserve"),
+                  style: editableCardButtonStyle("white"),
                   onPressed: () {
                     if (!hidden){
                         setState(() {

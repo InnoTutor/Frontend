@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:inno_tutor/constants/ui_constants.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/enrollment.dart';
+import 'package:inno_tutor/models/my_student.dart';
 import 'package:inno_tutor/models/requested_students.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/database.dart';
@@ -32,7 +32,7 @@ class _MyStudentsLargeState extends State<MyStudentsLargePage> {
 
   bool fetch_required = true;
 
-  Future<List<Enrollment>> fetch_cards(String search) async {
+  Future<List<MyStudent>> fetch_cards(String search) async {
     MyStudentsModel myStudentsModel = await new MyStudentsServices().getStudents();
 
     globals.myNewStudents = myStudentsModel.newStudents;

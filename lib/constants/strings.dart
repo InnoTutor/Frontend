@@ -14,6 +14,7 @@ class Urls {
   static String get_card = url+'card/';
 
   static String enroll = url+'enroll';
+  static String unenroll = url+'unenroll/';
   static String profile = url+'profile';
   static String requests = url+'requests';
   static String get_user_requests = requests+'/user/';

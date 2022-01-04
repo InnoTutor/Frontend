@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart' hide Card;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/enrollment.dart';
+import 'package:inno_tutor/models/my_student.dart';
 import 'package:inno_tutor/models/session.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';
@@ -90,7 +90,7 @@ class removeExtraParameters {
     return jsonEncode(data);
   }
 
-  String enroll(Enrollment card) {
+  String enroll(MyStudent card) {
     final data = card.toJson();
     data.remove('enrollmentId');
     return jsonEncode(data);

@@ -42,11 +42,12 @@ BoxDecoration commonNewStudentDecoration = BoxDecoration(
 ButtonStyle editableCardButtonStyle(String button){
   return ButtonStyle(
     backgroundColor:
-      MaterialStateProperty.all(button == "delete" ? pink.withOpacity(0.2) : Colors.white.withOpacity(0.2)),
+      MaterialStateProperty.all(button == "red" ? pink.withOpacity(0.2) : Colors.white),
+    shadowColor: MaterialStateProperty.all(Colors.black.withOpacity(0.25)),
     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0.0),
-        side: BorderSide(color: Colors.white.withOpacity(0.5))
+        side: BorderSide(color: grey.withOpacity(0.5))
       )
     )
   );

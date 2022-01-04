@@ -18,6 +18,7 @@ Tutor _$TutorFromJson(Map<String, dynamic> json) {
     json['subject'] as String,
     (json['sessionFormat'] as List)?.map((e) => e as String)?.toList(),
     (json['sessionType'] as List)?.map((e) => e as String)?.toList(),
+    json['requested'] as bool
   )..height = json['height'] as int;
 }
 
@@ -32,5 +33,6 @@ Map<String, dynamic> _$TutorToJson(Tutor instance) => <String, dynamic>{
       'subject': instance.subject,
       'sessionFormat': instance.sessionFormat,
       'sessionType': instance.sessionType,
+      'requested' : instance.requested,
       'height': instance.height,
     };
