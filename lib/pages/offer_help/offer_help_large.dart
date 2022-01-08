@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/constants/style.dart' as style;
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/student_request.dart';
+import 'package:inno_tutor/models/request_models/student_request.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/ui_widgets/search_student_card_widget.dart';

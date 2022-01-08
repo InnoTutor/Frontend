@@ -1,10 +1,11 @@
 
+import 'package:inno_tutor/models/request_models/request_model.dart';
 import "package:json_annotation/json_annotation.dart";
 
 part 'tutor.g.dart';
 
 @JsonSerializable()
-class Tutor{
+class Tutor extends RequestModel{
   Tutor(this.tutorId, 
     this.tutorName,
     this.tutorSurname,
@@ -15,7 +16,17 @@ class Tutor{
     this.subject,
     this.sessionFormat,
     this.sessionType,
-    this.requested);
+    this.requested) : super(
+      id : tutorId,
+      name : tutorName,
+      surname: tutorSurname,
+      cardId : cardId,
+      description: description,
+      subject : subject,
+      sessionFormat : sessionFormat,
+      sessionType : sessionType,
+      requested : requested
+    );
 
   int tutorId;
   String tutorName;
@@ -32,10 +43,5 @@ class Tutor{
 
 
   factory Tutor.fromJson(Map<String, dynamic> json) => _$TutorFromJson(json);
-
-  void initializeCard(){
-      this.height = 100;
-  }
-
   Map<String, dynamic> toJson() => _$TutorToJson(this);
 }

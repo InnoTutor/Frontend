@@ -4,15 +4,14 @@ import 'package:http/http.dart';
 import 'package:inno_tutor/constants/strings.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/enrollment.dart';
-import 'package:inno_tutor/models/my_student.dart';
+import 'package:inno_tutor/models/request_models/student_request.dart';
+import 'package:inno_tutor/models/request_models/tutor.dart';
 import 'package:inno_tutor/models/requested_students.dart';
 import 'package:inno_tutor/models/session.dart';
 import 'package:inno_tutor/models/session_format.dart';
 import 'package:inno_tutor/models/session_type.dart';
-import 'package:inno_tutor/models/student_request.dart';
 import 'package:inno_tutor/models/subject.dart';
 import 'package:inno_tutor/globals.dart' as globals;
-import 'package:inno_tutor/models/tutor.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/global_funtions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -380,6 +379,20 @@ class CardServices {
       return newEnroll;
     } else {
       throw "couldn't post the data of the new enroll";
+    }
+  }
+
+  Future<Enrollment> createRequest(Enrollment enroll) async {
+    var response = await post(
+      Uri.parse(Urls.requests),
+      headers: await headers(),
+      body: json.encode(enroll),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      Enrollment newEnroll = Enrollment.fromJson(jsonDecode(response.body));
+      return newEnroll;
+    } else {
+      throw "couldn't post the data of the new request";
     }
   }
 
