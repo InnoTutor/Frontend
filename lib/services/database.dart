@@ -6,7 +6,8 @@ import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/enrollment.dart';
 import 'package:inno_tutor/models/request_models/student_request.dart';
 import 'package:inno_tutor/models/request_models/tutor.dart';
-import 'package:inno_tutor/models/requested_students.dart';
+import 'package:inno_tutor/models/responded_users/requested_students.dart';
+import 'package:inno_tutor/models/responded_users/responded_tutors.dart';
 import 'package:inno_tutor/models/session.dart';
 import 'package:inno_tutor/models/session_format.dart';
 import 'package:inno_tutor/models/session_type.dart';
@@ -297,6 +298,46 @@ class MyStudentsServices {
   }
 }
 
+class MyTutorsServices {
+  Future<MyTutorsModel> getTutors() async {
+    Response res =
+    await get(Uri.parse(Urls.my_tutors), headers: await headers());
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      print(res.body);
+      MyTutorsModel myTutors = MyTutorsModel.fromJson(jsonDecode(res.body));
+      print(myTutors.toJson());
+      print('got my tutors successfully');
+      return myTutors;
+    } else {
+      throw "Unable to get my tutors.";
+    }
+  }
+  Future<MyTutorsModel> acceptTutor(String enrollId) async {
+    var response = await put(Uri.parse((Urls.accept_tutor+enrollId)),
+        headers: await headers());
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      MyTutorsModel myTutors = await getTutors();
+      print("accepted a tutor successfully");
+      return myTutors;
+    }else {
+      throw "couldn't accept a tutor";
+    }
+  }
+  Future<MyTutorsModel> deleteTutor(String enrollId) async {
+    var response = await delete(
+      Uri.parse((Urls.del_my_tutor +enrollId)),
+      headers: await headers(),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      MyTutorsModel myTutors = await getTutors();
+      print("deleted a tutor successfully");
+      return myTutors;
+    }else {
+      throw "couldn't delete a tutor from my tutors";
+    }
+  }
+}
+
 class SearchServices {
   Future<List<Tutor>> getTutors(String subject, List<String> format,
       List<String> type, String sorting) async {
@@ -318,6 +359,7 @@ class SearchServices {
       if (subject == "" && format == null && type == null && sorting == null)
         globals.allTutors = tutors;
       else globals.filteredTutors = tutors;
+
       return tutors;
     }else {
       throw "Unable to get tutors list given searching criteria";
@@ -382,15 +424,15 @@ class CardServices {
     }
   }
 
-  Future<Enrollment> createRequest(Enrollment enroll) async {
+  Future<Card> createRequest(Card card) async {
     var response = await post(
       Uri.parse(Urls.requests),
       headers: await headers(),
-      body: json.encode(enroll),
+      body: json.encode(card),
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Enrollment newEnroll = Enrollment.fromJson(jsonDecode(response.body));
-      return newEnroll;
+      Card newCard = Card.fromJson(jsonDecode(response.body));
+      return newCard;
     } else {
       throw "couldn't post the data of the new request";
     }

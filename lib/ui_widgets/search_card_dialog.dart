@@ -3,8 +3,6 @@ import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/models/card.dart';
 import 'package:inno_tutor/models/enrollment.dart';
 import 'package:inno_tutor/models/request_models/request_model.dart';
-import 'package:inno_tutor/models/request_models/student_request.dart';
-import 'package:inno_tutor/models/request_models/tutor.dart';
 import 'package:inno_tutor/services/database.dart';
 import 'package:inno_tutor/ui_widgets/check_box_row.dart';
 import 'package:inno_tutor/widgets/custom_text.dart';
@@ -36,6 +34,7 @@ class _SearchCardDialogState<User> extends State<SearchCardDialog<User>> {
   @override
   Widget build(BuildContext context) {
     enrollment.cardId = widget.user.cardId;
+    newCard.subject = widget.user.subject;
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -101,13 +100,7 @@ class _SearchCardDialogState<User> extends State<SearchCardDialog<User>> {
                     enrollment.sessionFormat = newCard.sessionFormat;
                     enrollment.sessionType = newCard.sessionType;
 
-                    print(enrollment.description);
-
-                    if (widget.user is Tutor){
-                      CardServices().createRequest(enrollment);     
-                    } else if (widget.user is StudentRequest){
-                      CardServices().createEnroll(enrollment);
-                    }
+                    CardServices().createEnroll(enrollment);
                                  
                     widget.updateStatus();
                     Navigator.of(context).pop();

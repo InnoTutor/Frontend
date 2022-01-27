@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Card;
 import 'package:inno_tutor/models/request_models/student_request.dart';
-import 'package:inno_tutor/ui_widgets/search_card.dart';
+import 'package:inno_tutor/ui_widgets/search_card_widgets/search_card.dart';
 
 
 // ignore: must_be_immutable

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/pages/offer_help/offer_help_large.dart';
-import '../../services/global_funtions.dart';
-import '../../elements/drawer.dart';
-import '../../helpers/responsiveness.dart';
-import '../../helpers/responsiveness.dart';
-import '../../pages/profile/my_profile_large.dart';
-import '../../widgets/custom_text.dart';
-import '../../constants/style.dart' as style;
+import 'package:inno_tutor/constants/style.dart';
+import 'package:inno_tutor/helpers/responsiveness.dart';
+import 'package:inno_tutor/pages/search_pages/offer_help/offer_help_large.dart';
+import 'package:inno_tutor/services/global_funtions.dart';
+import 'package:inno_tutor/widgets/custom_text.dart';
 
 class OfferHelp extends StatefulWidget {
   @override
@@ -33,7 +30,7 @@ class _OfferHelpState extends State<OfferHelp> {
           text: "Offer Help",
           size: 24,
           weight: FontWeight.w900,
-          color: style.darkGrey
+          color: darkGrey
         )
       )
     );

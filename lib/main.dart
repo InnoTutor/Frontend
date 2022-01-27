@@ -1,10 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inno_tutor/constants/style.dart';
 import 'package:inno_tutor/elements/menu_controller.dart';
-import 'package:inno_tutor/services/auth.dart';
-import 'package:inno_tutor/services/database.dart';
+import 'package:inno_tutor/pages/my_users/students/my_students.dart';
 
 import './pages/login_page.dart';
 import './layout.dart';
@@ -12,8 +10,7 @@ import 'pages/profile/my_profile.dart';
 import 'pages/requests/my_requests.dart';
 import 'pages/schedules/my_schedules.dart';
 import 'pages/services/my_serviecs.dart';
-import 'pages/students/my_students.dart';
-import 'globals.dart'as globals;
+
 void main() async{
   Get.put(MenuController());
 

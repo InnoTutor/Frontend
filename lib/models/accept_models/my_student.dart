@@ -1,9 +1,10 @@
+import 'package:inno_tutor/models/accept_models/accept_model.dart';
 import "package:json_annotation/json_annotation.dart";
 
 part 'my_student.g.dart';
 
 @JsonSerializable()
-class MyStudent{
+class MyStudent extends AcceptModel{
   MyStudent(this.enrollmentId,
     this.studentId,
     this.studentName,
@@ -20,7 +21,25 @@ class MyStudent{
     this.hidden,
     this.enrollmentDescription,
     this.sessionFormat,
-    this.sessionType);
+    this.sessionType) : super(
+      enrollmentId: enrollmentId,
+      userId: studentId,
+      name: studentName,
+      surname: studentSurname,
+      email: studentEmail,
+      contacts: studentContacts,
+      userDescription: studentDescription,
+      userPicture: studentPicture,
+      cardId: cardId,
+      subject: subject,
+      cardRating: cardRating,
+      cardCountVoted: cardCountVoted,
+      cardDescription: cardDescription,
+      hidden: hidden,
+      enrollmentDescription: enrollmentDescription,
+      sessionFormat: sessionFormat,
+      sessionType: sessionType
+    );
 
   int enrollmentId;
   int studentId;
@@ -42,10 +61,6 @@ class MyStudent{
   int height = 100;
 
   factory MyStudent.fromJson(Map<String, dynamic> json) => _$MyStudentFromJson(json);
-
-  void setHeight(int height){
-    this.height = height;
-  }
 
   Map<String, dynamic> toJson() => _$MyStudentToJson(this);
 }

@@ -1,4 +1,4 @@
-import 'package:inno_tutor/models/my_student.dart';
+import 'package:inno_tutor/models/accept_models/my_student.dart';
 import "package:json_annotation/json_annotation.dart";
 
 part 'assigned_cards.g.dart';

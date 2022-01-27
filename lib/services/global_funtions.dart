@@ -1,10 +1,7 @@
 import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart' hide User;
-import 'package:flutter/material.dart' hide Card;
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inno_tutor/models/accept_models/my_student.dart';
 import 'package:inno_tutor/models/card.dart';
-import 'package:inno_tutor/models/my_student.dart';
 import 'package:inno_tutor/models/session.dart';
 import 'package:inno_tutor/models/user.dart';
 import 'package:inno_tutor/services/auth.dart';

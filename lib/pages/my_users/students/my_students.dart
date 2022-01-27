@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:inno_tutor/pages/services/my_services_large.dart';
-import 'package:inno_tutor/pages/students/my_students_large.dart';
-import '../../services/global_funtions.dart';
-import '../../elements/drawer.dart';
-import '../../helpers/responsiveness.dart';
-import '../../widgets/custom_text.dart';
-import '../../widgets/page_cap.dart';
-import '../../constants/style.dart' as style;
+import 'package:inno_tutor/constants/style.dart';
+import 'package:inno_tutor/helpers/responsiveness.dart';
+import 'package:inno_tutor/pages/my_users/students/my_students_large.dart';
+import 'package:inno_tutor/services/global_funtions.dart';
+import 'package:inno_tutor/widgets/custom_text.dart';
 
 class MyStudents extends StatefulWidget {
   @override
@@ -32,7 +29,7 @@ class _MyStudentsState extends State<MyStudents> {
             text: "My Students",
             size: 20,
             weight: FontWeight.bold,
-            color: style.darkGrey
+            color: darkGrey
           )
         ),
     );

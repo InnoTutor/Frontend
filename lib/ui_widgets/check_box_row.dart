@@ -252,7 +252,7 @@ class _RadioButtonsState extends State<RadioButtons> {
               },
               activeColor:style.almostDarkGrey,
             ),
-            CustomText(text: "both", color: widget.color ?? Colors.white),
+            CustomText(text: "doesn't matter", color: widget.color ?? Colors.white),
             ],
           ),
         ],

@@ -8,6 +8,10 @@ class Urls {
   static String get_user_services = services+'/user/';
   static String services_subjects = services+'/subjects';
 
+  static String my_tutors = url+'my-tutors';
+  static String del_my_tutor = my_tutors+'/remove/';
+  static String accept_tutor = my_tutors+'/accept/';
+
   static String my_students = url+'my-students';
   static String del_my_student = my_students+'/remove/';
   static String accept_student = my_students+'/accept/';

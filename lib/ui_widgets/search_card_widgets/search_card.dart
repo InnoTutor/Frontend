@@ -107,7 +107,7 @@ class _SearchCardState extends State<SearchCard> {
       alignment: Alignment.topLeft,
       child: 
         CustomText(
-          text: param() + (params == 2 ? "both" : params[0]), 
+          text: param() + (params.length == 2 ? "both" : params[0]), 
           size: 12, 
           weight: cardMediumWeight, 
           color: cardBrighterColor

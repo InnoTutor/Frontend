@@ -1,8 +1,4 @@
-import 'package:inno_tutor/models/requested_students.dart';
-import 'package:inno_tutor/models/sessions_list.dart';
 import "package:json_annotation/json_annotation.dart";
-
-import 'card.dart';
 
 part 'user.g.dart';
 

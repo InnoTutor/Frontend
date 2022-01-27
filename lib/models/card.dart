@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:inno_tutor/models/sessions_list.dart';
-import 'package:inno_tutor/models/user.dart';
 import "package:json_annotation/json_annotation.dart";
 
 part 'card.g.dart';
